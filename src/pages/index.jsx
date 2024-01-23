@@ -1,8 +1,10 @@
 import Head from "next/head";
-import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
-import Button from '@mui/material/Button'
-import TextField from '@mui/material/TextField'
+import {
+  Box,
+  Typography,
+  Button,
+  TextField
+} from '@mui/material'
 import { useState } from "react";
 import { GoogleIcon, PasswordInput } from "@/components";
 import Link from 'next/link'
@@ -22,9 +24,8 @@ export default function Home() {
       <main style={{
         display: 'flex',
         alignItems: 'center',
-
       }}>
-        <Box sx={{ display: { xs: 'none', sm: 'none', md: 'flex' } }}>
+        <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
           <Image
             src={'images/img_login.svg'}
             width={525}
@@ -59,7 +60,7 @@ export default function Home() {
               sx={{
                 textTransform: 'none',
                 my: 4,
-                boxShadow: '0px 2px 5px #00000030',
+                boxShadow: '0px 1px 5px 0px #00000030',
                 color: '#00000054'
               }}
             >
@@ -85,7 +86,8 @@ export default function Home() {
               variant="h5"
               sx={{
                 color: 'neutral.110',
-                fontSize: { xs: '16px', sm: '20px', md: '24px' }
+                fontSize: { xs: '16px', sm: '20px', md: '24px' },
+                textAlign: 'start'
               }}
             >
               Faça login com email
@@ -110,14 +112,15 @@ export default function Home() {
               Entrar
             </Button>
             <Link
-              href={'/'}
+              href={'/register'}
               style={{ textDecoration: 'none' }}
             >
               <Typography
                 variant="subtitle1"
                 sx={{
                   color: "neutral.100",
-                  textDecoration: 'none'
+                  textDecoration: 'none',
+                  textAlign: 'start'
                 }}
               >
                 Cadastre-se
