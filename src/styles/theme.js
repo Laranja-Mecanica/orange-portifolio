@@ -13,6 +13,10 @@ export const theme = createTheme({
       dark: '#cc4400',
       contrastText: '#edeff2'
     },
+    neutral: {
+      "100": '#818388',
+      "110": '#515255'
+    }
   },
   typography: {
     h1: {

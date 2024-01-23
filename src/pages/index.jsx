@@ -1,6 +1,15 @@
 import Head from "next/head";
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import Button from '@mui/material/Button'
+import TextField from '@mui/material/TextField'
+import { useState } from "react";
+import { GoogleIcon, PasswordInput } from "@/components";
+import Link from 'next/link'
 
 export default function Home() {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   return (
     <>
       <Head>
@@ -10,7 +19,85 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
+        <Box
+          sx={{
+            width: 550
+          }}
+        >
+          <Box
+            sx={{ textAlign: 'center' }}
+          >
+            <Typography
+              variant="h3"
+              color="primary"
+            >
+              Entre no Orange Portfólio
+            </Typography>
 
+            <Button
+              variant="outlined"
+              sx={{
+                textTransform: 'none',
+                my: 4
+              }}
+            >
+              <GoogleIcon />
+              <Typography
+                variant="body1"
+                sx={{ ml: 3 }}
+              >
+                Entrar com Google
+              </Typography>
+            </Button>
+          </Box>
+
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column'
+            }}>
+            <Typography
+              variant="h5"
+              sx={{ color: 'neutral.110' }}
+            >
+              Faça login com email
+            </Typography>
+            <TextField
+              id="email"
+              label="Email address"
+              sx={{ my: 2 }}
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+            />
+            <PasswordInput
+              password={password}
+              handlePassword={e => setPassword(e.target.value)}
+            />
+
+            <Button
+              variant="contained"
+              color="secondary"
+              sx={{ mt: 2, mb: '18px' }}
+            >
+              Entrar
+            </Button>
+            <Link
+              href={'/'}
+              style={{ textDecoration: 'none' }}
+            >
+              <Typography
+                variant="subtitle1"
+                sx={{
+                  color: "neutral.100",
+                  textDecoration: 'none'
+                }}
+              >
+                Cadastre-se
+              </Typography>
+            </Link>
+          </Box>
+
+        </Box>
       </main>
     </>
   );
