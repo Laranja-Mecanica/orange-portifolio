@@ -6,6 +6,7 @@ import TextField from '@mui/material/TextField'
 import { useState } from "react";
 import { GoogleIcon, PasswordInput } from "@/components";
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function Home() {
   const [email, setEmail] = useState('')
@@ -18,33 +19,57 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
+      <main style={{
+        display: 'flex',
+        alignItems: 'center',
+
+      }}>
+        <Box sx={{ display: { xs: 'none', sm: 'none', md: 'flex' } }}>
+          <Image
+            src={'images/img_login.svg'}
+            width={525}
+            height={832}
+            loading="lazy"
+            alt="Imagem de login"
+          />
+        </Box>
+
         <Box
           sx={{
-            width: 550
+            width: 550,
+            mx: 'auto',
+            textAlign: 'center',
+            height: { xs: '100vh' },
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            px: 3
           }}
         >
-          <Box
-            sx={{ textAlign: 'center' }}
-          >
+          <Box>
             <Typography
               variant="h3"
               color="primary"
+              sx={{ fontSize: { xs: '24px', sm: '34px', md: '48px' } }}
             >
               Entre no Orange Portfólio
             </Typography>
 
             <Button
-              variant="outlined"
               sx={{
                 textTransform: 'none',
-                my: 4
+                my: 4,
+                boxShadow: '0px 2px 5px #00000030',
+                color: '#00000054'
               }}
             >
               <GoogleIcon />
               <Typography
                 variant="body1"
-                sx={{ ml: 3 }}
+                sx={{
+                  ml: 3,
+                  fontWeight: 700,
+                }}
               >
                 Entrar com Google
               </Typography>
@@ -58,7 +83,10 @@ export default function Home() {
             }}>
             <Typography
               variant="h5"
-              sx={{ color: 'neutral.110' }}
+              sx={{
+                color: 'neutral.110',
+                fontSize: { xs: '16px', sm: '20px', md: '24px' }
+              }}
             >
               Faça login com email
             </Typography>
