@@ -7,7 +7,7 @@ import {
 } from '@mui/material'
 import Image from 'next/image'
 import { useState } from "react";
-import { PasswordInput } from "@/components";
+import { Header, PasswordInput } from "@/components";
 
 const register = () => {
   const [firstname, setFirstname] = useState('')
@@ -19,6 +19,7 @@ const register = () => {
       display: 'flex',
       alignItems: 'center',
     }}>
+      <Header />
       <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
         <Image
           src={'images/img_cadastro.svg'}
