@@ -7,8 +7,11 @@ import {
   MenuItem,
   Box,
   Menu,
-  Divider
+  Divider,
+  /* Link */
 } from '@mui/material'
+import Link from 'next/link'
+
 
 import MenuIcon from '@mui/icons-material/Menu';
 import NotificationsIcon from '@mui/icons-material/Notifications';
@@ -17,7 +20,17 @@ import Image from 'next/image'
 import { useEffect, useState } from 'react';
 
 const Header = () => {
-  const pages = ['Meus projetos', 'Descobrir']
+  const pages = [
+    {
+      name: 'Meus projetos',
+      link: '/user'
+    },
+    {
+      name: 'Descobrir',
+      link: '/home'
+    },
+
+  ]
 
   const [anchorEl, setAnchorEl] = useState()
 
@@ -59,9 +72,11 @@ const Header = () => {
             display: { xs: 'flex', md: 'none' }
           }}
         >
-          {pages.map((page, i) => (
+          {pages.map(({ name, link }, i) => (
             <MenuItem key={i}>
-              {page}
+              <Link variant='h6' href={link}>
+                {name}
+              </Link>
             </MenuItem>
           ))}
           <Divider />
@@ -89,11 +104,18 @@ const Header = () => {
           flexGrow: 1,
           ml: '100px'
         }}>
-          {pages.map((page, i) => (
+          {pages.map(({ name, link }, i) => (
             <MenuItem key={i}>
-              <Typography variant="h6">
-                {page}
-              </Typography>
+              <Link
+                href={link}
+                style={{
+                  textDecoration: 'none',
+                  color: 'white',
+                  fontWeight: 500,
+                  fontSize: '20px'
+                }}>
+                {name}
+              </Link>
             </MenuItem>
           ))}
         </Box>
