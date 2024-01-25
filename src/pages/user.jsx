@@ -1,13 +1,18 @@
 import { Header } from '@/components'
 import React from 'react'
-import {Box, Avatar, Typography, Button} from '@mui/material'
+import {Box, Avatar, Typography, Button, TextField, Container} from '@mui/material'
 
 
 const user = () => {
   return (
     <>
       <Header />
-      <main>
+      <Container sx={{
+
+        mx:0,
+        
+
+      }}>
 
       <Box sx={{
         mt: "185px", 
@@ -60,7 +65,35 @@ const user = () => {
 
       </Box>
 
-      </main>
+      <Box sx={{
+        mt:7,
+        
+      
+
+      }}>
+        <Typography variant="h6" sx={{
+
+            mb:2
+
+        }}>Meus Projetos</Typography>
+
+        <TextField 
+          id="tagsField"
+          label="Buscar Tags"
+          
+          
+          sx={{
+
+            width: {xs:"100%", md:513},
+            fontSize:"10px"
+          
+          }}
+         
+          
+        />
+      </Box>
+
+      </Container>
 
     </>
   )
