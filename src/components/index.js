@@ -1,12 +1,19 @@
-import PasswordInput from "./PasswordInput";
-import GoogleIcon from "./GoogleIcon";
 import Header from "./Header";
+
+import PasswordInput from "./PasswordInput";
+
 import PortifolioCard from "./PortifolioCard";
+import ConfimationDialog from "./ConfimationDialog";
+
+import GoogleIcon from "./GoogleIcon";
+
+
+
 
 export {
   PasswordInput,
-  GoogleIcon,
   Header,
   PortifolioCard,
-
+  GoogleIcon,
+  ConfimationDialog
 }
