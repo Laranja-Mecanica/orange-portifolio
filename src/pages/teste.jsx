@@ -9,7 +9,7 @@ import {
 } from '@mui/material'
 
 
-import { ConfimationDialog, DeleteDialog } from '@/components';
+import { ConfimationDialog, DeleteDialog, FormDialog } from '@/components';
 
 const teste = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -27,11 +27,11 @@ const teste = () => {
         Teste
       </Button>
 
-      <ConfimationDialog
+      {/* <ConfimationDialog
         open={isOpen}
         onClose={handleClose}
         onClick={handleClose}
-      />
+      /> */}
 
 
       {/* <DeleteDialog
@@ -39,6 +39,13 @@ const teste = () => {
         onClick={handleClose}
         onClose={handleClose}
       /> */}
+
+      <FormDialog
+        open={isOpen}
+        onClose={handleClose}
+        onClick={handleClose}
+      />
+
     </>
   )
 }
