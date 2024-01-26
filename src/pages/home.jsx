@@ -10,7 +10,11 @@ const home = () => {
       user: {
         proPic: 'user1',
         name: 'Bianca Martins'
-      }
+      },
+      tags: [
+        'UX',
+        'Web'
+      ]
     },
     {
       img: 'portifolio2',
@@ -18,7 +22,11 @@ const home = () => {
       user: {
         proPic: 'user2',
         name: 'Enzo Gabriel'
-      }
+      },
+      tags: [
+        'UX/UI',
+        'Web'
+      ]
     },
     {
       img: 'portifolio3',
@@ -26,7 +34,11 @@ const home = () => {
       user: {
         proPic: 'user3',
         name: 'Alice Alexandra'
-      }
+      },
+      tags: [
+        'UX',
+        'Java'
+      ]
     },
     {
       img: 'portifolio4',
@@ -34,7 +46,12 @@ const home = () => {
       user: {
         proPic: 'user4',
         name: 'Carolina Valentim'
-      }
+      },
+      tags: [
+        'UI',
+        'JS',
+        'HTML'
+      ]
     },
   ]
   return (
@@ -68,7 +85,6 @@ const home = () => {
           container
           columnGap={3}
           rowGap={{ xs: '20px', md: 5 }}
-
         >
           {portifolios.map((portifolio, i) => (
             <Grid key={i} item>

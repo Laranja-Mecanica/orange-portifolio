@@ -9,7 +9,7 @@ import {
 import React from 'react'
 
 const PortifolioCard = ({ portifolio }) => {
-  const { img, date, user } = portifolio
+  const { img, date, user, tags } = portifolio
   return (
     <Card
       elevation={0}
@@ -65,20 +65,16 @@ const PortifolioCard = ({ portifolio }) => {
           }}
         >
 
-          <Chip
-            label="UX"
-            sx={{
-              fontSize: '13px',
-              fontWeight: 600,
-            }}
-          />
-          <Chip
-            label="Web"
-            sx={{
-              fontSize: '13px',
-              fontWeight: 600,
-            }}
-          />
+          {tags.map((tag, i) => (
+            <Chip
+              key={i}
+              label={tag}
+              sx={{
+                fontSize: '13px',
+                fontWeight: 600,
+              }}
+            />
+          ))}
 
         </Box>
       </Box>
