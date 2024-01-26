@@ -1,7 +1,15 @@
 import React, { useState } from 'react'
-import { Button } from '@mui/material'
+/* import { Button } from '@mui/material' */
 
-import { ConfimationDialog } from '@/components';
+import {
+  Button,
+  Dialog,
+  Typography,
+  Box
+} from '@mui/material'
+
+
+import { ConfimationDialog, DeleteDialog } from '@/components';
 
 const teste = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -24,6 +32,13 @@ const teste = () => {
         onClose={handleClose}
         onClick={handleClose}
       />
+
+
+      {/* <DeleteDialog
+        open={isOpen}
+        onClick={handleClose}
+        onClose={handleClose}
+      /> */}
     </>
   )
 }

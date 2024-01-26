@@ -3,7 +3,9 @@ import Header from "./Header";
 import PasswordInput from "./PasswordInput";
 
 import PortifolioCard from "./PortifolioCard";
+
 import ConfimationDialog from "./ConfimationDialog";
+import DeleteDialog from "./DeleteDialog";
 
 import GoogleIcon from "./GoogleIcon";
 
@@ -15,5 +17,6 @@ export {
   Header,
   PortifolioCard,
   GoogleIcon,
-  ConfimationDialog
+  ConfimationDialog,
+  DeleteDialog,
 }
