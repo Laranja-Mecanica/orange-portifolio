@@ -12,52 +12,56 @@ const ConfimationDialog = ({ open, onClose, onClick }) => {
     <Dialog
       open={open}
       onClose={onClose}
-      sx={{
-        width: { xs: 412, md: 415 },
-        height: 302,
-        m: 'auto',
-        display: 'flex',
-        justifyContent: 'center',
-      }}
     >
-      <Box sx={{ textAlign: 'center', mt: 2 }}>
-        <Typography variant="h5">
-          Projeto adicionado com sucesso!
-        </Typography>
-      </Box>
-      <Box sx={{
-        flexGrow: 1,
-        textAlign: 'center',
-        height: 40,
-        my: 3
-      }}>
-        <CheckCircleIcon
-          color='success'
-          sx={{
-            height: 40,
-            width: 40
-          }}
-        />
+      <Box
+        sx={{
+          py: 4,
+        }}
+
+      >
+        <Box sx={{
+          textAlign: 'center',
+          width: { xs: '100%', sm: 255 },
+          mx: { sm: 4 }
+        }}>
+          <Typography variant="h5">
+            Projeto adicionado com sucesso!
+          </Typography>
+        </Box>
+        <Box sx={{
+          flexGrow: 1,
+          textAlign: 'center',
+          height: 40,
+          my: 3
+        }}>
+          <CheckCircleIcon
+            color='success'
+            sx={{
+              height: 40,
+              width: 40
+            }}
+          />
+
+        </Box>
+
+        <Box sx={{
+          display: 'flex',
+          justifyContent: 'center'
+        }}>
+          <Button
+            variant='contained'
+            color="secondary"
+            onClick={onClick}
+            sx={{
+              px: '22px'
+            }}
+          >
+            Voltar para projetos
+          </Button>
+        </Box>
 
       </Box>
-      <Box sx={{
-        pb: 4,
-        display: 'flex',
-        justifyContent: 'center'
-      }}>
-        <Button
-          variant='contained'
-          color="secondary"
-          onClick={onClick}
-          sx={{
-            mx: 'auto',
-            px: '22px'
-          }}
-        >
-          Voltar para projetos
-        </Button>
-      </Box>
-    </Dialog>
+    </Dialog >
   )
 }
 
