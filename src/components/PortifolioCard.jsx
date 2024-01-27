@@ -14,7 +14,7 @@ const PortifolioCard = ({ portifolio }) => {
     <Card
       elevation={0}
       sx={{
-        width: { xs: 312, md: 389 },
+        width: { xs: "100%", md: "100%" },
         height: 298
       }}
     >
@@ -23,7 +23,8 @@ const PortifolioCard = ({ portifolio }) => {
         title=""
         image={`/images/${img}.png`}
         sx={{
-          height: 258
+          height: 258,
+          width: 389
         }}
       />
 

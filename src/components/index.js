@@ -7,6 +7,7 @@ import PortifolioCard from "./PortifolioCard";
 import ConfimationDialog from "./ConfimationDialog";
 import DeleteDialog from "./DeleteDialog";
 import FormDialog from "./FormDialog";
+import DetailsDialog from "./DetailsDialog";
 
 import GoogleIcon from "./GoogleIcon";
 
@@ -21,4 +22,5 @@ export {
   ConfimationDialog,
   DeleteDialog,
   FormDialog,
+  DetailsDialog
 }

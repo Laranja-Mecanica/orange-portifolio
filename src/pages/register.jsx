@@ -8,12 +8,12 @@ import {
 import Image from 'next/image'
 import { useState } from "react";
 import { Header, PasswordInput } from "@/components";
+import { useUser } from '@/hooks';
 
 const register = () => {
-  const [firstname, setFirstname] = useState('')
-  const [lastname, setLastname] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const { user, handleUserInputChange, createUser } = useUser()
+  const { name, lastName, email, password } = user
+
   return (
     <main style={{
       display: 'flex',
@@ -73,9 +73,10 @@ const register = () => {
                 width: { xs: '100%', md: '48%' },
                 mb: 0
               }}
-              value={firstname}
-              onChange={e => setFirstname(e.target.value)}
+              value={name}
+              onChange={handleUserInputChange}
               required
+              name='name'
             />
             <TextField
               id="lastname"
@@ -85,9 +86,10 @@ const register = () => {
                 width: { xs: '100%', md: '48%' },
                 mb: 0
               }}
-              value={lastname}
-              onChange={e => setLastname(e.target.value)}
+              value={lastName}
+              onChange={handleUserInputChange}
               required
+              name='lastName'
             />
           </Box>
           <TextField
@@ -95,17 +97,20 @@ const register = () => {
             label="Email address"
             sx={{ my: 2 }}
             value={email}
-            onChange={e => setEmail(e.target.value)}
+            onChange={handleUserInputChange}
+            name='email'
           />
           <PasswordInput
             password={password}
-            handlePassword={e => setPassword(e.target.value)}
+            handlePassword={handleUserInputChange}
+            required
           />
 
           <Button
             variant="contained"
             color="secondary"
             sx={{ mt: 2, mb: '18px' }}
+            onClick={createUser}
           >
             Cadastrar
           </Button>

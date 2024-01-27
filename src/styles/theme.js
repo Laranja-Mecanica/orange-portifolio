@@ -14,8 +14,13 @@ export const theme = createTheme({
       contrastText: '#edeff2'
     },
     neutral: {
+      "70": '#e6e9f2',
       "100": '#818388',
       "110": '#515255'
+    },
+    info: {
+      main: '#2348B1',
+      "80": '#608AE1'
     }
   },
   typography: {

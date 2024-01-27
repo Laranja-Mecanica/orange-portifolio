@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Typography, TextField, Box, Grid } from '@mui/material'
-import { Header, PortifolioCard } from '@/components'
+import { DetailsDialog, Header, PortifolioCard } from '@/components'
+import { useAppContext } from '@/context/appContext'
 
 const home = () => {
   const portifolios = [
     {
+      name: 'Portifolio 1',
       img: 'portifolio1',
       date: '02/24',
       user: {
@@ -17,6 +19,7 @@ const home = () => {
       ]
     },
     {
+      name: 'Portifolio 2',
       img: 'portifolio2',
       date: '12/23',
       user: {
@@ -29,6 +32,7 @@ const home = () => {
       ]
     },
     {
+      name: 'Portifolio 3',
       img: 'portifolio3',
       date: '12/23',
       user: {
@@ -41,6 +45,7 @@ const home = () => {
       ]
     },
     {
+      name: 'Portifolio 4',
       img: 'portifolio4',
       date: '12/23',
       user: {
@@ -54,6 +59,19 @@ const home = () => {
       ]
     },
   ]
+
+  const [isOpen, setIsOpen] = useState(false)
+
+  const { setPortifolio } = useAppContext()
+  const handleOpen = portifolio => {
+    setIsOpen(true)
+    setPortifolio(portifolio)
+  }
+
+  const handleClose = () => {
+    setIsOpen(false)
+
+  }
   return (
     <main>
       <Box sx={{ mx: 2 }}>
@@ -87,14 +105,24 @@ const home = () => {
           rowGap={{ xs: '20px', md: 5 }}
         >
           {portifolios.map((portifolio, i) => (
-            <Grid key={i} item>
+            <Grid
+              key={i}
+              item
+              onClick={() => handleOpen(portifolio)}
+            >
               <PortifolioCard portifolio={portifolio} />
             </Grid>
           ))}
         </Grid>
 
       </Box>
-    </main>
+
+
+      <DetailsDialog
+        open={isOpen}
+        onClose={handleClose}
+      />
+    </main >
   )
 }
 
