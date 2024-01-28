@@ -1,12 +1,7 @@
-import Head from "next/head";
-import {
-  Box,
-  Typography,
-  Button,
-  TextField
-} from '@mui/material'
-import { useState } from "react";
-import { GoogleIcon, PasswordInput } from "@/components";
+import Head from 'next/head'
+import { Box, Typography, Button, TextField } from '@mui/material'
+import { useState } from 'react'
+import { GoogleIcon, PasswordInput } from '@/components'
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -21,10 +16,12 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main style={{
-        display: 'flex',
-        alignItems: 'center',
-      }}>
+      <main
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+        }}
+      >
         <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
           <Image
             src={'images/img_login.svg'}
@@ -44,7 +41,7 @@ export default function Home() {
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
-            px: 3
+            px: 3,
           }}
         >
           <Box>
@@ -61,7 +58,7 @@ export default function Home() {
                 textTransform: 'none',
                 my: 4,
                 boxShadow: '0px 1px 5px 0px #00000030',
-                color: '#00000054'
+                color: '#00000054',
               }}
             >
               <GoogleIcon />
@@ -80,14 +77,15 @@ export default function Home() {
           <Box
             sx={{
               display: 'flex',
-              flexDirection: 'column'
-            }}>
+              flexDirection: 'column',
+            }}
+          >
             <Typography
               variant="h5"
               sx={{
                 color: 'neutral.110',
                 fontSize: { xs: '16px', sm: '20px', md: '24px' },
-                textAlign: 'start'
+                textAlign: 'start',
               }}
             >
               Faça login com email
@@ -97,11 +95,11 @@ export default function Home() {
               label="Email address"
               sx={{ my: 2 }}
               value={email}
-              onChange={e => setEmail(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
             />
             <PasswordInput
               password={password}
-              handlePassword={e => setPassword(e.target.value)}
+              handlePassword={(e) => setPassword(e.target.value)}
             />
 
             <Button
@@ -111,25 +109,21 @@ export default function Home() {
             >
               Entrar
             </Button>
-            <Link
-              href={'/register'}
-              style={{ textDecoration: 'none' }}
-            >
+            <Link href={'/register'} style={{ textDecoration: 'none' }}>
               <Typography
                 variant="subtitle1"
                 sx={{
-                  color: "neutral.100",
+                  color: 'neutral.100',
                   textDecoration: 'none',
-                  textAlign: 'start'
+                  textAlign: 'start',
                 }}
               >
                 Cadastre-se
               </Typography>
             </Link>
           </Box>
-
         </Box>
       </main>
     </>
-  );
+  )
 }

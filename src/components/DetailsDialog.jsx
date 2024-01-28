@@ -1,12 +1,5 @@
 import React from 'react'
-import {
-  Button,
-  Dialog,
-  Typography,
-  Box,
-  Avatar,
-  Chip
-} from '@mui/material'
+import { Button, Dialog, Typography, Box, Avatar, Chip } from '@mui/material'
 
 import Image from 'next/image'
 import Link from 'next/link'
@@ -17,58 +10,51 @@ const DetailsDialog = ({ open, onClick, onClose }) => {
   const { portifolio } = useAppContext()
   const { name, user, date, tags, img } = portifolio
   return (
-    <Dialog
-      open={open}
-      onClose={onClose}
-      fullWidth={true}
-      maxWidth={'lg'}
-    >
-
+    <Dialog open={open} onClose={onClose} fullWidth={true} maxWidth={'lg'}>
       <Box
         sx={{
           px: { xs: 2, md: '102px' },
-          pb: '142px'
+          pb: '142px',
         }}
       >
         <Box
           sx={{
             display: { xs: 'flex', md: 'none' },
             justifyContent: 'center',
-            my: 2
+            my: 2,
           }}
         >
-          <Typography variant="h5">
-            {name}
-          </Typography>
+          <Typography variant="h5">{name}</Typography>
         </Box>
 
         <Box
           sx={{
             display: 'flex',
-            flexDirection: { xs: 'column-reverse', md: 'column' }
+            flexDirection: { xs: 'column-reverse', md: 'column' },
           }}
         >
           <Box
-            id='portifolio-info'
+            id="portifolio-info"
             sx={{
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
               mt: { xs: 0, md: 7 },
-              mb: { xs: 0, md: 4 }
-
-            }}>
+              mb: { xs: 0, md: 4 },
+            }}
+          >
             <Box
-              id='user-info'
+              id="user-info"
               sx={{
                 display: 'flex',
                 alignItems: 'center',
                 gap: 1,
-              }}>
+              }}
+            >
               <Avatar
                 sx={{
                   width: 40,
-                  height: 40
+                  height: 40,
                 }}
                 src={`/images/${user.proPic}.png`}
               />
@@ -76,30 +62,29 @@ const DetailsDialog = ({ open, onClick, onClose }) => {
                 <Typography
                   variant="subtitle1"
                   sx={{
-                    fontWeight: 600
+                    fontWeight: 600,
                   }}
                 >
                   {user.name}
                 </Typography>
-                <Typography variant="subtitle1">
-                  {date}
-                </Typography>
+                <Typography variant="subtitle1">{date}</Typography>
               </Box>
             </Box>
 
             <Typography
               variant="h5"
               sx={{
-                display: { xs: 'none', md: 'flex' }
+                display: { xs: 'none', md: 'flex' },
               }}
             >
               {name}
             </Typography>
 
-            <Box id='tags'
+            <Box
+              id="tags"
               sx={{
                 display: 'flex',
-                gap: 1
+                gap: 1,
               }}
             >
               {tags.map((tag, i) => (
@@ -113,52 +98,38 @@ const DetailsDialog = ({ open, onClick, onClose }) => {
                 />
               ))}
             </Box>
-
-
-
           </Box>
 
-
           <Box
-            id='img'
+            id="img"
             sx={{
               width: '100%',
               height: 'fit-content',
-              mb: { xs: '10px', md: 8 }
+              mb: { xs: '10px', md: 8 },
             }}
           >
-
-
             <Image
               src={`/images/${img}.png`}
               style={{ width: '100%', height: 'auto' }}
               width={838}
               height={586}
             />
-
-
           </Box>
-
-
-
         </Box>
         <Box>
           <Typography
             variant="body1"
             sx={{
-              mb: 3
+              mb: 3,
             }}
           >
-            Temos o prazer de compartilhar com vocês uma variação da nosso primeiro recurso gratuito, Monoceros. É um modelo de uma página para mostrar seus produtos. Tentamos redesenhar uma versão mais B2C
-            e minimalista do nosso primeiro template de e-commerce.
+            Temos o prazer de compartilhar com vocês uma variação da nosso
+            primeiro recurso gratuito, Monoceros. É um modelo de uma página para
+            mostrar seus produtos. Tentamos redesenhar uma versão mais B2C e
+            minimalista do nosso primeiro template de e-commerce.
           </Typography>
-          <Typography variant="body1">
-            Download
-          </Typography>
-          <Link
-            href={'/home'}
-            style={{ textDecoration: 'none' }}
-          >
+          <Typography variant="body1">Download</Typography>
+          <Link href={'/home'} style={{ textDecoration: 'none' }}>
             <Typography
               variant="body1"
               sx={{
@@ -168,7 +139,6 @@ const DetailsDialog = ({ open, onClick, onClose }) => {
               https://gumroad.com/products/wxCSL
             </Typography>
           </Link>
-
         </Box>
       </Box>
     </Dialog>

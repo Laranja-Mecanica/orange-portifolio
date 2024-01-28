@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react"
+import { createContext, useContext, useState } from 'react'
 
 const AppContext = createContext()
 
@@ -7,14 +7,16 @@ export const AppProvider = ({ children }) => {
     name: '',
     img: '',
     user: { name: '' },
-    tags: []
+    tags: [],
   })
 
   return (
-    <AppContext.Provider value={{
-      portifolio,
-      setPortifolio
-    }}>
+    <AppContext.Provider
+      value={{
+        portifolio,
+        setPortifolio,
+      }}
+    >
       {children}
     </AppContext.Provider>
   )

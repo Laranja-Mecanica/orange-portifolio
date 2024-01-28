@@ -1,18 +1,15 @@
-import Header from "./Header";
+import Header from './Header'
 
-import PasswordInput from "./PasswordInput";
+import PasswordInput from './PasswordInput'
 
-import PortifolioCard from "./PortifolioCard";
+import PortifolioCard from './PortifolioCard'
 
-import ConfimationDialog from "./ConfimationDialog";
-import DeleteDialog from "./DeleteDialog";
-import FormDialog from "./FormDialog";
-import DetailsDialog from "./DetailsDialog";
+import ConfimationDialog from './ConfimationDialog'
+import DeleteDialog from './DeleteDialog'
+import FormDialog from './FormDialog'
+import DetailsDialog from './DetailsDialog'
 
-import GoogleIcon from "./GoogleIcon";
-
-
-
+import GoogleIcon from './GoogleIcon'
 
 export {
   PasswordInput,
@@ -22,5 +19,5 @@ export {
   ConfimationDialog,
   DeleteDialog,
   FormDialog,
-  DetailsDialog
+  DetailsDialog,
 }

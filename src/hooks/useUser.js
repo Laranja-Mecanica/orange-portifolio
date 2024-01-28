@@ -1,12 +1,17 @@
-import React, { useState } from 'react'
 import axios from 'axios'
+import { useState } from 'react'
 
 const useUser = () => {
   const BASE_URL = 'https://orange-app-2m9ib.ondigitalocean.app'
 
-  const [user, setUser] = useState({ name: '', lastName: '', email: '', password: '' })
+  const [user, setUser] = useState({
+    name: '',
+    lastName: '',
+    email: '',
+    password: '',
+  })
 
-  const handleUserInputChange = e => {
+  const handleUserInputChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value })
   }
 
@@ -14,20 +19,20 @@ const useUser = () => {
     headers: {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-    }
+    },
   }
 
-
   const createUser = async () => {
-    axios.post(`${BASE_URL}/register`, user, options)
-      .then(res => console.log(res.data.message))
-      .catch(err => console.log('Deu ruim'))
+    axios
+      .post(`${BASE_URL}/register`, user, options)
+      .then((res) => console.log(res.data.message))
+      .catch((err) => console.log('Deu ruim'))
   }
 
   return {
     user,
     handleUserInputChange,
-    createUser
+    createUser,
   }
 }
 
