@@ -1,40 +1,36 @@
 import {
   AppBar,
-  Toolbar,
-  Typography,
-  IconButton,
   Avatar,
-  MenuItem,
   Box,
-  Menu,
   Divider,
-  /* Link */
+  IconButton,
+  Menu,
+  MenuItem,
+  Toolbar,
 } from '@mui/material'
 import Link from 'next/link'
 
-
-import MenuIcon from '@mui/icons-material/Menu';
-import NotificationsIcon from '@mui/icons-material/Notifications';
+import MenuIcon from '@mui/icons-material/Menu'
+import NotificationsIcon from '@mui/icons-material/Notifications'
 
 import Image from 'next/image'
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react'
 
 const Header = () => {
   const pages = [
     {
       name: 'Meus projetos',
-      link: '/user'
+      link: '/user',
     },
     {
       name: 'Descobrir',
-      link: '/home'
+      link: '/home',
     },
-
   ]
 
   const [anchorEl, setAnchorEl] = useState()
 
-  const handleOpenMenu = e => {
+  const handleOpenMenu = (e) => {
     setAnchorEl(e.currentTarget)
   }
 
@@ -57,7 +53,7 @@ const Header = () => {
           onClick={handleOpenMenu}
           sx={{
             mr: 2,
-            display: { xs: 'flex', md: 'none' }
+            display: { xs: 'flex', md: 'none' },
           }}
         >
           <MenuIcon />
@@ -69,41 +65,40 @@ const Header = () => {
           keepMounted
           sx={{
             mt: 1,
-            display: { xs: 'flex', md: 'none' }
+            display: { xs: 'flex', md: 'none' },
           }}
         >
           {pages.map(({ name, link }, i) => (
             <MenuItem key={i}>
-              <Link variant='h6' href={link}>
+              <Link variant="h6" href={link}>
                 {name}
               </Link>
             </MenuItem>
           ))}
           <Divider />
-          <MenuItem>
-            Configurações
-          </MenuItem>
+          <MenuItem>Configurações</MenuItem>
         </Menu>
-
 
         <Box
           sx={{
-            flexGrow: { xs: 1, md: 0 }
+            flexGrow: { xs: 1, md: 0 },
           }}
         >
           <Image
             src={'icon/logo-orange.svg'}
             width={111}
             height={41}
-            alt='Logo da orange portifólio dos futuros contratantes'
+            alt="Logo da orange portifólio dos futuros contratantes"
           />
         </Box>
 
-        <Box sx={{
-          display: { xs: 'none', md: 'flex' },
-          flexGrow: 1,
-          ml: '100px'
-        }}>
+        <Box
+          sx={{
+            display: { xs: 'none', md: 'flex' },
+            flexGrow: 1,
+            ml: '100px',
+          }}
+        >
           {pages.map(({ name, link }, i) => (
             <MenuItem key={i}>
               <Link
@@ -112,8 +107,9 @@ const Header = () => {
                   textDecoration: 'none',
                   color: 'white',
                   fontWeight: 500,
-                  fontSize: '20px'
-                }}>
+                  fontSize: '20px',
+                }}
+              >
                 {name}
               </Link>
             </MenuItem>
@@ -123,17 +119,14 @@ const Header = () => {
         <Box
           sx={{
             display: 'flex',
-            gap: 2
+            gap: 2,
           }}
         >
           <IconButton sx={{ p: 0 }}>
             <Avatar alt="Camila Soares" src="images/Circle.png" />
           </IconButton>
 
-          <IconButton
-            size="large"
-            color="inherit"
-          >
+          <IconButton size="large" color="inherit">
             <NotificationsIcon />
           </IconButton>
         </Box>

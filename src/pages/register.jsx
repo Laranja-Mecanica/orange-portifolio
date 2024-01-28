@@ -1,24 +1,19 @@
-import React from 'react'
-import {
-  Box,
-  Typography,
-  Button,
-  TextField
-} from '@mui/material'
+import { Header, PasswordInput } from '@/components'
+import { useUser } from '@/hooks'
+import { Box, Button, TextField, Typography } from '@mui/material'
 import Image from 'next/image'
-import { useState } from "react";
-import { Header, PasswordInput } from "@/components";
-import { useUser } from '@/hooks';
 
 const register = () => {
   const { user, handleUserInputChange, createUser } = useUser()
   const { name, lastName, email, password } = user
 
   return (
-    <main style={{
-      display: 'flex',
-      alignItems: 'center',
-    }}>
+    <main
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+      }}
+    >
       <Header />
       <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
         <Image
@@ -39,7 +34,7 @@ const register = () => {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
-          px: 3
+          px: 3,
         }}
       >
         <Box>
@@ -55,14 +50,14 @@ const register = () => {
         <Box
           sx={{
             display: 'flex',
-            flexDirection: 'column'
+            flexDirection: 'column',
           }}
         >
           <Box
             sx={{
               display: 'flex',
               flexDirection: { xs: 'column', md: 'row' },
-              justifyContent: 'space-between'
+              justifyContent: 'space-between',
             }}
           >
             <TextField
@@ -71,12 +66,12 @@ const register = () => {
               sx={{
                 my: 2,
                 width: { xs: '100%', md: '48%' },
-                mb: 0
+                mb: 0,
               }}
               value={name}
               onChange={handleUserInputChange}
               required
-              name='name'
+              name="name"
             />
             <TextField
               id="lastname"
@@ -84,12 +79,12 @@ const register = () => {
               sx={{
                 my: 2,
                 width: { xs: '100%', md: '48%' },
-                mb: 0
+                mb: 0,
               }}
               value={lastName}
               onChange={handleUserInputChange}
               required
-              name='lastName'
+              name="lastName"
             />
           </Box>
           <TextField
@@ -98,7 +93,7 @@ const register = () => {
             sx={{ my: 2 }}
             value={email}
             onChange={handleUserInputChange}
-            name='email'
+            name="email"
           />
           <PasswordInput
             password={password}
@@ -115,7 +110,6 @@ const register = () => {
             Cadastrar
           </Button>
         </Box>
-
       </Box>
     </main>
   )

@@ -1,14 +1,12 @@
 import React, { useState } from 'react'
+import { Button, Dialog, Typography, Box, Paper } from '@mui/material'
+
 import {
-  Button,
-  Dialog,
-  Typography,
-  Box,
-  Paper
-} from '@mui/material'
-
-
-import { ConfimationDialog, DeleteDialog, DetailsDialog, FormDialog } from '@/components';
+  ConfimationDialog,
+  DeleteDialog,
+  DetailsDialog,
+  FormDialog,
+} from '@/components'
 
 const teste = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -32,7 +30,6 @@ const teste = () => {
         onClick={handleClose}
       /> */}
 
-
       {/*  <DeleteDialog
         open={isOpen}
         onClick={handleClose}
@@ -49,10 +46,6 @@ const teste = () => {
         open={isOpen}
         onClose={handleClose}
       /> */}
-
-
-
-
     </>
   )
 }
