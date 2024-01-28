@@ -14,8 +14,10 @@ export const theme = createTheme({
       contrastText: '#edeff2'
     },
     neutral: {
+      "70": '#E6E9F2',
       "100": '#818388',
-      "110": '#515255'
+      "110": '#515255',
+      "120": '#303133'
     }
   },
   typography: {
@@ -62,6 +64,7 @@ export const theme = createTheme({
     },
     body2: {
       fontSize: '14px',
+      lineHeight: '14px',
       fontWeight: 400
     },
     caption: {

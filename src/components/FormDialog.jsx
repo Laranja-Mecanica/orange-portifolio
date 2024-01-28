@@ -1,11 +1,11 @@
-import React from 'react'
 import {
+  Box,
   Button,
   Dialog,
-  Typography,
-  Box,
-  TextField
+  TextField,
+  Typography
 } from '@mui/material'
+import { UploadImagem } from './UploadImage'
 
 const FormDialog = ({ open, onClick, onClose }) => {
   return (
@@ -33,21 +33,15 @@ const FormDialog = ({ open, onClick, onClose }) => {
             justifyContent: 'space-between'
           }}
         >
-          <Box sx={{ flexGrow: 1 }}>
+          <Box>
             <Typography
               variant="subtitle1"
               sx={{ mb: 2 }}
             >
               Selecione o conteúdo que você deseja fazer upload
             </Typography>
-            <div className="card"
-              style={{
-                height: 304,
-                border: '1px solid black'
-              }}
-            >
-
-            </div>
+            
+            <UploadImagem />
           </Box>
 
           <Box
