@@ -1,24 +1,19 @@
-import React from 'react'
-import {
-  Box,
-  Typography,
-  Button,
-  TextField
-} from '@mui/material'
+import { Header, PasswordInput } from '@/components'
+import { useUser } from '@/hooks'
+import { Box, Button, TextField, Typography } from '@mui/material'
 import Image from 'next/image'
-import { useState } from "react";
-import { Header, PasswordInput } from "@/components";
 
 const register = () => {
-  const [firstname, setFirstname] = useState('')
-  const [lastname, setLastname] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const { user, handleUserInputChange, createUser } = useUser()
+  const { name, lastName, email, password } = user
+
   return (
-    <main style={{
-      display: 'flex',
-      alignItems: 'center',
-    }}>
+    <main
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+      }}
+    >
       <Header />
       <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
         <Image
@@ -39,7 +34,7 @@ const register = () => {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
-          px: 3
+          px: 3,
         }}
       >
         <Box>
@@ -55,14 +50,14 @@ const register = () => {
         <Box
           sx={{
             display: 'flex',
-            flexDirection: 'column'
+            flexDirection: 'column',
           }}
         >
           <Box
             sx={{
               display: 'flex',
               flexDirection: { xs: 'column', md: 'row' },
-              justifyContent: 'space-between'
+              justifyContent: 'space-between',
             }}
           >
             <TextField
@@ -71,11 +66,12 @@ const register = () => {
               sx={{
                 my: 2,
                 width: { xs: '100%', md: '48%' },
-                mb: 0
+                mb: 0,
               }}
-              value={firstname}
-              onChange={e => setFirstname(e.target.value)}
+              value={name}
+              onChange={handleUserInputChange}
               required
+              name="name"
             />
             <TextField
               id="lastname"
@@ -83,11 +79,12 @@ const register = () => {
               sx={{
                 my: 2,
                 width: { xs: '100%', md: '48%' },
-                mb: 0
+                mb: 0,
               }}
-              value={lastname}
-              onChange={e => setLastname(e.target.value)}
+              value={lastName}
+              onChange={handleUserInputChange}
               required
+              name="lastName"
             />
           </Box>
           <TextField
@@ -95,22 +92,24 @@ const register = () => {
             label="Email address"
             sx={{ my: 2 }}
             value={email}
-            onChange={e => setEmail(e.target.value)}
+            onChange={handleUserInputChange}
+            name="email"
           />
           <PasswordInput
             password={password}
-            handlePassword={e => setPassword(e.target.value)}
+            handlePassword={handleUserInputChange}
+            required
           />
 
           <Button
             variant="contained"
             color="secondary"
             sx={{ mt: 2, mb: '18px' }}
+            onClick={createUser}
           >
             Cadastrar
           </Button>
         </Box>
-
       </Box>
     </main>
   )

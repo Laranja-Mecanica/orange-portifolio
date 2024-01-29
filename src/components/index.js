@@ -1,4 +1,4 @@
-import Header from "./Header";
+import Header from './Header'
 
 import PasswordInput from "./PasswordInput";
 
@@ -9,6 +9,9 @@ import GoogleIcon from "./GoogleIcon";
 import BlankCard from "./BlankCard"
 import SkeletonCard from "./SkeletonCard";
 
+import DeleteDialog from './DeleteDialog'
+import FormDialog from './FormDialog'
+import DetailsDialog from './DetailsDialog'
 
 export {
   PasswordInput,
@@ -17,6 +20,8 @@ export {
   GoogleIcon,
   ConfimationDialog,
   BlankCard,
-  SkeletonCard
-
+  SkeletonCard,
+  DeleteDialog,
+  FormDialog,
+  DetailsDialog,
 }
