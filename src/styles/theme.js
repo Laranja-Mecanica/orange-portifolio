@@ -15,7 +15,8 @@ export const theme = createTheme({
     },
     neutral: {
       "100": '#818388',
-      "110": '#515255'
+      "110": '#515255',
+      "120": '#303133'
     }
   },
   typography: {
