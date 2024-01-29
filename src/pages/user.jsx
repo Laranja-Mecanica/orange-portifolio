@@ -1,7 +1,16 @@
-import { Header } from '@/components'
-import { Avatar, Box, Button, TextField, Typography } from '@mui/material'
+import { BlankCard, Header, SkeletonCard } from '@/components'
+import React from 'react'
+import {
+  Box,
+  Avatar,
+  Typography,
+  Button,
+  TextField,
+  Grid,
+} from '@mui/material'
 
 const user = () => {
+
   return (
     <>
       <Header />
@@ -86,6 +95,28 @@ const user = () => {
           />
         </Box>
       </Box>
+
+      <Grid
+            
+            columnGap={3}
+            rowGap={{ xs: '24px', md: 0 }}
+
+            sx={{
+            mx:{xs:0, md: 4},
+            mt:5,
+            display: "flex",
+            flexDirection: { xs: 'column', md: "row" },
+            alignContent:'center',
+                      
+          }}
+                 
+             >
+        <BlankCard/>
+        <SkeletonCard/>
+        <SkeletonCard/>
+
+      </Grid>
+
     </>
   )
 }

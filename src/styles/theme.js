@@ -17,13 +17,15 @@ export const theme = createTheme({
       70: '#e6e9f2',
       100: '#818388',
       110: '#515255',
+      120: '#303133'
     },
     info: {
       main: '#2348B1',
       80: '#608AE1',
     },
-  },
-  typography: {
+    },
+    
+    typography: {
     h1: {
       fontSize: '96px',
       fontWeight: 300,
