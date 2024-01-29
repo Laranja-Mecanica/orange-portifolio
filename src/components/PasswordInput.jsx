@@ -8,6 +8,8 @@ const PasswordInput = ({ password, handlePassword }) => {
   const handleClickShowPassword = ({ password, handlePassword }) => {
     setShowPassword(!showPassword)
   }
+
+
   return (
     <TextField
       id="password"

@@ -43,7 +43,7 @@ const home = () => {
         proPic: 'user4',
         name: 'Carolina Valentim',
       },
-      tags: ['UI', 'JS', 'HTML'],
+      tags: ['UI', 'JS'],
     },
   ]
 
@@ -85,9 +85,13 @@ const home = () => {
           }}
         />
 
-        <Grid container columnGap={3} rowGap={{ xs: '20px', md: 5 }}>
+        <Grid container columnSpacing={2} rowSpacing={{ xs: '20px', md: 5 }}>
           {portifolios.map((portifolio, i) => (
-            <Grid key={i} item onClick={() => handleOpen(portifolio)}>
+            <Grid
+              item
+              key={i}
+              xs={12} sm={6} md={4} lg={3} xl={2.4}
+              onClick={() => handleOpen(portifolio)}>
               <PortifolioCard portifolio={portifolio} />
             </Grid>
           ))}

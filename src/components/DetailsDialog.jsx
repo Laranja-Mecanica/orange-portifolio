@@ -53,12 +53,18 @@ const DetailsDialog = ({ open, onClick, onClose }) => {
             >
               <Avatar
                 sx={{
-                  width: 40,
-                  height: 40,
+                  width: { xs: 24, md: 40 },
+                  height: { xs: 24, md: 40 },
                 }}
                 src={`/images/${user.proPic}.png`}
               />
-              <Box>
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: { md: 'column' },
+                  gap: 1
+                }}
+              >
                 <Typography
                   variant="subtitle1"
                   sx={{
@@ -67,7 +73,9 @@ const DetailsDialog = ({ open, onClick, onClose }) => {
                 >
                   {user.name}
                 </Typography>
-                <Typography variant="subtitle1">{date}</Typography>
+                <Typography variant="subtitle1">
+                  {date}
+                </Typography>
               </Box>
             </Box>
 
@@ -113,6 +121,7 @@ const DetailsDialog = ({ open, onClick, onClose }) => {
               style={{ width: '100%', height: 'auto' }}
               width={838}
               height={586}
+              alt="Imagem do portifólio"
             />
           </Box>
         </Box>
@@ -121,6 +130,7 @@ const DetailsDialog = ({ open, onClick, onClose }) => {
             variant="body1"
             sx={{
               mb: 3,
+              mt: { xs: 2, md: 0 }
             }}
           >
             Temos o prazer de compartilhar com vocês uma variação da nosso
