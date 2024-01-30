@@ -1,15 +1,30 @@
-import { BlankCard, Header, SkeletonCard } from '@/components'
-import React from 'react'
 import {
-  Box,
-  Avatar,
-  Typography,
-  Button,
-  TextField,
-  Grid,
-} from '@mui/material'
+  BlankCard,
+  ConfimationDialog,
+  FormDialog,
+  Header,
+  SkeletonCard,
+} from '@/components'
+import { Avatar, Box, Button, Grid, TextField, Typography } from '@mui/material'
+import { useState } from 'react'
 
 const user = () => {
+  const [formOpen, setFormOpen] = useState(false)
+  const [confOpen, setConfOpen] = useState(false)
+
+  const handleFormOpen = () => {
+    setFormOpen(true)
+  }
+  const handleFormClose = () => {
+    setFormOpen(false)
+  }
+  const handleConfOpen = () => {
+    setConfOpen(true)
+    setFormOpen(false)
+  }
+  const handleConfClose = () => {
+    setConfOpen(false)
+  }
 
   return (
     <>
@@ -42,8 +57,10 @@ const user = () => {
           <Box
             sx={{
               display: 'flex',
+
               flexDirection: 'column',
               justifyContent: 'space-between',
+
               width: 200,
               mx: { xs: 'auto', md: 0 },
             }}
@@ -65,7 +82,11 @@ const user = () => {
               Brasil
             </Typography>
 
-            <Button variant="contained" disabled>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={handleFormOpen}
+            >
               Adicionar Projeto
             </Button>
           </Box>
@@ -97,26 +118,30 @@ const user = () => {
       </Box>
 
       <Grid
-            
-            columnGap={3}
-            rowGap={{ xs: '24px', md: 0 }}
-
-            sx={{
-            mx:{xs:0, md: 4},
-            mt:5,
-            display: "flex",
-            flexDirection: { xs: 'column', md: "row" },
-            alignContent:'center',
-                      
-          }}
-                 
-             >
-        <BlankCard/>
-        <SkeletonCard/>
-        <SkeletonCard/>
-
+        columnGap={3}
+        rowGap={{ xs: '24px', md: 0 }}
+        sx={{
+          mx: { xs: 0, md: 4 },
+          mt: 5,
+          display: 'flex',
+          flexDirection: { xs: 'column', md: 'row' },
+          alignContent: 'center',
+        }}
+      >
+        <BlankCard onClick={handleFormOpen} />
+        <SkeletonCard />
+        <SkeletonCard />
       </Grid>
-
+      <FormDialog
+        open={formOpen}
+        onClose={handleFormClose}
+        onClick={handleConfOpen}
+      />
+      <ConfimationDialog
+        open={confOpen}
+        onClose={handleConfClose}
+        onClick={handleConfClose}
+      />
     </>
   )
 }

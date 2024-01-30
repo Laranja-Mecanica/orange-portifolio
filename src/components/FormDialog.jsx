@@ -1,5 +1,4 @@
-import React from 'react'
-import { Button, Dialog, Typography, Box, TextField } from '@mui/material'
+import { Box, Button, Dialog, TextField, Typography } from '@mui/material'
 
 const FormDialog = ({ open, onClick, onClose }) => {
   return (
@@ -63,10 +62,15 @@ const FormDialog = ({ open, onClick, onClose }) => {
           >
             Visualizar publicação
           </Typography>
-          <Button variant="contained" color="secondary">
+          <Button variant="contained" color="secondary" onClick={onClick}>
             Salvar
           </Button>
-          <Button variant="contained" sx={{ ml: 2 }} disabled>
+          <Button
+            variant="contained"
+            sx={{ ml: 2 }}
+            color="error"
+            onClick={onClose}
+          >
             Cancelar
           </Button>
         </Box>
