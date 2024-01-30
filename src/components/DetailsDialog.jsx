@@ -9,6 +9,7 @@ import { useAppContext } from '@/context/appContext'
 const DetailsDialog = ({ open, onClick, onClose }) => {
   const { portifolio } = useAppContext()
   const { name, user, date, tags, img } = portifolio
+
   return (
     <Dialog open={open} onClose={onClose} fullWidth={true} maxWidth={'lg'}>
       <Box

@@ -6,6 +6,7 @@ import { useAppContext } from '@/context/appContext'
 const home = () => {
   const portifolios = [
     {
+      id: 1,
       name: 'Portifolio 1',
       img: 'portifolio1',
       date: '02/24',
@@ -16,6 +17,7 @@ const home = () => {
       tags: ['UX', 'Web'],
     },
     {
+      id: 2,
       name: 'Portifolio 2',
       img: 'portifolio2',
       date: '12/23',
@@ -26,6 +28,7 @@ const home = () => {
       tags: ['UX/UI', 'Web'],
     },
     {
+      id: 3,
       name: 'Portifolio 3',
       img: 'portifolio3',
       date: '12/23',
@@ -36,6 +39,7 @@ const home = () => {
       tags: ['UX', 'Java'],
     },
     {
+      id: 4,
       name: 'Portifolio 4',
       img: 'portifolio4',
       date: '12/23',

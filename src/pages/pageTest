@@ -1,8 +1,0 @@
-
-function pageTest() {
-  return <div>Enter</div>
-}
-
-;<Button variant="contained">Contained</Button>
-
-export default pageTest

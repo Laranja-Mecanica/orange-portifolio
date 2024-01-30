@@ -1,6 +1,13 @@
 import { Box, Button, Dialog, TextField, Typography } from '@mui/material'
+import { use, useState } from 'react'
 
-const FormDialog = ({ open, onClick, onClose }) => {
+const FormDialog = ({ open, onClick, onClose, onClickDetails }) => {
+  const [portifolio, setPortifilio] = useState({ id: 0, titulo: '', tag: '', descricao: '', link: '' })
+
+  const handleInputChange = e => {
+    setPortifilio({ ...portifolio, [e.target.name]: e.target.value })
+  }
+
   return (
     <Dialog open={open} onClose={onClose} fullWidth={true} maxWidth={'md'}>
       <Box
@@ -39,12 +46,29 @@ const FormDialog = ({ open, onClick, onClose }) => {
               flexGrow: 1,
             }}
           >
-            <TextField id="" label="Titulo" />
-            <TextField id="" label="Tags" />
-            <TextField id="" label="Link" />
             <TextField
-              id=""
+              label="Titulo"
+              name='titulo'
+              value={portifolio.titulo}
+              onChange={handleInputChange}
+            />
+            <TextField
+              name='tag'
+              label="Tags"
+              value={portifolio.tag}
+              onChange={handleInputChange}
+            />
+            <TextField
+              name='link'
+              label="Link"
+              value={portifolio.link}
+              onChange={handleInputChange}
+            />
+            <TextField
+              name='descricao'
               label="Descrição"
+              value={portifolio.descricao}
+              onChange={handleInputChange}
               multiline
               rows={4}
               sx={{ height: 120 }}
@@ -58,7 +82,7 @@ const FormDialog = ({ open, onClick, onClose }) => {
               mb: 2,
               cursor: 'pointer',
             }}
-            onClick={() => console.log('ok')}
+            onClick={onClickDetails}
           >
             Visualizar publicação
           </Typography>
@@ -69,7 +93,10 @@ const FormDialog = ({ open, onClick, onClose }) => {
             variant="contained"
             sx={{ ml: 2 }}
             color="error"
-            onClick={onClose}
+            onClick={() => {
+              onClose()
+              setPortifilio({ id: 0, titulo: '', descricao: '' })
+            }}
           >
             Cancelar
           </Button>

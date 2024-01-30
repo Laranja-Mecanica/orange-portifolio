@@ -2,7 +2,8 @@ import React from 'react'
 import { Button, Dialog, Typography, Box } from '@mui/material'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 
-const ConfimationDialog = ({ open, onClose, onClick }) => {
+const ConfimationDialog = ({ open, onClose, onClick, id }) => {
+
   return (
     <Dialog open={open} onClose={onClose}>
       <Box

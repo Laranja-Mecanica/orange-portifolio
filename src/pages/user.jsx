@@ -1,19 +1,35 @@
 import {
   BlankCard,
   ConfimationDialog,
+  DetailsDialog,
   FormDialog,
   Header,
   SkeletonCard,
 } from '@/components'
+import { useAppContext } from '@/context/appContext'
 import { Avatar, Box, Button, Grid, TextField, Typography } from '@mui/material'
 import { useState } from 'react'
 
 const user = () => {
+  const { setPortifolio } = useAppContext()
+
   const [formOpen, setFormOpen] = useState(false)
   const [confOpen, setConfOpen] = useState(false)
+  const [detailsOpen, setDetailsOpen] = useState(false)
 
   const handleFormOpen = () => {
     setFormOpen(true)
+    setPortifolio({
+      id: 0,
+      name: 'TESTE',
+      img: 'portifolio3',
+      date: '12/23',
+      user: {
+        name: 'Camila Soares',
+        proPic: 'user3'
+      },
+      tags: ['UX', 'HTML'],
+    })
   }
   const handleFormClose = () => {
     setFormOpen(false)
@@ -24,6 +40,15 @@ const user = () => {
   }
   const handleConfClose = () => {
     setConfOpen(false)
+  }
+
+  const handleDetailsOpen = () => {
+    setDetailsOpen(true)
+    setFormOpen(false)
+  }
+  const handleDetailsClose = () => {
+    setDetailsOpen(false)
+    setFormOpen(true)
   }
 
   return (
@@ -132,15 +157,22 @@ const user = () => {
         <SkeletonCard />
         <SkeletonCard />
       </Grid>
+
       <FormDialog
         open={formOpen}
         onClose={handleFormClose}
         onClick={handleConfOpen}
+        onClickDetails={handleDetailsOpen}
       />
       <ConfimationDialog
         open={confOpen}
         onClose={handleConfClose}
         onClick={handleConfClose}
+      />
+
+      <DetailsDialog
+        open={detailsOpen}
+        onClose={handleDetailsClose}
       />
     </>
   )

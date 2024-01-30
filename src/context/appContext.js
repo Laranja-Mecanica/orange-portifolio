@@ -4,6 +4,7 @@ const AppContext = createContext()
 
 export const AppProvider = ({ children }) => {
   const [portifolio, setPortifolio] = useState({
+    id: 0,
     name: '',
     img: '',
     user: { name: '' },
