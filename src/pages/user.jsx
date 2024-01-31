@@ -26,7 +26,7 @@ const user = () => {
       date: '12/23',
       user: {
         name: 'Camila Soares',
-        proPic: 'user3',
+        proPic: 'user3'
       },
       tags: ['UX', 'HTML'],
     })
@@ -170,7 +170,10 @@ const user = () => {
         onClick={handleConfClose}
       />
 
-      <DetailsDialog open={detailsOpen} onClose={handleDetailsClose} />
+      <DetailsDialog
+        open={detailsOpen}
+        onClose={handleDetailsClose}
+      />
     </>
   )
 }
