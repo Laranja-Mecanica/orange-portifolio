@@ -5,15 +5,13 @@ import {
   TextField,
   Typography,
   Stack,
-  /* Chip, */
   Autocomplete
 } from '@mui/material'
-import { use, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { useAppContext } from '@/context/appContext'
+import { useDialogContext } from '@/context'
 
 const FormDialog = () => {
-  const { setPortifolio, formOpen, handleConfOpen, handleDetailsOpen, handleFormClose } = useAppContext()
+  const { setPortifolio, formOpen, handleConfOpen, handleDetailsOpen, handleFormClose } = useDialogContext()
 
   const { register, handleSubmit, formState: { errors } } = useForm()
 

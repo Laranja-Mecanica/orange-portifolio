@@ -1,6 +1,5 @@
 import React from 'react'
 import {
-  Button,
   Dialog,
   Typography,
   Box,
@@ -8,12 +7,11 @@ import {
   Chip
 } from '@mui/material'
 
-
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { useAppContext } from '@/context/appContext'
 import { useRouter } from 'next/router'
+import { useDialogContext } from '@/context'
 
 const DetailsDialog = () => {
   const router = useRouter()
@@ -21,7 +19,7 @@ const DetailsDialog = () => {
     portifolio,
     detailsOpen,
     handleDetailsClose,
-    setDetailsOpen } = useAppContext()
+    setDetailsOpen } = useDialogContext()
   const { name, user, date, tags, img } = portifolio
 
   return (

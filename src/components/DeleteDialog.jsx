@@ -1,9 +1,14 @@
 import React from 'react'
-import { Button, Dialog, Typography, Box } from '@mui/material'
-import { useAppContext } from '@/context/appContext'
+import {
+  Button,
+  Dialog,
+  Typography,
+  Box
+} from '@mui/material'
+import { useDialogContext } from '@/context'
 
 const DeleteDialog = () => {
-  const { handleDeleteClose, deleteOpen, handleConfOpen } = useAppContext()
+  const { handleDeleteClose, deleteOpen, handleConfOpen } = useDialogContext()
   return (
     <Dialog open={deleteOpen} onClose={handleDeleteClose}>
       <Box

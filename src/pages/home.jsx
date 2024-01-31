@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { Typography, TextField, Box, Grid } from '@mui/material'
 import { DetailsDialog, Header, PortifolioCard } from '@/components'
-import { useAppContext } from '@/context/appContext'
+import { useDialogContext, useAppContext } from '@/context'
 
 const home = () => {
-  const { setDetailsOpen } = useAppContext()
+  const { setDetailsOpen } = useDialogContext()
 
   const portifolios = [
     {
@@ -53,7 +53,7 @@ const home = () => {
     },
   ]
 
-  const { setPortifolio } = useAppContext()
+  const { setPortifolio } = useDialogContext()
   const handleOpen = (portifolio) => {
     setDetailsOpen(true)
     setPortifolio(portifolio)

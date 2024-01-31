@@ -1,4 +1,4 @@
-import { useAppContext } from '@/context/appContext'
+import { useDialogContext } from '@/context'
 import EditIcon from '@mui/icons-material/Edit'
 import {
   Box,
@@ -10,7 +10,7 @@ import {
 import { useState } from 'react'
 
 export const CardButton = () => {
-  const { menuOptions } = useAppContext()
+  const { menuOptions } = useDialogContext()
   const [anchorEdit, setAnchorEdit] = useState(null)
 
   const handleOpenMenu = (event) => {

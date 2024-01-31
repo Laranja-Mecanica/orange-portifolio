@@ -1,10 +1,15 @@
 import React from 'react'
-import { Button, Dialog, Typography, Box } from '@mui/material'
+import {
+  Button,
+  Dialog,
+  Typography,
+  Box
+} from '@mui/material'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
-import { useAppContext } from '@/context/appContext'
+import { useDialogContext } from '@/context'
 
 const ConfimationDialog = ({ id }) => {
-  const { confOpen, handleConfClose } = useAppContext()
+  const { confOpen, handleConfClose } = useDialogContext()
 
   return (
     <Dialog open={confOpen} onClose={handleConfClose}>

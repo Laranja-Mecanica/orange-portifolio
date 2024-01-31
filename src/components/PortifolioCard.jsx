@@ -1,43 +1,19 @@
-import { Box, Card, CardMedia, Typography, Avatar, Chip } from '@mui/material'
-import React, { useState } from 'react'
+import React from 'react'
+import {
+  Box,
+  Card,
+  CardMedia,
+  Typography,
+  Avatar,
+  Chip
+} from '@mui/material'
 import { CardButton } from '@/components'
+import { useRouter } from 'next/router'
 
 const PortifolioCard = ({ portifolio }) => {
+  const router = useRouter()
   const { img, date, user, tags } = portifolio
 
-  const [render, setRender] = useState(true)
-
-  const [formOpen, setFormOpen] = useState(false)
-  const [deleteOpen, setDeleteOpen] = useState(false)
-
-  const handleFormOpen = () => {
-    setFormOpen(true)
-  }
-
-
-  const handleDeleteOpen = () => {
-    setDeleteOpen(true)
-  }
-
-  const handleFormClose = () => {
-    setFormOpen(false)
-  }
-
-
-  const handleDeleteClose = () => {
-    setDeleteOpen(false)
-  }
-
-  const options = [
-    {
-      text: 'Editar',
-      openModal: handleFormOpen
-    },
-    {
-      text: 'Excluir',
-      openModal: handleDeleteOpen
-    }
-  ]
   return (
     <Card
       elevation={0}
@@ -47,7 +23,7 @@ const PortifolioCard = ({ portifolio }) => {
         height: 298,
       }}
     >
-      {render && <CardButton options={options} />}
+      {router.pathname === '/user' && <CardButton />}
       <CardMedia
         component="img"
         title=""

@@ -8,16 +8,16 @@ import {
   PortifolioCard,
   SkeletonCard,
 } from '@/components'
-import { useAppContext } from '@/context/appContext'
 import { Avatar, Box, Button, Grid, TextField, Typography } from '@mui/material'
 import { useState } from 'react'
+import { useDialogContext } from '@/context'
 
 const user = () => {
   const {
     setPortifolio,
     portifolio,
     handleFormOpen,
-  } = useAppContext()
+  } = useDialogContext()
 
   /*   const [confOpen, setConfOpen] = useState(false)
 
@@ -34,21 +34,10 @@ const user = () => {
        },
        tags: ['UX', 'HTML'],
      })
-   }
+   } */
 
-  /* const options = [
-    {
-      text: 'Editar',
-      openModal: handleFormOpen
-    },
-    {
-      text: 'Excluir',
-      openModal: handleDeleteOpen
-    }
-  ] */
 
   const [hasPortifolio, setHasPortifolio] = useState(true)
-
 
   return (
     <>
