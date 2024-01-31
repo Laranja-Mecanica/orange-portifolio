@@ -8,8 +8,11 @@ import {
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import { useDialogContext } from '@/context'
 
-const ConfimationDialog = ({ id }) => {
-  const { confOpen, handleConfClose } = useDialogContext()
+const ConfimationDialog = () => {
+  const {
+    confOpen,
+    handleConfClose,
+    confirmationMsg } = useDialogContext()
 
   return (
     <Dialog open={confOpen} onClose={handleConfClose}>
@@ -25,7 +28,7 @@ const ConfimationDialog = ({ id }) => {
             mx: { sm: 4 },
           }}
         >
-          <Typography variant="h5">Projeto adicionado com sucesso!</Typography>
+          <Typography variant="h5">{`${confirmationMsg} com sucesso!`}</Typography>
         </Box>
         <Box
           sx={{

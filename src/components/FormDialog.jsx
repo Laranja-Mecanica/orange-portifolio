@@ -5,25 +5,46 @@ import {
   TextField,
   Typography,
   Stack,
-  Autocomplete
+  Autocomplete,
+  Chip
 } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import { useDialogContext } from '@/context'
+import { useState } from 'react'
+import { usePortifolio } from '@/hooks'
 
 const FormDialog = () => {
-  const { setPortifolio, formOpen, handleConfOpen, handleDetailsOpen, handleFormClose } = useDialogContext()
+  const {
+    setPortifolio,
+    formOpen,
+    handleConfOpen,
+    handleDetailsOpen,
+    handleFormClose } = useDialogContext()
 
   const { register, handleSubmit, formState: { errors } } = useForm()
 
+  const { createPortifolio, updatePortifolio } = usePortifolio()
 
+  const [selectedTags, setSelectedTags] = useState([])
+
+  const id = 1
   const onSubmit = (data) => {
-    console.log(data)
+    console.log({ ...data, tags: selectedTags })
     handleConfOpen()
+    id != 0 ? updatePortifolio() : createPortifolio()
+    setSelectedTags([])
   }
 
   console.log('RENDER')
 
-  const tags = ['UX', 'UI', 'Web']
+  console.log(selectedTags)
+
+  const tags = selectedTags.length >= 2 ? [] : ['UX', 'UI', 'Web']
+
+  const handleDelete = () => {
+    /* setSelectedTags() */
+    console.log('ok')
+  }
 
   return (
     <Dialog open={formOpen} onClose={handleFormClose} fullWidth={true} maxWidth={'md'}>
@@ -70,16 +91,30 @@ const FormDialog = () => {
               error={Boolean(errors?.titulo)}
               {...register('titulo', { required: true })}
             />
-            <Stack spacing={3} sx={{ width: '100%' }}>
+            <Stack spacing={3} sx={{ width: '100%' }}
+
+            >
 
               <Autocomplete
+                /* disabled */
                 multiple
                 id="tags-outlined"
+                name='tags'
                 options={tags}
                 getOptionLabel={(option) => option}
+
+                /*  renderTags={(tagValue, getTagProps) =>
+                   tagValue.map((option, index) => (
+                     <Chip
+                       label={option}
+                       onDelete={() => console.log('okk')}
+                       {...getTagProps({ index })}
+                     />
+                   ))
+                 } */
+
                 filterSelectedOptions
                 fullWidth
-
                 renderInput={(params) => (
                   <TextField
                     {...params}
@@ -87,12 +122,13 @@ const FormDialog = () => {
                     fullWidth
                   />
                 )}
-                sx={{
-                  /* maxWidth: 413 */
-                }}
-                onChange={(_, newTag) => console.log(newTag)}
+                onChange={(_, newTag) => (selectedTags.length < 2) ? setSelectedTags(newTag) : ''}
               />
             </Stack>
+            <Chip
+              label="Clickable Deletable"
+              onDelete={handleDelete}
+            />
             <TextField
               name='link'
               label="Link"

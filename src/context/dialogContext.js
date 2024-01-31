@@ -8,6 +8,8 @@ export const DialogProvider = ({ children }) => {
   const [detailsOpen, setDetailsOpen] = useState(false)
   const [deleteOpen, setDeleteOpen] = useState(false)
 
+  const [confirmationMsg, setConfirmationMsg] = useState('Produto cadastrado')
+
 
   const [portifolio, setPortifolio] = useState({
     id: 0,
@@ -92,6 +94,8 @@ export const DialogProvider = ({ children }) => {
         handleDetailsClose,
         handleDeleteOpen,
         handleDeleteClose,
+        confirmationMsg,
+        setConfirmationMsg
       }}
     >
       {children}

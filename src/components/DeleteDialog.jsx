@@ -6,9 +6,21 @@ import {
   Box
 } from '@mui/material'
 import { useDialogContext } from '@/context'
+import { usePortifolio } from '@/hooks'
 
 const DeleteDialog = () => {
-  const { handleDeleteClose, deleteOpen, handleConfOpen } = useDialogContext()
+  const {
+    handleDeleteClose,
+    deleteOpen,
+    handleConfOpen } = useDialogContext()
+
+  const { deletePortifolio } = usePortifolio()
+
+  const handleDelete = () => {
+    handleConfOpen()
+    deletePortifolio()
+  }
+
   return (
     <Dialog open={deleteOpen} onClose={handleDeleteClose}>
       <Box
@@ -31,7 +43,7 @@ const DeleteDialog = () => {
           <Button
             variant="contained"
             color="secondary"
-            onClick={handleConfOpen}>
+            onClick={handleDelete}>
             Excluir
           </Button>
           <Button
