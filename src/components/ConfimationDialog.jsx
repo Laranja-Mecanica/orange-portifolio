@@ -1,11 +1,13 @@
 import React from 'react'
 import { Button, Dialog, Typography, Box } from '@mui/material'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
+import { useAppContext } from '@/context/appContext'
 
-const ConfimationDialog = ({ open, onClose, onClick, id }) => {
+const ConfimationDialog = ({ id }) => {
+  const { confOpen, handleConfClose } = useAppContext()
 
   return (
-    <Dialog open={open} onClose={onClose}>
+    <Dialog open={confOpen} onClose={handleConfClose}>
       <Box
         sx={{
           py: 4,
@@ -46,7 +48,7 @@ const ConfimationDialog = ({ open, onClose, onClick, id }) => {
           <Button
             variant="contained"
             color="secondary"
-            onClick={onClick}
+            onClick={handleConfClose}
             sx={{
               px: '22px',
             }}

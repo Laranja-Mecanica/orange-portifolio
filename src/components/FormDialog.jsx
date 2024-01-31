@@ -10,23 +10,25 @@ import {
 } from '@mui/material'
 import { use, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { useAppContext } from '@/context/appContext'
 
-const FormDialog = ({ open, onClick, onClose, onClickDetails }) => {
+const FormDialog = () => {
+  const { setPortifolio, formOpen, handleConfOpen, handleDetailsOpen, handleFormClose } = useAppContext()
 
   const { register, handleSubmit, formState: { errors } } = useForm()
 
+
   const onSubmit = (data) => {
     console.log(data)
+    handleConfOpen()
   }
-
-
 
   console.log('RENDER')
 
   const tags = ['UX', 'UI', 'Web']
 
   return (
-    <Dialog open={open} onClose={onClose} fullWidth={true} maxWidth={'md'}>
+    <Dialog open={formOpen} onClose={handleFormClose} fullWidth={true} maxWidth={'md'}>
       <Box
         sx={{
           m: { xs: '16px 24px', md: '24px 32px' },
@@ -79,17 +81,18 @@ const FormDialog = ({ open, onClick, onClose, onClickDetails }) => {
                 getOptionLabel={(option) => option}
                 filterSelectedOptions
                 fullWidth
+
                 renderInput={(params) => (
                   <TextField
                     {...params}
                     label="Tags"
-                    placeholder="Favorites"
                     fullWidth
                   />
                 )}
                 sx={{
                   /* maxWidth: 413 */
                 }}
+                onChange={(_, newTag) => console.log(newTag)}
               />
             </Stack>
             <TextField
@@ -118,7 +121,7 @@ const FormDialog = ({ open, onClick, onClose, onClickDetails }) => {
               mb: 2,
               cursor: 'pointer',
             }}
-            onClick={onClickDetails}
+            onClick={handleDetailsOpen}
           >
             Visualizar publicação
           </Typography>
@@ -130,8 +133,18 @@ const FormDialog = ({ open, onClick, onClose, onClickDetails }) => {
             sx={{ ml: 2 }}
             color="error"
             onClick={() => {
-              onClose()
-              setPortifilio({ id: 0, titulo: '', descricao: '' })
+              handleFormClose()
+              setPortifolio({
+                id: 0,
+                name: 'TESTE',
+                img: 'portifolio3',
+                date: '12/23',
+                user: {
+                  name: 'Camila Soares',
+                  proPic: 'user3',
+                },
+                tags: ['UX', 'HTML'],
+              })
             }}
           >
             Cancelar

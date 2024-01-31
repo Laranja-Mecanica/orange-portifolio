@@ -13,6 +13,9 @@ import DeleteDialog from './DeleteDialog'
 import FormDialog from './FormDialog'
 import DetailsDialog from './DetailsDialog'
 
+import { CardButton } from './CardButton';
+
+
 export {
   PasswordInput,
   Header,
@@ -24,4 +27,5 @@ export {
   DeleteDialog,
   FormDialog,
   DetailsDialog,
+  CardButton
 }

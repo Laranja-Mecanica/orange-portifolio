@@ -1,8 +1,43 @@
 import { Box, Card, CardMedia, Typography, Avatar, Chip } from '@mui/material'
-import React from 'react'
+import React, { useState } from 'react'
+import { CardButton } from '@/components'
 
 const PortifolioCard = ({ portifolio }) => {
   const { img, date, user, tags } = portifolio
+
+  const [render, setRender] = useState(true)
+
+  const [formOpen, setFormOpen] = useState(false)
+  const [deleteOpen, setDeleteOpen] = useState(false)
+
+  const handleFormOpen = () => {
+    setFormOpen(true)
+  }
+
+
+  const handleDeleteOpen = () => {
+    setDeleteOpen(true)
+  }
+
+  const handleFormClose = () => {
+    setFormOpen(false)
+  }
+
+
+  const handleDeleteClose = () => {
+    setDeleteOpen(false)
+  }
+
+  const options = [
+    {
+      text: 'Editar',
+      openModal: handleFormOpen
+    },
+    {
+      text: 'Excluir',
+      openModal: handleDeleteOpen
+    }
+  ]
   return (
     <Card
       elevation={0}
@@ -12,6 +47,7 @@ const PortifolioCard = ({ portifolio }) => {
         height: 298,
       }}
     >
+      {render && <CardButton options={options} />}
       <CardMedia
         component="img"
         title=""

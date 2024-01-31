@@ -1,17 +1,36 @@
 import React from 'react'
-import { Button, Dialog, Typography, Box, Avatar, Chip } from '@mui/material'
+import {
+  Button,
+  Dialog,
+  Typography,
+  Box,
+  Avatar,
+  Chip
+} from '@mui/material'
+
 
 import Image from 'next/image'
 import Link from 'next/link'
 
 import { useAppContext } from '@/context/appContext'
+import { useRouter } from 'next/router'
 
-const DetailsDialog = ({ open, onClick, onClose }) => {
-  const { portifolio } = useAppContext()
+const DetailsDialog = () => {
+  const router = useRouter()
+  const {
+    portifolio,
+    detailsOpen,
+    handleDetailsClose,
+    setDetailsOpen } = useAppContext()
   const { name, user, date, tags, img } = portifolio
 
   return (
-    <Dialog open={open} onClose={onClose} fullWidth={true} maxWidth={'lg'}>
+    <Dialog
+      open={detailsOpen}
+      onClose={router.pathname === '/user' ? handleDetailsClose : () => setDetailsOpen(false)}
+      fullWidth={true}
+      maxWidth={'lg'}
+    >
       <Box
         sx={{
           px: { xs: 2, md: '102px' },

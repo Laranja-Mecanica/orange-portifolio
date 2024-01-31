@@ -4,6 +4,8 @@ import { DetailsDialog, Header, PortifolioCard } from '@/components'
 import { useAppContext } from '@/context/appContext'
 
 const home = () => {
+  const { setDetailsOpen } = useAppContext()
+
   const portifolios = [
     {
       id: 1,
@@ -51,17 +53,13 @@ const home = () => {
     },
   ]
 
-  const [isOpen, setIsOpen] = useState(false)
-
   const { setPortifolio } = useAppContext()
   const handleOpen = (portifolio) => {
-    setIsOpen(true)
+    setDetailsOpen(true)
     setPortifolio(portifolio)
   }
 
-  const handleClose = () => {
-    setIsOpen(false)
-  }
+
   return (
     <main>
       <Box sx={{ mx: 2 }}>
@@ -102,7 +100,7 @@ const home = () => {
         </Grid>
       </Box>
 
-      <DetailsDialog open={isOpen} onClose={handleClose} />
+      <DetailsDialog />
     </main>
   )
 }
