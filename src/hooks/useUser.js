@@ -4,16 +4,16 @@ import { useState } from 'react'
 const useUser = () => {
   const BASE_URL = 'https://orange-app-2m9ib.ondigitalocean.app'
 
-  const [user, setUser] = useState({
-    name: '',
-    lastName: '',
-    email: '',
-    password: '',
-  })
-
-  const handleUserInputChange = (e) => {
-    setUser({ ...user, [e.target.name]: e.target.value })
-  }
+  /*  const [user, setUser] = useState({
+     name: '',
+     lastName: '',
+     email: '',
+     password: '',
+   })
+ 
+   const handleUserInputChange = (e) => {
+     setUser({ ...user, [e.target.name]: e.target.value })
+   } */
 
   const options = {
     headers: {
@@ -22,7 +22,7 @@ const useUser = () => {
     },
   }
 
-  const createUser = async () => {
+  const createUser = async (user) => {
     axios
       .post(`${BASE_URL}/register`, user, options)
       .then((res) => console.log(res.data.message))
@@ -30,8 +30,8 @@ const useUser = () => {
   }
 
   return {
-    user,
-    handleUserInputChange,
+    /*  user,
+     handleUserInputChange, */
     createUser,
   }
 }

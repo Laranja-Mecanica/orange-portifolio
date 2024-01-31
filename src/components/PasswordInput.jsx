@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { IconButton, InputAdornment, TextField } from '@mui/material'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 
-const PasswordInput = ({ password, handlePassword }) => {
+const PasswordInput = ({ password, handlePassword, validation }) => {
   const [showPassword, setShowPassword] = useState(false)
 
   const handleClickShowPassword = ({ password, handlePassword }) => {
@@ -18,6 +18,7 @@ const PasswordInput = ({ password, handlePassword }) => {
       onChange={handlePassword}
       type={showPassword ? 'text' : 'password'}
       name="password"
+      validation
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">

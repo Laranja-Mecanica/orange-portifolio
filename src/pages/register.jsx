@@ -1,11 +1,31 @@
 import { Header, PasswordInput } from '@/components'
 import { useUser } from '@/hooks'
-import { Box, Button, TextField, Typography } from '@mui/material'
+import {
+  Box,
+  Button,
+  TextField,
+  Typography,
+  InputAdornment,
+  IconButton
+} from '@mui/material'
+import { Visibility, VisibilityOff } from '@mui/icons-material'
 import Image from 'next/image'
+import { useForm } from 'react-hook-form'
+import { useState } from 'react'
 
 const register = () => {
-  const { user, handleUserInputChange, createUser } = useUser()
-  const { name, lastName, email, password } = user
+  const { createUser } = useUser()
+
+  const { register, handleSubmit, formState: { errors } } = useForm()
+
+  const onSubmit = data => {
+    console.log(data)
+    createUser(data)
+  }
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   return (
     <main
@@ -68,10 +88,9 @@ const register = () => {
                 width: { xs: '100%', md: '48%' },
                 mb: 0,
               }}
-              value={name}
-              onChange={handleUserInputChange}
-              required
-              name="name"
+              error={Boolean(errors?.name)}
+              helperText={Boolean(errors?.name) ? 'Digite o primeiro nome' : ''}
+              {...register('name', { required: true })}
             />
             <TextField
               id="lastname"
@@ -81,31 +100,46 @@ const register = () => {
                 width: { xs: '100%', md: '48%' },
                 mb: 0,
               }}
-              value={lastName}
-              onChange={handleUserInputChange}
-              required
-              name="lastName"
+              error={Boolean(errors?.lastname)}
+              helperText={Boolean(errors?.lastname) ? 'Digite o sobrenome' : ''}
+              {...register('lastname', { required: true })}
             />
           </Box>
           <TextField
             id="email"
             label="Email address"
             sx={{ my: 2 }}
-            value={email}
-            onChange={handleUserInputChange}
-            name="email"
+            error={Boolean(errors?.email)}
+            helperText={Boolean(errors?.email) ? 'Digite o email' : ''}
+            {...register('email', { required: true })}
           />
-          <PasswordInput
-            password={password}
-            handlePassword={handleUserInputChange}
-            required
+
+          <TextField
+            type={showPassword ? 'text' : 'password'}
+            label="Password"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+            helperText={(Boolean(errors?.password) ? 'Digite o senha' : '')}
+            error={Boolean(errors?.password)}
+            {...register('password', { required: true })}
           />
 
           <Button
             variant="contained"
             color="secondary"
             sx={{ mt: 2, mb: '18px' }}
-            onClick={createUser}
+            onClick={() => handleSubmit(onSubmit)()}
           >
             Cadastrar
           </Button>

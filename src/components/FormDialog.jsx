@@ -1,12 +1,29 @@
-import { Box, Button, Dialog, TextField, Typography } from '@mui/material'
+import {
+  Box,
+  Button,
+  Dialog,
+  TextField,
+  Typography,
+  Stack,
+  /* Chip, */
+  Autocomplete
+} from '@mui/material'
 import { use, useState } from 'react'
+import { useForm } from 'react-hook-form'
 
 const FormDialog = ({ open, onClick, onClose, onClickDetails }) => {
-  const [portifolio, setPortifilio] = useState({ id: 0, titulo: '', tag: '', descricao: '', link: '' })
 
-  const handleInputChange = e => {
-    setPortifilio({ ...portifolio, [e.target.name]: e.target.value })
+  const { register, handleSubmit, formState: { errors } } = useForm()
+
+  const onSubmit = (data) => {
+    console.log(data)
   }
+
+
+
+  console.log('RENDER')
+
+  const tags = ['UX', 'UI', 'Web']
 
   return (
     <Dialog open={open} onClose={onClose} fullWidth={true} maxWidth={'md'}>
@@ -49,29 +66,48 @@ const FormDialog = ({ open, onClick, onClose, onClickDetails }) => {
             <TextField
               label="Titulo"
               name='titulo'
-              value={portifolio.titulo}
-              onChange={handleInputChange}
+              helperText={Boolean(errors?.titulo) ? 'Digite o titulo' : ''}
+              error={Boolean(errors?.titulo)}
+              {...register('titulo', { required: true })}
             />
-            <TextField
-              name='tag'
-              label="Tags"
-              value={portifolio.tag}
-              onChange={handleInputChange}
-            />
+            <Stack spacing={3} sx={{ width: '100%' }}>
+
+              <Autocomplete
+                multiple
+                id="tags-outlined"
+                options={tags}
+                getOptionLabel={(option) => option}
+                filterSelectedOptions
+                fullWidth
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Tags"
+                    placeholder="Favorites"
+                    fullWidth
+                  />
+                )}
+                sx={{
+                  /* maxWidth: 413 */
+                }}
+              />
+            </Stack>
             <TextField
               name='link'
               label="Link"
-              value={portifolio.link}
-              onChange={handleInputChange}
+              helperText={Boolean(errors?.link) ? 'Digite o link' : ''}
+              error={Boolean(errors?.link)}
+              {...register('link', { required: true })}
             />
             <TextField
               name='descricao'
               label="Descrição"
-              value={portifolio.descricao}
-              onChange={handleInputChange}
               multiline
               rows={4}
               sx={{ height: 120 }}
+              helperText={Boolean(errors?.descricao) ? 'Digite a descrição' : ''}
+              error={Boolean(errors?.descricao)}
+              {...register('descricao', { required: true })}
             />
           </Box>
         </Box>
@@ -86,7 +122,7 @@ const FormDialog = ({ open, onClick, onClose, onClickDetails }) => {
           >
             Visualizar publicação
           </Typography>
-          <Button variant="contained" color="secondary" onClick={onClick}>
+          <Button variant="contained" color="secondary" onClick={() => handleSubmit(onSubmit)()}>
             Salvar
           </Button>
           <Button
