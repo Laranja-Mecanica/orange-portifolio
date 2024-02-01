@@ -1,31 +1,36 @@
-import { Header, PasswordInput } from '@/components'
+import { Header } from '@/components'
 import { useUser } from '@/hooks'
+import { Visibility, VisibilityOff } from '@mui/icons-material'
 import {
+  Alert,
   Box,
   Button,
+  IconButton,
+  InputAdornment,
   TextField,
   Typography,
-  InputAdornment,
-  IconButton
 } from '@mui/material'
-import { Visibility, VisibilityOff } from '@mui/icons-material'
 import Image from 'next/image'
-import { useForm } from 'react-hook-form'
 import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 
 const register = () => {
   const { createUser } = useUser()
 
-  const { register, handleSubmit, formState: { errors } } = useForm()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm()
 
-  const onSubmit = data => {
+  const onSubmit = (data) => {
     console.log(data)
     createUser(data)
   }
 
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false)
 
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleClickShowPassword = () => setShowPassword((show) => !show)
 
   return (
     <main
@@ -58,6 +63,19 @@ const register = () => {
         }}
       >
         <Box>
+          <Alert
+            variant="filled"
+            severity="success"
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              width: { xs: 'auto', md: 'fit-content' },
+              mx: 'auto',
+              mb: { xs: '56px', md: '76px' },
+            }}
+          >
+            Cadastro feito com sucesso
+          </Alert>
           <Typography
             variant="h3"
             color="primary"
@@ -89,7 +107,7 @@ const register = () => {
                 mb: 0,
               }}
               error={Boolean(errors?.name)}
-              helperText={Boolean(errors?.name) ? 'Digite o primeiro nome' : ''}
+              helperText={errors?.name ? 'Digite o primeiro nome' : ''}
               {...register('name', { required: true })}
             />
             <TextField
@@ -101,7 +119,7 @@ const register = () => {
                 mb: 0,
               }}
               error={Boolean(errors?.lastname)}
-              helperText={Boolean(errors?.lastname) ? 'Digite o sobrenome' : ''}
+              helperText={errors?.lastname ? 'Digite o sobrenome' : ''}
               {...register('lastname', { required: true })}
             />
           </Box>
@@ -110,7 +128,7 @@ const register = () => {
             label="Email address"
             sx={{ my: 2 }}
             error={Boolean(errors?.email)}
-            helperText={Boolean(errors?.email) ? 'Digite o email' : ''}
+            helperText={errors?.email ? 'Digite o email' : ''}
             {...register('email', { required: true })}
           />
 
@@ -130,7 +148,7 @@ const register = () => {
                 </InputAdornment>
               ),
             }}
-            helperText={(Boolean(errors?.password) ? 'Digite o senha' : '')}
+            helperText={errors?.password ? 'Digite o senha' : ''}
             error={Boolean(errors?.password)}
             {...register('password', { required: true })}
           />
