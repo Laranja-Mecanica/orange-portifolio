@@ -1,55 +1,36 @@
 import {
-  BlankCard,
   ConfimationDialog,
+  DeleteDialog,
   DetailsDialog,
   FormDialog,
   Header,
-  SkeletonCard,
+  PortifolioCard
 } from '@/components'
-import { useAppContext } from '@/context/appContext'
+import { useDialogContext } from '@/context'
 import { Avatar, Box, Button, Grid, TextField, Typography } from '@mui/material'
 import { useState } from 'react'
 
 const user = () => {
-  const { setPortifolio } = useAppContext()
+  const { setPortifolio, portifolio, handleFormOpen } = useDialogContext()
 
-  const [formOpen, setFormOpen] = useState(false)
-  const [confOpen, setConfOpen] = useState(false)
-  const [detailsOpen, setDetailsOpen] = useState(false)
+  /*   const [confOpen, setConfOpen] = useState(false)
 
-  const handleFormOpen = () => {
-    setFormOpen(true)
-    setPortifolio({
-      id: 0,
-      name: 'TESTE',
-      img: 'portifolio3',
-      date: '12/23',
-      user: {
-        name: 'Camila Soares',
-        proPic: 'user3'
-      },
-      tags: ['UX', 'HTML'],
-    })
-  }
-  const handleFormClose = () => {
-    setFormOpen(false)
-  }
-  const handleConfOpen = () => {
-    setConfOpen(true)
-    setFormOpen(false)
-  }
-  const handleConfClose = () => {
-    setConfOpen(false)
-  }
+  /*  const handleFormOpen = () => {
+     setFormOpen(true)
+     setPortifolio({
+       id: 0,
+       name: 'TESTE',
+       img: 'portifolio3',
+       date: '12/23',
+       user: {
+         name: 'Camila Soares',
+         proPic: 'user3',
+       },
+       tags: ['UX', 'HTML'],
+     })
+   } */
 
-  const handleDetailsOpen = () => {
-    setDetailsOpen(true)
-    setFormOpen(false)
-  }
-  const handleDetailsClose = () => {
-    setDetailsOpen(false)
-    setFormOpen(true)
-  }
+  const [hasPortifolio, setHasPortifolio] = useState(true)
 
   return (
     <>
@@ -153,27 +134,20 @@ const user = () => {
           alignContent: 'center',
         }}
       >
-        <BlankCard onClick={handleFormOpen} />
+        <Grid container columnSpacing={2} rowSpacing={{ xs: '20px', md: 5 }}>
+          <Grid item xs={12} sm={6} md={4} lg={3} xl={2.4}>
+            <PortifolioCard portifolio={portifolio} />
+          </Grid>
+        </Grid>
+        {/* <BlankCard onClick={handleFormOpen} />
         <SkeletonCard />
-        <SkeletonCard />
+        <SkeletonCard /> */}
       </Grid>
 
-      <FormDialog
-        open={formOpen}
-        onClose={handleFormClose}
-        onClick={handleConfOpen}
-        onClickDetails={handleDetailsOpen}
-      />
-      <ConfimationDialog
-        open={confOpen}
-        onClose={handleConfClose}
-        onClick={handleConfClose}
-      />
-
-      <DetailsDialog
-        open={detailsOpen}
-        onClose={handleDetailsClose}
-      />
+      <FormDialog />
+      <ConfimationDialog />
+      <DetailsDialog />
+      <DeleteDialog />
     </>
   )
 }

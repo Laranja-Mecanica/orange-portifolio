@@ -1,67 +1,27 @@
 import React, { useState } from 'react'
-import { Typography, TextField, Box, Grid } from '@mui/material'
+import {
+  Typography,
+  TextField,
+  Box,
+  Grid,
+  Stack,
+  Autocomplete
+} from '@mui/material'
 import { DetailsDialog, Header, PortifolioCard } from '@/components'
-import { useAppContext } from '@/context/appContext'
+import { useDialogContext, useAppContext } from '@/context'
+import { usePortifolio } from '@/hooks'
 
 const home = () => {
-  const portifolios = [
-    {
-      id: 1,
-      name: 'Portifolio 1',
-      img: 'portifolio1',
-      date: '02/24',
-      user: {
-        proPic: 'user1',
-        name: 'Bianca Martins',
-      },
-      tags: ['UX', 'Web'],
-    },
-    {
-      id: 2,
-      name: 'Portifolio 2',
-      img: 'portifolio2',
-      date: '12/23',
-      user: {
-        proPic: 'user2',
-        name: 'Enzo Gabriel',
-      },
-      tags: ['UX/UI', 'Web'],
-    },
-    {
-      id: 3,
-      name: 'Portifolio 3',
-      img: 'portifolio3',
-      date: '12/23',
-      user: {
-        proPic: 'user3',
-        name: 'Alice Alexandra',
-      },
-      tags: ['UX', 'Java'],
-    },
-    {
-      id: 4,
-      name: 'Portifolio 4',
-      img: 'portifolio4',
-      date: '12/23',
-      user: {
-        proPic: 'user4',
-        name: 'Carolina Valentim',
-      },
-      tags: ['UI', 'JS'],
-    },
-  ]
+  const { setDetailsOpen } = useDialogContext()
+  const { setFiltedPortifolios, filtedPortifolios } = useAppContext()
+  const { filterPortifoliosByTags, tags } = usePortifolio()
 
-  const [isOpen, setIsOpen] = useState(false)
-
-  const { setPortifolio } = useAppContext()
+  const { setPortifolio } = useDialogContext()
   const handleOpen = (portifolio) => {
-    setIsOpen(true)
+    setDetailsOpen(true)
     setPortifolio(portifolio)
   }
 
-  const handleClose = () => {
-    setIsOpen(false)
-  }
   return (
     <main>
       <Box sx={{ mx: 2 }}>
@@ -80,17 +40,40 @@ const home = () => {
           transformando experiências em conexões inesquecíveis
         </Typography>
 
-        <TextField
-          id="tagsField"
-          label="Buscar Tags"
-          sx={{
-            width: { xs: '100%', md: 723 },
-            mb: { xs: 4, md: 5 },
-          }}
-        />
+        <Stack spacing={3} sx={{ width: '100%' }}>
+          <Autocomplete
+            multiple
+            id="tags-outlined"
+            name='tags'
+            options={tags}
+            getOptionLabel={(option) => option}
+            filterSelectedOptions
+            fullWidth
+            onChange={(_, tags) => setFiltedPortifolios(filterPortifoliosByTags(tags))}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="Tags"
+                fullWidth
 
-        <Grid container columnSpacing={2} rowSpacing={{ xs: '20px', md: 5 }}>
-          {portifolios.map((portifolio, i) => (
+              />
+            )}
+            sx={{
+              width: { xs: '100%', md: 723 },
+
+            }}
+          />
+        </Stack>
+
+        <Grid
+          container
+          columnSpacing={2}
+          rowSpacing={{ xs: '20px', md: 5 }}
+          sx={{
+            mt: { xs: 4, md: 5 },
+          }}
+        >
+          {filtedPortifolios.map((portifolio, i) => (
             <Grid
               item
               key={i}
@@ -102,7 +85,7 @@ const home = () => {
         </Grid>
       </Box>
 
-      <DetailsDialog open={isOpen} onClose={handleClose} />
+      <DetailsDialog />
     </main>
   )
 }

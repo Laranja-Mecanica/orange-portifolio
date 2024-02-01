@@ -1,8 +1,19 @@
-import { Box, Card, CardMedia, Typography, Avatar, Chip } from '@mui/material'
 import React from 'react'
+import {
+  Box,
+  Card,
+  CardMedia,
+  Typography,
+  Avatar,
+  Chip
+} from '@mui/material'
+import { CardButton } from '@/components'
+import { useRouter } from 'next/router'
 
 const PortifolioCard = ({ portifolio }) => {
+  const router = useRouter()
   const { img, date, user, tags } = portifolio
+
   return (
     <Card
       elevation={0}
@@ -12,6 +23,7 @@ const PortifolioCard = ({ portifolio }) => {
         height: 298,
       }}
     >
+      {router.pathname === '/user' && <CardButton />}
       <CardMedia
         component="img"
         title=""

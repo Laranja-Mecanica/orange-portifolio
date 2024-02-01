@@ -1,22 +1,22 @@
-import { Hidden, Skeleton } from "@mui/material"
+import { Skeleton } from "@mui/material"
 
-function SkeletonCard(){
-return (
+function SkeletonCard() {
+  return (
     <Skeleton
-          variant="rectangular"
-          animation="false"
-          sx={{
-            width: 390,
-            height: 258,
-            left: 445,
-            borderRadius: "4px",
-            backgroundColor: "#FAFBFC",
-            display:{xs:"none", md:"inline-block"}
+      variant="rectangular"
+      animation={false}
+      sx={{
+        width: 390,
+        height: 258,
+        left: 445,
+        borderRadius: "4px",
+        backgroundColor: "#FAFBFC",
+        display: { xs: "none", md: "inline-block" }
 
-          }}
-        >
-        </Skeleton>
-)
+      }}
+    >
+    </Skeleton>
+  )
 }
 
 export default SkeletonCard

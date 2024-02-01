@@ -1,9 +1,28 @@
 import React from 'react'
-import { Button, Dialog, Typography, Box } from '@mui/material'
+import {
+  Button,
+  Dialog,
+  Typography,
+  Box
+} from '@mui/material'
+import { useDialogContext } from '@/context'
+import { usePortifolio } from '@/hooks'
 
-const DeleteDialog = ({ open, onClick, onClose }) => {
+const DeleteDialog = () => {
+  const {
+    handleDeleteClose,
+    deleteOpen,
+    handleConfOpen } = useDialogContext()
+
+  const { deletePortifolio } = usePortifolio()
+
+  const handleDelete = () => {
+    handleConfOpen()
+    deletePortifolio()
+  }
+
   return (
-    <Dialog open={open} onClose={onClose}>
+    <Dialog open={deleteOpen} onClose={handleDeleteClose}>
       <Box
         sx={{
           p: { xs: '24px', md: '40px 42px' },
@@ -21,7 +40,10 @@ const DeleteDialog = ({ open, onClick, onClose }) => {
         </Typography>
 
         <Box>
-          <Button variant="contained" color="secondary" onClick={onClick}>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={handleDelete}>
             Excluir
           </Button>
           <Button
@@ -29,7 +51,8 @@ const DeleteDialog = ({ open, onClick, onClose }) => {
             sx={{
               ml: 2,
             }}
-            disabled
+            color='error'
+            onClick={handleDeleteClose}
           >
             Cancelar
           </Button>

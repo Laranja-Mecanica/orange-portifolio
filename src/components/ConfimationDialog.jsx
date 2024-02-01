@@ -1,11 +1,21 @@
 import React from 'react'
-import { Button, Dialog, Typography, Box } from '@mui/material'
+import {
+  Button,
+  Dialog,
+  Typography,
+  Box
+} from '@mui/material'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
+import { useDialogContext } from '@/context'
 
-const ConfimationDialog = ({ open, onClose, onClick, id }) => {
+const ConfimationDialog = () => {
+  const {
+    confOpen,
+    handleConfClose,
+    confirmationMsg } = useDialogContext()
 
   return (
-    <Dialog open={open} onClose={onClose}>
+    <Dialog open={confOpen} onClose={handleConfClose}>
       <Box
         sx={{
           py: 4,
@@ -18,7 +28,7 @@ const ConfimationDialog = ({ open, onClose, onClick, id }) => {
             mx: { sm: 4 },
           }}
         >
-          <Typography variant="h5">Projeto adicionado com sucesso!</Typography>
+          <Typography variant="h5">{`${confirmationMsg} com sucesso!`}</Typography>
         </Box>
         <Box
           sx={{
@@ -46,7 +56,7 @@ const ConfimationDialog = ({ open, onClose, onClick, id }) => {
           <Button
             variant="contained"
             color="secondary"
-            onClick={onClick}
+            onClick={handleConfClose}
             sx={{
               px: '22px',
             }}

@@ -5,28 +5,58 @@ import {
   TextField,
   Typography,
   Stack,
-  /* Chip, */
-  Autocomplete
+  Autocomplete,
+  Chip
 } from '@mui/material'
-import { use, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { useDialogContext } from '@/context'
+import { useState } from 'react'
+import { usePortifolio } from '@/hooks'
 
-const FormDialog = ({ open, onClick, onClose, onClickDetails }) => {
+const FormDialog = () => {
+  const {
+    setPortifolio,
+    formOpen,
+    handleConfOpen,
+    handleDetailsOpen,
+    handleFormClose } = useDialogContext()
 
   const { register, handleSubmit, formState: { errors } } = useForm()
 
-  const onSubmit = (data) => {
-    console.log(data)
+  const [selectedTags, setSelectedTags] = useState([])
+  const [tagsError, setTagsError] = useState(false)
+
+  const { createPortifolio, updatePortifolio, tags } = usePortifolio()
+
+
+  const handleChange = (_, newTags) => {
+    if (newTags.length <= 2) {
+      setSelectedTags(newTags)
+    }
+    newTags.length === 0 ? setTagsError(true) : setTagsError(false)
   }
 
 
 
-  console.log('RENDER')
 
-  const tags = ['UX', 'UI', 'Web']
+  const id = 1
+  const onSubmit = (data) => {
+    const portifolio = { ...data, tags: selectedTags }
+    handleConfOpen()
+    id != 0 ? updatePortifolio() : createPortifolio(portifolio)
+    setSelectedTags([])
+    console.log(portifolio)
+  }
+
+  const handleSave = () => {
+    selectedTags.length === 0 ? setTagsError(true) : setTagsError(false)
+    if (selectedTags.length != 0) {
+      handleSubmit(onSubmit)()
+    }
+  }
 
   return (
-    <Dialog open={open} onClose={onClose} fullWidth={true} maxWidth={'md'}>
+    <Dialog open={formOpen} onClose={handleFormClose} fullWidth={true} maxWidth={'md'}>
       <Box
         sx={{
           m: { xs: '16px 24px', md: '24px 32px' },
@@ -70,28 +100,32 @@ const FormDialog = ({ open, onClick, onClose, onClickDetails }) => {
               error={Boolean(errors?.titulo)}
               {...register('titulo', { required: true })}
             />
-            <Stack spacing={3} sx={{ width: '100%' }}>
+
+            <Stack spacing={3} sx={{ width: '100%' }}
+            >
 
               <Autocomplete
                 multiple
                 id="tags-outlined"
+                name='tags'
                 options={tags}
                 getOptionLabel={(option) => option}
+                value={selectedTags}
                 filterSelectedOptions
                 fullWidth
                 renderInput={(params) => (
                   <TextField
                     {...params}
                     label="Tags"
-                    placeholder="Favorites"
                     fullWidth
+                    error={tagsError}
+                    helperText={tagsError ? 'Selecione uma tag' : ''}
                   />
                 )}
-                sx={{
-                  /* maxWidth: 413 */
-                }}
+                onChange={handleChange}
               />
             </Stack>
+
             <TextField
               name='link'
               label="Link"
@@ -118,11 +152,11 @@ const FormDialog = ({ open, onClick, onClose, onClickDetails }) => {
               mb: 2,
               cursor: 'pointer',
             }}
-            onClick={onClickDetails}
+            onClick={handleDetailsOpen}
           >
             Visualizar publicação
           </Typography>
-          <Button variant="contained" color="secondary" onClick={() => handleSubmit(onSubmit)()}>
+          <Button variant="contained" color="secondary" onClick={handleSave}>
             Salvar
           </Button>
           <Button
@@ -130,8 +164,18 @@ const FormDialog = ({ open, onClick, onClose, onClickDetails }) => {
             sx={{ ml: 2 }}
             color="error"
             onClick={() => {
-              onClose()
-              setPortifilio({ id: 0, titulo: '', descricao: '' })
+              handleFormClose()
+              setPortifolio({
+                id: 0,
+                name: 'TESTE',
+                img: 'portifolio3',
+                date: '12/23',
+                user: {
+                  name: 'Camila Soares',
+                  proPic: 'user3',
+                },
+                tags: ['UX', 'HTML'],
+              })
             }}
           >
             Cancelar

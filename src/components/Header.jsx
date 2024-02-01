@@ -70,7 +70,14 @@ const Header = () => {
         >
           {pages.map(({ name, link }, i) => (
             <MenuItem key={i}>
-              <Link variant="h6" href={link}>
+              <Link
+                variant="h6"
+                href={link}
+                style={{
+                  textDecoration: 'none',
+                  color: 'black'
+                }}
+              >
                 {name}
               </Link>
             </MenuItem>
