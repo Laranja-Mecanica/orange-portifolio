@@ -1,15 +1,12 @@
-import React, { useState } from 'react'
+import { useState } from 'react';
 /* import { Button } from '@mui/material' */
 
 import {
-  Button,
-  Dialog,
-  Typography,
-  Box
-} from '@mui/material'
+  Button
+} from '@mui/material';
 
 
-import { ConfimationDialog, DeleteDialog, FormDialog } from '@/components';
+import { FormDialog } from '@/components';
 
 const teste = () => {
   const [isOpen, setIsOpen] = useState(false)

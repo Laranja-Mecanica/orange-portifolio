@@ -1,13 +1,35 @@
+import { useUploadThing } from '@/utils/uploadthing';
 import {
   Box,
   Button,
   Dialog,
   TextField,
   Typography
-} from '@mui/material'
-import { UploadImagem } from './UploadImage'
+} from '@mui/material';
+import { useState } from 'react';
+import { UploadImagem } from './UploadImage';
 
 const FormDialog = ({ open, onClick, onClose }) => {
+  const [files, setFiles] = useState([{}])
+
+  function handleSetFiles(files) {
+    setFiles(files)
+  }
+
+  const { startUpload } = useUploadThing('thumbUploader', {
+    onClientUploadComplete: () => {
+      alert("uploaded successfully!")
+    },
+    onUploadError: () => {
+       alert("error occurred while uploading")
+    },
+    onUploadBegin: () => {
+      alert("upload has begun")
+    },
+  })
+
+  const thumb = files[0].preview
+
   return (
     <Dialog
       open={open}
@@ -41,7 +63,7 @@ const FormDialog = ({ open, onClick, onClose }) => {
               Selecione o conteúdo que você deseja fazer upload
             </Typography>
             
-            <UploadImagem />
+            <UploadImagem thumb={thumb} handleSetFiles={handleSetFiles} />
           </Box>
 
           <Box
@@ -86,7 +108,7 @@ const FormDialog = ({ open, onClick, onClose }) => {
           >
             Visualizar publicação
           </Typography>
-          <Button variant='contained' color='secondary'>
+          <Button variant='contained' color='secondary' onClick={() => startUpload(files)}>
             Salvar
           </Button>
           <Button

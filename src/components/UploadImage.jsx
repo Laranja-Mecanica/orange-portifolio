@@ -4,17 +4,16 @@ import Image from 'next/image';
 import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 
-export function UploadImagem() {
-  const [files, setFiles] = useState([{}])
+export function UploadImagem({ thumb, handleSetFiles }) {
   const [ hasFileSelected, setHasFileSelected] = useState(false)
 
   const onDrop = useCallback(acceptedFiles => {
-    setFiles(acceptedFiles.map(file => Object.assign(file, {
+    handleSetFiles(acceptedFiles.map(file => Object.assign(file, {
         preview: URL.createObjectURL(file)
       })))
     
     setHasFileSelected(true)
-  }, [])
+  }, [handleSetFiles])
 
   const { getRootProps, getInputProps } = useDropzone({
     accept: {
@@ -22,8 +21,6 @@ export function UploadImagem() {
     },
     onDrop
   })
-  
-  const thumb = files[0].preview
 
   return (
     <Box {...getRootProps()}
