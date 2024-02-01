@@ -1,8 +1,10 @@
 import { useUploadThing } from '@/utils/uploadthing';
 import {
+  Alert,
   Box,
   Button,
   Dialog,
+  LinearProgress,
   TextField,
   Typography
 } from '@mui/material';
@@ -11,38 +13,62 @@ import { UploadImagem } from './UploadImage';
 
 const FormDialog = ({ open, onClick, onClose }) => {
   const [files, setFiles] = useState([{}])
+  const [ hasFileSelected, setHasFileSelected] = useState(false)
+  const [ uploadProgress, setUploadProgress] = useState(0)
+  const [ hasUploadError, setHasUploadError ] = useState(false)
+
+  const { startUpload, isUploading } = useUploadThing('thumbUploader', {
+    onClientUploadComplete: () => {
+      onClose()
+      setFiles([])
+      setHasFileSelected(false)
+      // Add cofirmation dialog
+    },
+    onUploadError: () => {
+       setHasUploadError(true)
+
+       setTimeout(() => {
+        setHasUploadError(false)
+       }, 10000)
+    },
+    onUploadProgress: (p) => {
+      setUploadProgress(p)
+    }
+  })
+
+  function closeDialog() {
+    onClose()
+    setFiles([])
+    setHasFileSelected(false)
+  }
 
   function handleSetFiles(files) {
     setFiles(files)
   }
 
-  const { startUpload } = useUploadThing('thumbUploader', {
-    onClientUploadComplete: () => {
-      alert("uploaded successfully!")
-    },
-    onUploadError: () => {
-       alert("error occurred while uploading")
-    },
-    onUploadBegin: () => {
-      alert("upload has begun")
-    },
-  })
-
-  const thumb = files[0].preview
+  function handleSetHasFileSelected(has) {
+    setHasFileSelected(has)
+  }
 
   return (
     <Dialog
       open={open}
-      onClose={onClose}
+      onClose={closeDialog}
       fullWidth={true}
       maxWidth={'md'}
     >
+      {
+        isUploading ? <LinearProgress variant="determinate" value={uploadProgress} color='secondary'  /> : null
+      }
 
       <Box
         sx={{
           m: { xs: '16px 24px', md: '24px 32px' }
         }}
       >
+        {
+          hasUploadError ?  <Alert severity="error" sx={{ mb: 1, display: 'flex', alignItems: 'center' }}>Tivemos uma falha no upload, tente novamente mais tarde. 😭</Alert> : null
+        }
         <Typography variant="h5">
           Adicionar projeto
         </Typography>
@@ -63,7 +89,7 @@ const FormDialog = ({ open, onClick, onClose }) => {
               Selecione o conteúdo que você deseja fazer upload
             </Typography>
             
-            <UploadImagem thumb={thumb} handleSetFiles={handleSetFiles} />
+            <UploadImagem files={files} handleSetFiles={handleSetFiles} hasFileSelected={hasFileSelected} handleSetHasFileSelected={handleSetHasFileSelected} isUploading={isUploading} />
           </Box>
 
           <Box
@@ -108,8 +134,13 @@ const FormDialog = ({ open, onClick, onClose }) => {
           >
             Visualizar publicação
           </Typography>
-          <Button variant='contained' color='secondary' onClick={() => startUpload(files)}>
-            Salvar
+          <Button 
+            variant='contained'
+            color='secondary'
+            onClick={() => startUpload(files)}
+            disabled={!hasFileSelected || isUploading}
+            >
+              Salvar
           </Button>
           <Button
             variant='contained'
