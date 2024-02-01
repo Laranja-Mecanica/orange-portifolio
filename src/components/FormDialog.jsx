@@ -6,11 +6,10 @@ import {
   Typography,
   Stack,
   Autocomplete,
-  Chip
 } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import { useDialogContext } from '@/context'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { usePortifolio } from '@/hooks'
 
 const FormDialog = () => {
@@ -21,12 +20,20 @@ const FormDialog = () => {
     handleDetailsOpen,
     handleFormClose } = useDialogContext()
 
-  const { register, handleSubmit, formState: { errors } } = useForm()
+  const { register, handleSubmit, reset, formState: { errors, isSubmitSuccessful } } = useForm()
 
   const [selectedTags, setSelectedTags] = useState([])
   const [tagsError, setTagsError] = useState(false)
-
   const { createPortifolio, updatePortifolio, tags } = usePortifolio()
+
+  useEffect(() => {
+    reset({
+      titulo: '',
+      link: '',
+      descricao: ''
+    })
+  }, [isSubmitSuccessful, reset])
+
 
 
   const handleChange = (_, newTags) => {
@@ -37,22 +44,18 @@ const FormDialog = () => {
   }
 
 
-
-
   const id = 1
   const onSubmit = (data) => {
     const portifolio = { ...data, tags: selectedTags }
     handleConfOpen()
     id != 0 ? updatePortifolio() : createPortifolio(portifolio)
-    setSelectedTags([])
     console.log(portifolio)
   }
 
   const handleSave = () => {
     selectedTags.length === 0 ? setTagsError(true) : setTagsError(false)
-    if (selectedTags.length != 0) {
-      handleSubmit(onSubmit)()
-    }
+    handleSubmit(onSubmit)()
+    setSelectedTags([])
   }
 
   return (
