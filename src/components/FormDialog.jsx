@@ -23,27 +23,36 @@ const FormDialog = () => {
 
   const { register, handleSubmit, formState: { errors } } = useForm()
 
-  const { createPortifolio, updatePortifolio } = usePortifolio()
-
   const [selectedTags, setSelectedTags] = useState([])
+  const [tagsError, setTagsError] = useState(false)
+
+  const { createPortifolio, updatePortifolio, tags } = usePortifolio()
+
+
+  const handleChange = (_, newTags) => {
+    if (newTags.length <= 2) {
+      setSelectedTags(newTags)
+    }
+    newTags.length === 0 ? setTagsError(true) : setTagsError(false)
+  }
+
+
+
 
   const id = 1
   const onSubmit = (data) => {
-    console.log({ ...data, tags: selectedTags })
+    const portifolio = { ...data, tags: selectedTags }
     handleConfOpen()
-    id != 0 ? updatePortifolio() : createPortifolio()
+    id != 0 ? updatePortifolio() : createPortifolio(portifolio)
     setSelectedTags([])
+    console.log(portifolio)
   }
 
-  console.log('RENDER')
-
-  console.log(selectedTags)
-
-  const tags = selectedTags.length >= 2 ? [] : ['UX', 'UI', 'Web']
-
-  const handleDelete = () => {
-    /* setSelectedTags() */
-    console.log('ok')
+  const handleSave = () => {
+    selectedTags.length === 0 ? setTagsError(true) : setTagsError(false)
+    if (selectedTags.length != 0) {
+      handleSubmit(onSubmit)()
+    }
   }
 
   return (
@@ -91,28 +100,17 @@ const FormDialog = () => {
               error={Boolean(errors?.titulo)}
               {...register('titulo', { required: true })}
             />
-            <Stack spacing={3} sx={{ width: '100%' }}
 
+            <Stack spacing={3} sx={{ width: '100%' }}
             >
 
               <Autocomplete
-                /* disabled */
                 multiple
                 id="tags-outlined"
                 name='tags'
                 options={tags}
                 getOptionLabel={(option) => option}
-
-                /*  renderTags={(tagValue, getTagProps) =>
-                   tagValue.map((option, index) => (
-                     <Chip
-                       label={option}
-                       onDelete={() => console.log('okk')}
-                       {...getTagProps({ index })}
-                     />
-                   ))
-                 } */
-
+                value={selectedTags}
                 filterSelectedOptions
                 fullWidth
                 renderInput={(params) => (
@@ -120,15 +118,14 @@ const FormDialog = () => {
                     {...params}
                     label="Tags"
                     fullWidth
+                    error={tagsError}
+                    helperText={tagsError ? 'Selecione uma tag' : ''}
                   />
                 )}
-                onChange={(_, newTag) => (selectedTags.length < 2) ? setSelectedTags(newTag) : ''}
+                onChange={handleChange}
               />
             </Stack>
-            <Chip
-              label="Clickable Deletable"
-              onDelete={handleDelete}
-            />
+
             <TextField
               name='link'
               label="Link"
@@ -159,7 +156,7 @@ const FormDialog = () => {
           >
             Visualizar publicação
           </Typography>
-          <Button variant="contained" color="secondary" onClick={() => handleSubmit(onSubmit)()}>
+          <Button variant="contained" color="secondary" onClick={handleSave}>
             Salvar
           </Button>
           <Button

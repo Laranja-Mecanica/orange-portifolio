@@ -49,7 +49,7 @@ function TagsValues() {
 
   const handleChange = (event, newValue) => {
     // Limitar a seleção a no máximo três TAGs
-    if (newValue.length <= 3) {
+    if (newValue.length <= 2) {
       setSelectedValues(newValue)
     }
   }
@@ -88,7 +88,7 @@ function TagsValues() {
         </ul>
       </div>
 
-      <CardButton options={options} />
+      {/* <CardButton options={options} /> */}
 
 
       {/*  <FormDialog open={formOpen} onClose={handleFormClose} />
