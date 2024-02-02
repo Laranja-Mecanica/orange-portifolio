@@ -14,6 +14,8 @@ import Image from 'next/image'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
+
+
 const Register = () => {
   const { createUser } = useUser()
 
@@ -24,8 +26,7 @@ const Register = () => {
   } = useForm()
 
   const onSubmit = (data) => {
-    console.log(data)
-    createUser(data)
+    createUser({ ...data, country: 'Brasil' })
   }
 
   const [showPassword, setShowPassword] = useState(false)
@@ -115,16 +116,16 @@ const Register = () => {
               {...register('name', { required: true })}
             />
             <TextField
-              id="lastname"
+              id="lastName"
               label="Sobrenome"
               sx={{
                 my: 2,
                 width: { xs: '100%', md: '48%' },
                 mb: 0,
               }}
-              error={Boolean(errors?.lastname)}
-              helperText={errors?.lastname ? 'Digite o sobrenome' : ''}
-              {...register('lastname', { required: true })}
+              error={Boolean(errors?.lastName)}
+              helperText={errors?.lastName ? 'Digite o sobrenome' : ''}
+              {...register('lastName', { required: true })}
             />
           </Box>
           <TextField

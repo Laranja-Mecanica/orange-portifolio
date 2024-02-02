@@ -38,10 +38,6 @@ const Header = () => {
     setAnchorEl(null)
   }
 
-  useEffect(() => {
-    console.log(anchorEl)
-  }, [anchorEl])
-
   return (
     <AppBar position="fixed" color="primary">
       <Toolbar>

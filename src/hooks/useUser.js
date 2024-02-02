@@ -1,37 +1,44 @@
-import axios from 'axios'
+import { useAppContext } from '@/context'
+import { api } from '@/lib/axios'
+import { useRouter } from 'next/router'
+import jwt from 'jsonwebtoken'
+
+const setToken = token => {
+  window.sessionStorage.setItem('token', token)
+}
 
 const useUser = () => {
-  const BASE_URL = 'https://orange-app-2m9ib.ondigitalocean.app'
 
-  /*  const [user, setUser] = useState({
-     name: '',
-     lastName: '',
-     email: '',
-     password: '',
-   })
- 
-   const handleUserInputChange = (e) => {
-     setUser({ ...user, [e.target.name]: e.target.value })
-   } */
-
-  const options = {
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-    },
+  const router = useRouter()
+  const { setUser } = useAppContext()
+  const createUser = async (user) => {
+    api.post('/register', user)
+      .then(res => console.log(res.data.message))
+      .catch(error => console.error(error.message))
   }
 
-  const createUser = async (user) => {
-    axios
-      .post(`${BASE_URL}/register`, user, options)
-      .then((res) => console.log(res.data.message))
-    // .catch((err) => console.log('Deu ruim'))
+  const loginUser = async (user) => {
+    api.post('/session', user)
+      .then(res => {
+        const token = res.data.accessToken
+        const id = jwt.decode(token).sub
+        getUser(id)
+      })
+      .then(() => router.push('/user'))
+      .catch(error => console.error(error.message))
+  }
+
+  const getUser = async (id) => {
+    api.get(`/users/${id}`)
+      .then(res => {
+        setUser({ id: id, ...res.data.user })
+      })
+      .catch(error => console.log(error.data))
   }
 
   return {
-    /*  user,
-     handleUserInputChange, */
     createUser,
+    loginUser,
   }
 }
 
