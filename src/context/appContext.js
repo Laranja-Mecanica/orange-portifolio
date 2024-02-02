@@ -16,7 +16,6 @@ export const AppProvider = ({ children }) => {
     tags: [],
   })
 
-
   const portifolios = [
     {
       id: 1,
@@ -116,12 +115,12 @@ export const AppProvider = ({ children }) => {
   const menuOptions = [
     {
       text: 'Editar',
-      openModal: handleFormOpen
+      openModal: handleFormOpen,
     },
     {
       text: 'Excluir',
-      openModal: handleDeleteOpen
-    }
+      openModal: handleDeleteOpen,
+    },
   ]
 
   return (
@@ -144,11 +143,9 @@ export const AppProvider = ({ children }) => {
         handleDeleteOpen,
         handleDeleteClose,
 
-
         allPortifolios,
         filtedPortifolios,
-        setFiltedPortifolios
-
+        setFiltedPortifolios,
       }}
     >
       {children}

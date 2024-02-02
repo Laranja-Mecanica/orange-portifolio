@@ -1,11 +1,5 @@
 import React from 'react'
-import {
-  Dialog,
-  Typography,
-  Box,
-  Avatar,
-  Chip
-} from '@mui/material'
+import { Dialog, Typography, Box, Avatar, Chip } from '@mui/material'
 
 import Image from 'next/image'
 import Link from 'next/link'
@@ -15,17 +9,18 @@ import { useDialogContext } from '@/context'
 
 const DetailsDialog = () => {
   const router = useRouter()
-  const {
-    portifolio,
-    detailsOpen,
-    handleDetailsClose,
-    setDetailsOpen } = useDialogContext()
+  const { portifolio, detailsOpen, handleDetailsClose, setDetailsOpen } =
+    useDialogContext()
   const { name, user, date, tags, img } = portifolio
 
   return (
     <Dialog
       open={detailsOpen}
-      onClose={router.pathname === '/user' ? handleDetailsClose : () => setDetailsOpen(false)}
+      onClose={
+        router.pathname === '/user'
+          ? handleDetailsClose
+          : () => setDetailsOpen(false)
+      }
       fullWidth={true}
       maxWidth={'lg'}
     >
@@ -80,7 +75,7 @@ const DetailsDialog = () => {
                 sx={{
                   display: 'flex',
                   flexDirection: { md: 'column' },
-                  gap: 1
+                  gap: 1,
                 }}
               >
                 <Typography
@@ -91,9 +86,7 @@ const DetailsDialog = () => {
                 >
                   {user.name}
                 </Typography>
-                <Typography variant="subtitle1">
-                  {date}
-                </Typography>
+                <Typography variant="subtitle1">{date}</Typography>
               </Box>
             </Box>
 
@@ -148,7 +141,7 @@ const DetailsDialog = () => {
             variant="body1"
             sx={{
               mb: 3,
-              mt: { xs: 2, md: 0 }
+              mt: { xs: 2, md: 0 },
             }}
           >
             Temos o prazer de compartilhar com vocês uma variação da nosso

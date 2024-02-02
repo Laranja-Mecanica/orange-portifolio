@@ -14,7 +14,7 @@ import Image from 'next/image'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-const register = () => {
+const Register = () => {
   const { createUser } = useUser()
 
   const {
@@ -167,4 +167,4 @@ const register = () => {
   )
 }
 
-export default register
+export default Register

@@ -34,12 +34,11 @@ const FormDialog = () => {
 
   const {
     register,
-    handleSubmit,
     reset,
     formState: { errors, isSubmitSuccessful },
   } = useForm()
 
-  const { createPortifolio, updatePortifolio, tags } = usePortifolio()
+  const { tags } = usePortifolio()
 
   const { startUpload, isUploading } = useUploadThing('thumbUploader', {
     onClientUploadComplete: () => {
@@ -80,19 +79,19 @@ const FormDialog = () => {
     newTags.length === 0 ? setTagsError(true) : setTagsError(false)
   }
 
-  const id = 1
-  const onSubmit = (data) => {
-    const portifolio = { ...data, tags: selectedTags }
-    handleConfOpen()
-    id !== 0 ? updatePortifolio() : createPortifolio(portifolio)
-    console.log(portifolio)
-  }
+  // const id = 1
+  // const onSubmit = (data) => {
+  //   const portifolio = { ...data, tags: selectedTags }
+  //   handleConfOpen()
+  //   id !== 0 ? updatePortifolio() : createPortifolio(portifolio)
+  //   console.log(portifolio)
+  // }
 
-  const handleSave = () => {
-    selectedTags.length === 0 ? setTagsError(true) : setTagsError(false)
-    handleSubmit(onSubmit)()
-    setSelectedTags([])
-  }
+  // const handleSave = () => {
+  //   selectedTags.length === 0 ? setTagsError(true) : setTagsError(false)
+  //   handleSubmit(onSubmit)()
+  //   setSelectedTags([])
+  // }
 
   useEffect(() => {
     reset({

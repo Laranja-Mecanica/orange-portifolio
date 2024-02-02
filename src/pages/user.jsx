@@ -4,13 +4,13 @@ import {
   DetailsDialog,
   FormDialog,
   Header,
-  PortifolioCard
+  PortifolioCard,
 } from '@/components'
 import { useDialogContext } from '@/context'
 import { Avatar, Box, Button, Grid, TextField, Typography } from '@mui/material'
 import { useState } from 'react'
 
-const user = () => {
+const User = () => {
   const { setPortifolio, portifolio, handleFormOpen } = useDialogContext()
 
   /*   const [confOpen, setConfOpen] = useState(false)
@@ -152,4 +152,4 @@ const user = () => {
   )
 }
 
-export default user
+export default User

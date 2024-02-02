@@ -1,17 +1,16 @@
-import React, { useState } from 'react'
+import { DetailsDialog, Header, PortifolioCard } from '@/components'
+import { useAppContext, useDialogContext } from '@/context'
+import { usePortifolio } from '@/hooks'
 import {
-  Typography,
-  TextField,
+  Autocomplete,
   Box,
   Grid,
   Stack,
-  Autocomplete
+  TextField,
+  Typography,
 } from '@mui/material'
-import { DetailsDialog, Header, PortifolioCard } from '@/components'
-import { useDialogContext, useAppContext } from '@/context'
-import { usePortifolio } from '@/hooks'
 
-const home = () => {
+const Home = () => {
   const { setDetailsOpen } = useDialogContext()
   const { setFiltedPortifolios, filtedPortifolios } = useAppContext()
   const { filterPortifoliosByTags, tags } = usePortifolio()
@@ -44,23 +43,19 @@ const home = () => {
           <Autocomplete
             multiple
             id="tags-outlined"
-            name='tags'
+            name="tags"
             options={tags}
             getOptionLabel={(option) => option}
             filterSelectedOptions
             fullWidth
-            onChange={(_, tags) => setFiltedPortifolios(filterPortifoliosByTags(tags))}
+            onChange={(_, tags) =>
+              setFiltedPortifolios(filterPortifoliosByTags(tags))
+            }
             renderInput={(params) => (
-              <TextField
-                {...params}
-                label="Tags"
-                fullWidth
-
-              />
+              <TextField {...params} label="Tags" fullWidth />
             )}
             sx={{
               width: { xs: '100%', md: 723 },
-
             }}
           />
         </Stack>
@@ -77,8 +72,13 @@ const home = () => {
             <Grid
               item
               key={i}
-              xs={12} sm={6} md={4} lg={3} xl={2.4}
-              onClick={() => handleOpen(portifolio)}>
+              xs={12}
+              sm={6}
+              md={4}
+              lg={3}
+              xl={2.4}
+              onClick={() => handleOpen(portifolio)}
+            >
               <PortifolioCard portifolio={portifolio} />
             </Grid>
           ))}
@@ -90,4 +90,4 @@ const home = () => {
   )
 }
 
-export default home
+export default Home

@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { useState } from 'react'
 
 const useUser = () => {
   const BASE_URL = 'https://orange-app-2m9ib.ondigitalocean.app'
@@ -26,7 +25,7 @@ const useUser = () => {
     axios
       .post(`${BASE_URL}/register`, user, options)
       .then((res) => console.log(res.data.message))
-      .catch((err) => console.log('Deu ruim'))
+    // .catch((err) => console.log('Deu ruim'))
   }
 
   return {

@@ -10,7 +10,6 @@ export const DialogProvider = ({ children }) => {
 
   const [confirmationMsg, setConfirmationMsg] = useState('Produto cadastrado')
 
-
   const [portifolio, setPortifolio] = useState({
     id: 0,
     name: '',
@@ -67,12 +66,12 @@ export const DialogProvider = ({ children }) => {
   const menuOptions = [
     {
       text: 'Editar',
-      openModal: handleFormOpen
+      openModal: handleFormOpen,
     },
     {
       text: 'Excluir',
-      openModal: handleDeleteOpen
-    }
+      openModal: handleDeleteOpen,
+    },
   ]
 
   return (
@@ -95,7 +94,7 @@ export const DialogProvider = ({ children }) => {
         handleDeleteOpen,
         handleDeleteClose,
         confirmationMsg,
-        setConfirmationMsg
+        setConfirmationMsg,
       }}
     >
       {children}

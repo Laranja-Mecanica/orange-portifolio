@@ -1,12 +1,6 @@
 import { useDialogContext } from '@/context'
 import EditIcon from '@mui/icons-material/Edit'
-import {
-  Box,
-  IconButton,
-  Menu,
-  MenuItem,
-  Typography,
-} from '@mui/material'
+import { Box, IconButton, Menu, MenuItem, Typography } from '@mui/material'
 import { useState } from 'react'
 
 export const CardButton = () => {
@@ -80,12 +74,10 @@ export const CardButton = () => {
           {menuOptions.map(({ text, openModal }, i) => (
             <MenuItem
               key={i}
-              onClick={e => handleOpenDialog(e, openModal)}
+              onClick={(e) => handleOpenDialog(e, openModal)}
               sx={{ width: 208, '&:hover': { bgcolor: 'secondary.light' } }}
             >
-              <Typography textAlign="center">
-                {text}
-              </Typography>
+              <Typography textAlign="center">{text}</Typography>
             </MenuItem>
           ))}
         </Box>

@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
-import { IconButton, InputAdornment, TextField } from '@mui/material'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
+import { IconButton, InputAdornment, TextField } from '@mui/material'
+import { useState } from 'react'
 
 const PasswordInput = ({ password, handlePassword }) => {
   const [showPassword, setShowPassword] = useState(false)
@@ -8,7 +8,6 @@ const PasswordInput = ({ password, handlePassword }) => {
   /*  const handleClickShowPassword = ({ password, handlePassword }) => {
      setShowPassword(!showPassword)
    } */
-
 
   return (
     <TextField
@@ -24,7 +23,7 @@ const PasswordInput = ({ password, handlePassword }) => {
           <InputAdornment position="end">
             <IconButton
               aria-label="toggle password visibility"
-              onClick={handleClickShowPassword}
+              // onClick={handleClickShowPassword}
               edge="end"
             >
               {showPassword ? <VisibilityOff /> : <Visibility />}

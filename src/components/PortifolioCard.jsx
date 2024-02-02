@@ -1,12 +1,5 @@
 import React from 'react'
-import {
-  Box,
-  Card,
-  CardMedia,
-  Typography,
-  Avatar,
-  Chip
-} from '@mui/material'
+import { Box, Card, CardMedia, Typography, Avatar, Chip } from '@mui/material'
 import { CardButton } from '@/components'
 import { useRouter } from 'next/router'
 

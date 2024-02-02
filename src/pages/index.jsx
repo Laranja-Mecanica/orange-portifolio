@@ -5,7 +5,7 @@ import {
   Button,
   TextField,
   InputAdornment,
-  IconButton
+  IconButton,
 } from '@mui/material'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import { useState } from 'react'
@@ -15,15 +15,19 @@ import Image from 'next/image'
 import { useForm } from 'react-hook-form'
 
 export default function Home() {
-  const { register, handleSubmit, formState: { errors } } = useForm()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm()
 
-  const onSubmit = data => {
+  const onSubmit = (data) => {
     console.log(data)
   }
 
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false)
 
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleClickShowPassword = () => setShowPassword((show) => !show)
 
   return (
     <>
@@ -112,7 +116,7 @@ export default function Home() {
               label="Email address"
               sx={{ my: 2 }}
               error={Boolean(errors?.email)}
-              helperText={Boolean(errors?.email) ? 'Digite o email' : ''}
+              helperText={errors?.email ? 'Digite o email' : ''}
               {...register('email', { required: true })}
             />
             {/* <PasswordInput
@@ -135,7 +139,7 @@ export default function Home() {
                   </InputAdornment>
                 ),
               }}
-              helperText={(Boolean(errors?.password) ? 'Digite o senha' : '')}
+              helperText={errors?.password ? 'Digite o senha' : ''}
               error={Boolean(errors?.password)}
               {...register('password', { required: true })}
             />

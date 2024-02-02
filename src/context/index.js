@@ -1,7 +1,4 @@
-import { useAppContext } from "./appContext";
-import { useDialogContext } from "./dialogContext";
+import { useAppContext } from './appContext'
+import { useDialogContext } from './dialogContext'
 
-export {
-  useAppContext,
-  useDialogContext
-}
+export { useAppContext, useDialogContext }

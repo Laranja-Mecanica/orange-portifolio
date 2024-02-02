@@ -75,7 +75,7 @@ const Header = () => {
                 href={link}
                 style={{
                   textDecoration: 'none',
-                  color: 'black'
+                  color: 'black',
                 }}
               >
                 {name}
