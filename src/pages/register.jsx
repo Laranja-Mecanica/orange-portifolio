@@ -14,6 +14,8 @@ import Image from 'next/image'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
+
+
 const Register = () => {
   const { createUser } = useUser()
 
@@ -24,7 +26,7 @@ const Register = () => {
   } = useForm()
 
   const onSubmit = (data) => {
-    createUser({ ...data })
+    createUser({ ...data, country: 'Brasil' })
   }
 
   const [showPassword, setShowPassword] = useState(false)

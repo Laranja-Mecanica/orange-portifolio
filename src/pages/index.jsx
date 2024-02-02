@@ -13,8 +13,10 @@ import { GoogleIcon, PasswordInput } from '@/components'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useForm } from 'react-hook-form'
+import { useUser } from '@/hooks'
 
 export default function Home() {
+  const { loginUser } = useUser()
   const {
     register,
     handleSubmit,
@@ -22,7 +24,7 @@ export default function Home() {
   } = useForm()
 
   const onSubmit = (data) => {
-    console.log(data)
+    loginUser(data)
   }
 
   const [showPassword, setShowPassword] = useState(false)

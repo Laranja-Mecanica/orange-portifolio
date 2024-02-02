@@ -1,4 +1,5 @@
 import { useAppContext, useDialogContext } from '@/context'
+import { api } from '@/lib/axios'
 
 const usePortifolio = () => {
   const { allPortifolios } = useAppContext()
@@ -19,6 +20,11 @@ const usePortifolio = () => {
     setConfirmationMsg('Projeto deletado')
   }
 
+  const getPortifoliosByUser = async (id) => {
+    api.get(`/users/${id}/portifolios`)
+      .then(res => console.log(res.data))
+  }
+
   const filterPortifoliosByTags = (tags) =>
     allPortifolios.filter((portifolio) =>
       tags.every((tag) => portifolio.tags.includes(tag)),
@@ -29,6 +35,7 @@ const usePortifolio = () => {
     createPortifolio,
     updatePortifolio,
     deletePortifolio,
+    getPortifoliosByUser,
     filterPortifoliosByTags,
   }
 }

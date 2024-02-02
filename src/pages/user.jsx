@@ -6,32 +6,22 @@ import {
   Header,
   PortifolioCard,
 } from '@/components'
-import { useDialogContext } from '@/context'
+import { useAppContext, useDialogContext } from '@/context'
+import { usePortifolio } from '@/hooks'
 import { Avatar, Box, Button, Grid, TextField, Typography } from '@mui/material'
 import { useState } from 'react'
 
 const User = () => {
   const { setPortifolio, portifolio, handleFormOpen } = useDialogContext()
-
-  /*   const [confOpen, setConfOpen] = useState(false)
-
-  /*  const handleFormOpen = () => {
-     setFormOpen(true)
-     setPortifolio({
-       id: 0,
-       name: 'TESTE',
-       img: 'portifolio3',
-       date: '12/23',
-       user: {
-         name: 'Camila Soares',
-         proPic: 'user3',
-       },
-       tags: ['UX', 'HTML'],
-     })
-   } */
+  const { user } = useAppContext()
+  const { id, name, lastName } = user
 
   const [hasPortifolio, setHasPortifolio] = useState(true)
 
+
+  const { getPortifoliosByUser } = usePortifolio()
+
+  getPortifoliosByUser(id)
   return (
     <>
       <Header />
@@ -72,7 +62,7 @@ const User = () => {
             }}
           >
             <Typography variant="h5" sx={{ lineHeight: 1 }}>
-              Camila Soares
+              {`${name} ${lastName}`}
             </Typography>
 
             <Typography
@@ -80,11 +70,9 @@ const User = () => {
               sx={{
                 mt: { xs: 1, md: 2 },
                 mb: { xs: 1, md: 3 },
-
                 lineHeight: 1,
               }}
             >
-              {' '}
               Brasil
             </Typography>
 
