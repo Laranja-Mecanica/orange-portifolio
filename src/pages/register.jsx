@@ -29,6 +29,7 @@ const Register = () => {
   }
 
   const [showPassword, setShowPassword] = useState(false)
+  const [isRegistrationSuccess, setRegistrationSuccess] = useState(false)
 
   const handleClickShowPassword = () => setShowPassword((show) => !show)
 
@@ -63,19 +64,22 @@ const Register = () => {
         }}
       >
         <Box>
-          <Alert
-            variant="filled"
-            severity="success"
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              width: { xs: 'auto', md: 'fit-content' },
-              mx: 'auto',
-              mb: { xs: '56px', md: '76px' },
-            }}
-          >
-            Cadastro feito com sucesso
-          </Alert>
+          {isRegistrationSuccess && (
+            <Alert
+              variant="filled"
+              severity="success"
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                width: { xs: 'auto', md: 'fit-content' },
+                mx: 'auto',
+                mb: { xs: '56px', md: '76px' },
+              }}
+            >
+              Cadastro feito com sucesso
+            </Alert>
+          )}
+
           <Typography
             variant="h3"
             color="primary"
