@@ -1,18 +1,30 @@
-import Head from "next/head";
+import Head from 'next/head'
 import {
   Box,
   Typography,
   Button,
-  TextField
+  TextField,
+  InputAdornment,
+  IconButton
 } from '@mui/material'
-import { useState } from "react";
-import { GoogleIcon, PasswordInput } from "@/components";
+import { Visibility, VisibilityOff } from '@mui/icons-material'
+import { useState } from 'react'
+import { GoogleIcon, PasswordInput } from '@/components'
 import Link from 'next/link'
 import Image from 'next/image'
+import { useForm } from 'react-hook-form'
 
 export default function Home() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const { register, handleSubmit, formState: { errors } } = useForm()
+
+  const onSubmit = data => {
+    console.log(data)
+  }
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
   return (
     <>
       <Head>
@@ -21,10 +33,12 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main style={{
-        display: 'flex',
-        alignItems: 'center',
-      }}>
+      <main
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+        }}
+      >
         <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
           <Image
             src={'images/img_login.svg'}
@@ -44,7 +58,7 @@ export default function Home() {
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
-            px: 3
+            px: 3,
           }}
         >
           <Box>
@@ -61,7 +75,7 @@ export default function Home() {
                 textTransform: 'none',
                 my: 4,
                 boxShadow: '0px 1px 5px 0px #00000030',
-                color: '#00000054'
+                color: '#00000054',
               }}
             >
               <GoogleIcon />
@@ -80,14 +94,15 @@ export default function Home() {
           <Box
             sx={{
               display: 'flex',
-              flexDirection: 'column'
-            }}>
+              flexDirection: 'column',
+            }}
+          >
             <Typography
               variant="h5"
               sx={{
                 color: 'neutral.110',
                 fontSize: { xs: '16px', sm: '20px', md: '24px' },
-                textAlign: 'start'
+                textAlign: 'start',
               }}
             >
               Faça login com email
@@ -96,40 +111,58 @@ export default function Home() {
               id="email"
               label="Email address"
               sx={{ my: 2 }}
-              value={email}
-              onChange={e => setEmail(e.target.value)}
+              error={Boolean(errors?.email)}
+              helperText={Boolean(errors?.email) ? 'Digite o email' : ''}
+              {...register('email', { required: true })}
             />
-            <PasswordInput
+            {/* <PasswordInput
               password={password}
-              handlePassword={e => setPassword(e.target.value)}
+              handlePassword={(e) => setPassword(e.target.value)}
+            /> */}
+            <TextField
+              type={showPassword ? 'text' : 'password'}
+              label="Password"
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+              helperText={(Boolean(errors?.password) ? 'Digite o senha' : '')}
+              error={Boolean(errors?.password)}
+              {...register('password', { required: true })}
             />
 
             <Button
               variant="contained"
               color="secondary"
               sx={{ mt: 2, mb: '18px' }}
+              onClick={() => handleSubmit(onSubmit)()}
             >
               Entrar
             </Button>
-            <Link
-              href={'/register'}
-              style={{ textDecoration: 'none' }}
-            >
+            <Link href={'/register'} style={{ textDecoration: 'none' }}>
               <Typography
                 variant="subtitle1"
                 sx={{
-                  color: "neutral.100",
+                  color: 'neutral.100',
                   textDecoration: 'none',
-                  textAlign: 'start'
+                  textAlign: 'start',
                 }}
               >
                 Cadastre-se
               </Typography>
             </Link>
           </Box>
-
         </Box>
       </main>
     </>
-  );
+  )
 }

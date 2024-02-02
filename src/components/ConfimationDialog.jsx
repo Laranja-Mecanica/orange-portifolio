@@ -5,63 +5,67 @@ import {
   Typography,
   Box
 } from '@mui/material'
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle'
+import { useDialogContext } from '@/context'
 
-const ConfimationDialog = ({ open, onClose, onClick }) => {
+const ConfimationDialog = () => {
+  const {
+    confOpen,
+    handleConfClose,
+    confirmationMsg } = useDialogContext()
+
   return (
-    <Dialog
-      open={open}
-      onClose={onClose}
-    >
+    <Dialog open={confOpen} onClose={handleConfClose}>
       <Box
         sx={{
           py: 4,
         }}
-
       >
-        <Box sx={{
-          textAlign: 'center',
-          width: { xs: '100%', sm: 255 },
-          mx: { sm: 4 }
-        }}>
-          <Typography variant="h5">
-            Projeto adicionado com sucesso!
-          </Typography>
+        <Box
+          sx={{
+            textAlign: 'center',
+            width: { xs: '100%', sm: 255 },
+            mx: { sm: 4 },
+          }}
+        >
+          <Typography variant="h5">{`${confirmationMsg} com sucesso!`}</Typography>
         </Box>
-        <Box sx={{
-          flexGrow: 1,
-          textAlign: 'center',
-          height: 40,
-          my: 3
-        }}>
+        <Box
+          sx={{
+            flexGrow: 1,
+            textAlign: 'center',
+            height: 40,
+            my: 3,
+          }}
+        >
           <CheckCircleIcon
-            color='success'
+            color="success"
             sx={{
               height: 40,
-              width: 40
+              width: 40,
             }}
           />
-
         </Box>
 
-        <Box sx={{
-          display: 'flex',
-          justifyContent: 'center'
-        }}>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+        >
           <Button
-            variant='contained'
+            variant="contained"
             color="secondary"
-            onClick={onClick}
+            onClick={handleConfClose}
             sx={{
-              px: '22px'
+              px: '22px',
             }}
           >
             Voltar para projetos
           </Button>
         </Box>
-
       </Box>
-    </Dialog >
+    </Dialog>
   )
 }
 

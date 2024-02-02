@@ -1,24 +1,44 @@
-import React from 'react'
+import { Header } from '@/components'
+import { useUser } from '@/hooks'
+import { Visibility, VisibilityOff } from '@mui/icons-material'
 import {
+  Alert,
   Box,
-  Typography,
   Button,
-  TextField
+  IconButton,
+  InputAdornment,
+  TextField,
+  Typography,
 } from '@mui/material'
 import Image from 'next/image'
-import { useState } from "react";
-import { Header, PasswordInput } from "@/components";
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 
 const register = () => {
-  const [firstname, setFirstname] = useState('')
-  const [lastname, setLastname] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const { createUser } = useUser()
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm()
+
+  const onSubmit = (data) => {
+    console.log(data)
+    createUser(data)
+  }
+
+  const [showPassword, setShowPassword] = useState(false)
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show)
+
   return (
-    <main style={{
-      display: 'flex',
-      alignItems: 'center',
-    }}>
+    <main
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+      }}
+    >
       <Header />
       <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
         <Image
@@ -39,10 +59,23 @@ const register = () => {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
-          px: 3
+          px: 3,
         }}
       >
         <Box>
+          <Alert
+            variant="filled"
+            severity="success"
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              width: { xs: 'auto', md: 'fit-content' },
+              mx: 'auto',
+              mb: { xs: '56px', md: '76px' },
+            }}
+          >
+            Cadastro feito com sucesso
+          </Alert>
           <Typography
             variant="h3"
             color="primary"
@@ -55,14 +88,14 @@ const register = () => {
         <Box
           sx={{
             display: 'flex',
-            flexDirection: 'column'
+            flexDirection: 'column',
           }}
         >
           <Box
             sx={{
               display: 'flex',
               flexDirection: { xs: 'column', md: 'row' },
-              justifyContent: 'space-between'
+              justifyContent: 'space-between',
             }}
           >
             <TextField
@@ -71,11 +104,11 @@ const register = () => {
               sx={{
                 my: 2,
                 width: { xs: '100%', md: '48%' },
-                mb: 0
+                mb: 0,
               }}
-              value={firstname}
-              onChange={e => setFirstname(e.target.value)}
-              required
+              error={Boolean(errors?.name)}
+              helperText={errors?.name ? 'Digite o primeiro nome' : ''}
+              {...register('name', { required: true })}
             />
             <TextField
               id="lastname"
@@ -83,34 +116,52 @@ const register = () => {
               sx={{
                 my: 2,
                 width: { xs: '100%', md: '48%' },
-                mb: 0
+                mb: 0,
               }}
-              value={lastname}
-              onChange={e => setLastname(e.target.value)}
-              required
+              error={Boolean(errors?.lastname)}
+              helperText={errors?.lastname ? 'Digite o sobrenome' : ''}
+              {...register('lastname', { required: true })}
             />
           </Box>
           <TextField
             id="email"
             label="Email address"
             sx={{ my: 2 }}
-            value={email}
-            onChange={e => setEmail(e.target.value)}
+            error={Boolean(errors?.email)}
+            helperText={errors?.email ? 'Digite o email' : ''}
+            {...register('email', { required: true })}
           />
-          <PasswordInput
-            password={password}
-            handlePassword={e => setPassword(e.target.value)}
+
+          <TextField
+            type={showPassword ? 'text' : 'password'}
+            label="Password"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+            helperText={errors?.password ? 'Digite o senha' : ''}
+            error={Boolean(errors?.password)}
+            {...register('password', { required: true })}
           />
 
           <Button
             variant="contained"
             color="secondary"
             sx={{ mt: 2, mb: '18px' }}
+            onClick={() => handleSubmit(onSubmit)()}
           >
             Cadastrar
           </Button>
         </Box>
-
       </Box>
     </main>
   )

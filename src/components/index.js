@@ -1,16 +1,19 @@
-import Header from "./Header";
+import Header from './Header'
 
 import PasswordInput from "./PasswordInput";
 
 import PortifolioCard from "./PortifolioCard";
-
 import ConfimationDialog from "./ConfimationDialog";
-import DeleteDialog from "./DeleteDialog";
-import FormDialog from "./FormDialog";
 
 import GoogleIcon from "./GoogleIcon";
+import BlankCard from "./BlankCard"
+import SkeletonCard from "./SkeletonCard";
 
+import DeleteDialog from './DeleteDialog'
+import FormDialog from './FormDialog'
+import DetailsDialog from './DetailsDialog'
 
+import { CardButton } from './CardButton';
 
 
 export {
@@ -19,6 +22,10 @@ export {
   PortifolioCard,
   GoogleIcon,
   ConfimationDialog,
+  BlankCard,
+  SkeletonCard,
   DeleteDialog,
   FormDialog,
+  DetailsDialog,
+  CardButton
 }

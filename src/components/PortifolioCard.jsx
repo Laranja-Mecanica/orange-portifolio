@@ -1,3 +1,4 @@
+import React from 'react'
 import {
   Box,
   Card,
@@ -6,24 +7,30 @@ import {
   Avatar,
   Chip
 } from '@mui/material'
-import React from 'react'
+import { CardButton } from '@/components'
+import { useRouter } from 'next/router'
 
 const PortifolioCard = ({ portifolio }) => {
+  const router = useRouter()
   const { img, date, user, tags } = portifolio
+
   return (
     <Card
       elevation={0}
       sx={{
-        width: { xs: 312, md: 389 },
-        height: 298
+        minWidth: 312,
+        width: '100%',
+        height: 298,
       }}
     >
+      {router.pathname === '/user' && <CardButton />}
       <CardMedia
-        component='img'
+        component="img"
         title=""
         image={`/images/${img}.png`}
         sx={{
-          height: 258
+          height: 258,
+          width: '100%',
         }}
       />
 
@@ -33,38 +40,37 @@ const PortifolioCard = ({ portifolio }) => {
           pt: 1,
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'space-between'
+          justifyContent: 'space-between',
         }}
       >
         <Box
-          id='info'
+          id="info"
           sx={{
             display: 'flex',
             gap: 1,
             px: 0,
-            alignItems: 'center'
+            alignItems: 'center',
           }}
         >
           <Avatar
             sx={{
               width: 24,
-              height: 24
+              height: 24,
             }}
             src={`/images/${user.proPic}.png`}
           />
 
-          <Typography variant="subtitle1" >
+          <Typography variant="subtitle1">
             {user.name} - {date}
           </Typography>
         </Box>
         <Box
-          id='tags'
+          id="tags"
           sx={{
             display: 'flex',
-            gap: 1
+            gap: 1,
           }}
         >
-
           {tags.map((tag, i) => (
             <Chip
               key={i}
@@ -75,7 +81,6 @@ const PortifolioCard = ({ portifolio }) => {
               }}
             />
           ))}
-
         </Box>
       </Box>
     </Card>
