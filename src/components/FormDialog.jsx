@@ -1,40 +1,77 @@
+import { useDialogContext } from '@/context'
+import { usePortifolio } from '@/hooks'
+import { useUploadThing } from '@/utils/uploadthing'
 import {
+  Alert,
+  Autocomplete,
   Box,
   Button,
   Dialog,
+  LinearProgress,
+  Stack,
   TextField,
   Typography,
-  Stack,
-  Autocomplete,
 } from '@mui/material'
-import { useForm } from 'react-hook-form'
-import { useDialogContext } from '@/context'
 import { useEffect, useState } from 'react'
-import { usePortifolio } from '@/hooks'
+import { useForm } from 'react-hook-form'
+import { UploadImagem } from './UploadImage'
 
 const FormDialog = () => {
+  const [files, setFiles] = useState([{}])
+  const [hasFileSelected, setHasFileSelected] = useState(false)
+  const [uploadProgress, setUploadProgress] = useState(0)
+  const [hasUploadError, setHasUploadError] = useState(false)
+  const [selectedTags, setSelectedTags] = useState([])
+  const [tagsError, setTagsError] = useState(false)
+
   const {
     setPortifolio,
     formOpen,
     handleConfOpen,
     handleDetailsOpen,
-    handleFormClose } = useDialogContext()
+    handleFormClose,
+  } = useDialogContext()
 
-  const { register, handleSubmit, reset, formState: { errors, isSubmitSuccessful } } = useForm()
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitSuccessful },
+  } = useForm()
 
-  const [selectedTags, setSelectedTags] = useState([])
-  const [tagsError, setTagsError] = useState(false)
   const { createPortifolio, updatePortifolio, tags } = usePortifolio()
 
-  useEffect(() => {
-    reset({
-      titulo: '',
-      link: '',
-      descricao: ''
-    })
-  }, [isSubmitSuccessful, reset])
+  const { startUpload, isUploading } = useUploadThing('thumbUploader', {
+    onClientUploadComplete: () => {
+      handleConfOpen()
+      setFiles([])
+      setHasFileSelected(false)
+    },
+    onUploadError: () => {
+      setHasUploadError(true)
 
+      setTimeout(() => {
+        setHasUploadError(false)
+      }, 10000)
+    },
+    onUploadProgress: (p) => {
+      setUploadProgress(p)
+    },
+  })
 
+  function closeDialog() {
+    handleFormClose()
+    setFiles([])
+    setHasFileSelected(false)
+  }
+
+  function handleSetFiles(files) {
+    setFiles(files)
+  }
+
+  function handleSetHasFileSelected(has) {
+    setHasFileSelected(has)
+  }
 
   const handleChange = (_, newTags) => {
     if (newTags.length <= 2) {
@@ -43,12 +80,11 @@ const FormDialog = () => {
     newTags.length === 0 ? setTagsError(true) : setTagsError(false)
   }
 
-
   const id = 1
   const onSubmit = (data) => {
     const portifolio = { ...data, tags: selectedTags }
     handleConfOpen()
-    id != 0 ? updatePortifolio() : createPortifolio(portifolio)
+    id !== 0 ? updatePortifolio() : createPortifolio(portifolio)
     console.log(portifolio)
   }
 
@@ -58,13 +94,42 @@ const FormDialog = () => {
     setSelectedTags([])
   }
 
+  useEffect(() => {
+    reset({
+      titulo: '',
+      link: '',
+      descricao: '',
+    })
+  }, [isSubmitSuccessful, reset])
+
   return (
-    <Dialog open={formOpen} onClose={handleFormClose} fullWidth={true} maxWidth={'md'}>
+    <Dialog
+      open={formOpen}
+      onClose={closeDialog}
+      fullWidth={true}
+      maxWidth={'md'}
+    >
+      {isUploading ? (
+        <LinearProgress
+          variant="determinate"
+          value={uploadProgress}
+          color="secondary"
+        />
+      ) : null}
+
       <Box
         sx={{
           m: { xs: '16px 24px', md: '24px 32px' },
         }}
       >
+        {hasUploadError ? (
+          <Alert
+            severity="error"
+            sx={{ mb: 1, display: 'flex', alignItems: 'center' }}
+          >
+            Tivemos uma falha no upload, tente novamente mais tarde. 😭
+          </Alert>
+        ) : null}
         <Typography variant="h5">Adicionar projeto</Typography>
         <Box
           sx={{
@@ -75,17 +140,18 @@ const FormDialog = () => {
             justifyContent: 'space-between',
           }}
         >
-          <Box sx={{ flexGrow: 1 }}>
+          <Box>
             <Typography variant="subtitle1" sx={{ mb: 2 }}>
               Selecione o conteúdo que você deseja fazer upload
             </Typography>
-            <div
-              className="card"
-              style={{
-                height: 304,
-                border: '1px solid black',
-              }}
-            ></div>
+
+            <UploadImagem
+              files={files}
+              handleSetFiles={handleSetFiles}
+              hasFileSelected={hasFileSelected}
+              handleSetHasFileSelected={handleSetHasFileSelected}
+              isUploading={isUploading}
+            />
           </Box>
 
           <Box
@@ -98,19 +164,17 @@ const FormDialog = () => {
           >
             <TextField
               label="Titulo"
-              name='titulo'
-              helperText={Boolean(errors?.titulo) ? 'Digite o titulo' : ''}
+              name="titulo"
+              helperText={errors?.titulo ? 'Digite o titulo' : ''}
               error={Boolean(errors?.titulo)}
               {...register('titulo', { required: true })}
             />
 
-            <Stack spacing={3} sx={{ width: '100%' }}
-            >
-
+            <Stack spacing={3} sx={{ width: '100%' }}>
               <Autocomplete
                 multiple
                 id="tags-outlined"
-                name='tags'
+                name="tags"
                 options={tags}
                 getOptionLabel={(option) => option}
                 value={selectedTags}
@@ -130,19 +194,19 @@ const FormDialog = () => {
             </Stack>
 
             <TextField
-              name='link'
+              name="link"
               label="Link"
-              helperText={Boolean(errors?.link) ? 'Digite o link' : ''}
+              helperText={errors?.link ? 'Digite o link' : ''}
               error={Boolean(errors?.link)}
               {...register('link', { required: true })}
             />
             <TextField
-              name='descricao'
+              name="descricao"
               label="Descrição"
               multiline
               rows={4}
               sx={{ height: 120 }}
-              helperText={Boolean(errors?.descricao) ? 'Digite a descrição' : ''}
+              helperText={errors?.descricao ? 'Digite a descrição' : ''}
               error={Boolean(errors?.descricao)}
               {...register('descricao', { required: true })}
             />
@@ -159,7 +223,12 @@ const FormDialog = () => {
           >
             Visualizar publicação
           </Typography>
-          <Button variant="contained" color="secondary" onClick={handleSave}>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => startUpload(files)}
+            disabled={!hasFileSelected || isUploading}
+          >
             Salvar
           </Button>
           <Button

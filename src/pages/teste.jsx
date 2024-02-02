@@ -1,7 +1,6 @@
 // ------ TESTANDO IMPLEMENTAÇÃO DE AMANHÃ - VALORES NAS TAGS ----
 
 /* import { DeleteDialog, FormDialog } from '@/components' */
-import { CardButton } from '@/components/CardButton'
 import Autocomplete from '@mui/material/Autocomplete'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
@@ -11,7 +10,6 @@ const availableTags = ['WEB', 'UI', 'UX']
 
 function TagsValues() {
   const [selectedValues, setSelectedValues] = useState([])
-
 
   /*  const [formOpen, setFormOpen] = useState(false)
    const [deleteOpen, setDeleteOpen] = useState(false)
@@ -34,7 +32,6 @@ function TagsValues() {
    }
   */
 
-
   /* const options = [
     {
       text: 'Editar',
@@ -45,7 +42,6 @@ function TagsValues() {
       openModal: handleDeleteOpen
     }
   ] */
-
 
   const handleChange = (event, newValue) => {
     // Limitar a seleção a no máximo três TAGs
@@ -90,13 +86,10 @@ function TagsValues() {
 
       {/* <CardButton options={options} /> */}
 
-
       {/*  <FormDialog open={formOpen} onClose={handleFormClose} />
       <DeleteDialog open={deleteOpen} onClose={handleDeleteClose} /> */}
     </>
   )
-
-
 }
 
 export default TagsValues
