@@ -14,14 +14,16 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useForm } from 'react-hook-form'
 import { useUser } from '@/hooks'
+import { useAppContext } from '@/context'
 
 export default function Home() {
-  const { loginUser } = useUser()
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm()
+
+  const { loginUser } = useUser()
 
   const onSubmit = (data) => {
     loginUser(data)
@@ -121,10 +123,7 @@ export default function Home() {
               helperText={errors?.email ? 'Digite o email' : ''}
               {...register('email', { required: true })}
             />
-            {/* <PasswordInput
-              password={password}
-              handlePassword={(e) => setPassword(e.target.value)}
-            /> */}
+
             <TextField
               type={showPassword ? 'text' : 'password'}
               label="Password"

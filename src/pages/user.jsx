@@ -1,27 +1,27 @@
 import {
+  BlankCard,
   ConfimationDialog,
   DeleteDialog,
   DetailsDialog,
   FormDialog,
   Header,
   PortifolioCard,
+  SkeletonCard,
 } from '@/components'
 import { useAppContext, useDialogContext } from '@/context'
 import { usePortifolio } from '@/hooks'
 import { Avatar, Box, Button, Grid, TextField, Typography } from '@mui/material'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const User = () => {
-  const { setPortifolio, portifolio, handleFormOpen } = useDialogContext()
-  const { user } = useAppContext()
+  const { handleFormOpen } = useDialogContext()
+  const { user, userPortifolios } = useAppContext()
   const { id, name, lastName } = user
-
-  const [hasPortifolio, setHasPortifolio] = useState(true)
-
 
   const { getPortifoliosByUser } = usePortifolio()
 
   getPortifoliosByUser(id)
+
   return (
     <>
       <Header />
@@ -122,14 +122,27 @@ const User = () => {
           alignContent: 'center',
         }}
       >
+        {/* <Grid item xs={12} sm={6} md={4} lg={3} xl={2.4}>
+            <PortifolioCard portifolio={portifolio} />
+          </Grid> */}
         <Grid container columnSpacing={2} rowSpacing={{ xs: '20px', md: 5 }}>
           <Grid item xs={12} sm={6} md={4} lg={3} xl={2.4}>
-            <PortifolioCard portifolio={portifolio} />
+            {userPortifolios.length === 0 ?
+              <>
+                <BlankCard onClick={handleFormOpen} />
+                <SkeletonCard />
+                <SkeletonCard />
+              </>
+              :
+              userPortifolios.map((portifolio, i) => (
+                <PortifolioCard
+                  key={i}
+                  portifolio={portifolio}
+                />
+              ))
+            }
           </Grid>
         </Grid>
-        {/* <BlankCard onClick={handleFormOpen} />
-        <SkeletonCard />
-        <SkeletonCard /> */}
       </Grid>
 
       <FormDialog />

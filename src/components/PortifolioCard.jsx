@@ -5,8 +5,8 @@ import { useRouter } from 'next/router'
 
 const PortifolioCard = ({ portifolio }) => {
   const router = useRouter()
-  const { img, date, user, tags } = portifolio
-
+  /* const { img, date, user, tags } = portifolio */
+  const tags = []
   return (
     <Card
       elevation={0}
@@ -20,7 +20,7 @@ const PortifolioCard = ({ portifolio }) => {
       <CardMedia
         component="img"
         title=""
-        image={`/images/${img}.png`}
+        /* image={`/images/${img}.png`} */
         sx={{
           height: 258,
           width: '100%',
@@ -50,11 +50,11 @@ const PortifolioCard = ({ portifolio }) => {
               width: 24,
               height: 24,
             }}
-            src={`/images/${user.proPic}.png`}
+          /*  src={`/images/${user.proPic}.png`} */
           />
 
           <Typography variant="subtitle1">
-            {user.name} - {date}
+            {/* {user.name} - {date} */}
           </Typography>
         </Box>
         <Box

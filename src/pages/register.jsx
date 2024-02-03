@@ -1,4 +1,5 @@
 import { Header } from '@/components'
+import { useAppContext } from '@/context'
 import { useUser } from '@/hooks'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import {
@@ -11,7 +12,7 @@ import {
   Typography,
 } from '@mui/material'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 
@@ -30,9 +31,12 @@ const Register = () => {
   }
 
   const [showPassword, setShowPassword] = useState(false)
-  const [isRegistrationSuccess, setRegistrationSuccess] = useState(false)
-
+  const { isRegistrationSuccess, setIsRegistrationSuccess } = useAppContext()
   const handleClickShowPassword = () => setShowPassword((show) => !show)
+
+  useEffect(() => {
+    setIsRegistrationSuccess(false)
+  }, [])
 
   return (
     <main

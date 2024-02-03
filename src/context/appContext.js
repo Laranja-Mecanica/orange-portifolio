@@ -5,6 +5,10 @@ const AppContext = createContext()
 export const AppProvider = ({ children }) => {
   const [user, setUser] = useState({})
 
+  const [userPortifolios, setUserPortifolios] = useState([{}])
+
+  const [isRegistrationSuccess, setIsRegistrationSuccess] = useState(false)
+
   const [portifolio, setPortifolio] = useState({
     id: 0,
     name: '',
@@ -90,6 +94,10 @@ export const AppProvider = ({ children }) => {
         allPortifolios,
         filtedPortifolios,
         setFiltedPortifolios,
+        userPortifolios,
+        setUserPortifolios,
+        isRegistrationSuccess,
+        setIsRegistrationSuccess
       }}
     >
       {children}
