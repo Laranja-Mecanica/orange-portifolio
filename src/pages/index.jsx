@@ -1,20 +1,23 @@
-import Head from 'next/head'
+import { GoogleIcon } from '@/components'
+import { useUser } from '@/hooks'
+import { Visibility, VisibilityOff } from '@mui/icons-material'
 import {
   Box,
-  Typography,
   Button,
-  TextField,
-  InputAdornment,
   IconButton,
+  InputAdornment,
+  TextField,
+  Typography,
 } from '@mui/material'
-import { Visibility, VisibilityOff } from '@mui/icons-material'
-import { useState } from 'react'
-import { GoogleIcon, PasswordInput } from '@/components'
-import Link from 'next/link'
+import Head from 'next/head'
 import Image from 'next/image'
+import Link from 'next/link'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+
 import { useUser } from '@/hooks'
 import { useAppContext } from '@/context'
+
 
 export default function Home() {
   const {
@@ -45,6 +48,8 @@ export default function Home() {
         style={{
           display: 'flex',
           alignItems: 'center',
+          height: '100vh',
+          overflow: 'hidden',
         }}
       >
         <Box sx={{ display: { xs: 'none', md: 'flex' } }}>

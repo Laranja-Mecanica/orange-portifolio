@@ -1,5 +1,7 @@
+
 import { Header } from '@/components'
 import { useAppContext } from '@/context'
+
 import { useUser } from '@/hooks'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import {
@@ -14,8 +16,6 @@ import {
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-
-
 
 const Register = () => {
   const { createUser } = useUser()
@@ -43,10 +43,16 @@ const Register = () => {
       style={{
         display: 'flex',
         alignItems: 'center',
+        height: '100vh',
+        overflow: 'hidden',
       }}
     >
-      <Header />
-      <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+      <Box
+        sx={{
+          display: { xs: 'none', md: 'flex' },
+          alignItems: 'center',
+        }}
+      >
         <Image
           src={'images/img_cadastro.svg'}
           width={525}

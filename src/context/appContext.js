@@ -69,7 +69,6 @@ export const AppProvider = ({ children }) => {
   const [filtedPortifolios, setFiltedPortifolios] = useState(allPortifolios)
 
   const handleFormOpen = () => {
-    setFormOpen(true)
     setPortifolio({
       id: 0,
       name: 'TESTE',

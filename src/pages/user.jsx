@@ -18,6 +18,8 @@ const User = () => {
   const { user, userPortifolios } = useAppContext()
   const { id, name, lastName } = user
 
+
+
   const { getPortifoliosByUser } = usePortifolio()
 
   getPortifoliosByUser(id)

@@ -31,9 +31,11 @@ const usePortifolio = () => {
   }
 
   const getPortifoliosByUser = async (id) => {
+
     api.get(`/users/${id}/portifolios`)
       .then(res => setUserPortifolios([...res.data.portifolios]))
       .catch(error => console.log("Erro"))
+
   }
 
   const filterPortifoliosByTags = (tags) =>
