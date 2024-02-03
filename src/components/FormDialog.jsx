@@ -23,6 +23,7 @@ const FormDialog = () => {
   const [hasUploadError, setHasUploadError] = useState(false)
   const [selectedTags, setSelectedTags] = useState([])
   const [tagsError, setTagsError] = useState(false)
+  const [uploadedFiles, setUploadedFiles] = useState([{}])
 
   const {
     setPortifolio,
@@ -35,15 +36,15 @@ const FormDialog = () => {
   const {
     register,
     reset,
+    handleSubmit,
     formState: { errors, isSubmitSuccessful },
   } = useForm()
 
-  const { tags } = usePortifolio()
+  const { tags, updatePortifolio, createPortifolio } = usePortifolio()
 
   const { startUpload, isUploading } = useUploadThing('thumbUploader', {
     onClientUploadComplete: (file) => {
-      console.log(file)
-      handleConfOpen()
+      setUploadedFiles(file)
       setFiles([])
       setHasFileSelected(false)
     },
@@ -80,25 +81,29 @@ const FormDialog = () => {
     newTags.length === 0 ? setTagsError(true) : setTagsError(false)
   }
 
-  // const id = 1
-  // const onSubmit = (data) => {
-  //   const portifolio = { ...data, tags: selectedTags }
-  //   handleConfOpen()
-  //   id !== 0 ? updatePortifolio() : createPortifolio(portifolio)
-  //   console.log(portifolio)
-  // }
+  const onSubmit = (data) => {
+    selectedTags.length === 0 ? setTagsError(true) : setTagsError(false)
 
-  // const handleSave = () => {
-  //   selectedTags.length === 0 ? setTagsError(true) : setTagsError(false)
-  //   handleSubmit(onSubmit)()
-  //   setSelectedTags([])
-  // }
+    startUpload(files)
+
+    const portifolio = {
+      ...data,
+      tags: selectedTags,
+      thumbKey: uploadedFiles[0].key,
+    }
+
+    const id = 0
+    id !== 0 ? updatePortifolio() : createPortifolio(portifolio)
+
+    setSelectedTags([])
+    handleConfOpen()
+  }
 
   useEffect(() => {
     reset({
-      titulo: '',
+      title: '',
       link: '',
-      descricao: '',
+      description: '',
     })
   }, [isSubmitSuccessful, reset])
 
@@ -163,11 +168,11 @@ const FormDialog = () => {
             }}
           >
             <TextField
-              label="Titulo"
-              name="titulo"
-              helperText={errors?.titulo ? 'Digite o titulo' : ''}
-              error={Boolean(errors?.titulo)}
-              {...register('titulo', { required: true })}
+              label="Título"
+              name="title"
+              helperText={errors?.title ? 'Digite o title' : ''}
+              error={Boolean(errors?.title)}
+              {...register('title', { required: true })}
             />
 
             <Stack spacing={3} sx={{ width: '100%' }}>
@@ -201,14 +206,14 @@ const FormDialog = () => {
               {...register('link', { required: true })}
             />
             <TextField
-              name="descricao"
+              name="description"
               label="Descrição"
               multiline
               rows={4}
               sx={{ height: 120 }}
-              helperText={errors?.descricao ? 'Digite a descrição' : ''}
-              error={Boolean(errors?.descricao)}
-              {...register('descricao', { required: true })}
+              helperText={errors?.description ? 'Digite a descrição' : ''}
+              error={Boolean(errors?.description)}
+              {...register('description', { required: true })}
             />
           </Box>
         </Box>
@@ -226,7 +231,7 @@ const FormDialog = () => {
           <Button
             variant="contained"
             color="secondary"
-            onClick={() => startUpload(files)}
+            onClick={() => handleSubmit(onSubmit)()}
             disabled={!hasFileSelected || isUploading}
           >
             Salvar

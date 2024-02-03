@@ -1,6 +1,5 @@
 import { useAppContext, useDialogContext } from '@/context'
 import { api } from '@/lib/axios'
-import { useState } from 'react'
 
 const usePortifolio = () => {
   const { portifolios, setPortifolios } = useAppContext()
@@ -17,22 +16,28 @@ const usePortifolio = () => {
 
   const options = {
     headers: {
-      Authorization: `Bearer ${token}`
-    }
+      Authorization: `Bearer ${token}`,
+    },
   }
 
   const getAllPortifolios = async () => {
-    api.get('/discover', options)
-      .then(res => {
+    api
+      .get('/discover', options)
+      .then((res) => {
         setPortifolios([...res.data.portifolios])
         console.log(portifolios)
       })
-      .catch(erro => console.log(erro))
+      .catch((erro) => console.log(erro))
   }
 
-  const createPortifolio = portifolio => {
-    api.post('/portifolios', portifolio, options)
-      .then(res => console.log("ok"))
+  const createPortifolio = (portifolio) => {
+    try {
+      api
+        .post('/portifolios', portifolio, options)
+        .then((res) => console.log('ok'))
+    } catch (error) {
+      console.log(error.response.data)
+    }
     setConfirmationMsg('Projeto adicionado')
   }
 
@@ -41,24 +46,23 @@ const usePortifolio = () => {
     setConfirmationMsg('Edição concluída')
   }
 
-  const deletePortifolio = portifolioId => {
+  const deletePortifolio = (portifolioId) => {
     api.delete(`/potifolios/${portifolioId}`, options)
     setConfirmationMsg('Projeto deletado')
   }
 
   const getPortifoliosByUser = async (id) => {
-
-    api.get(`/users/${id}/portifolios`, options)
-      .then(res => {
+    api
+      .get(`/users/${id}/portifolios`, options)
+      .then((res) => {
         setPortifolios([...res.data.portifolios])
       })
-      .catch(error => console.log("Erro"))
-
+      .catch((error) => console.log('Erro'))
   }
 
   const filterPortifoliosByTags = (tags) =>
     portifolios.filter((portifolio) =>
-      tags.every((tag) => portifolio.tags.includes(tag))
+      tags.every((tag) => portifolio.tags.includes(tag)),
     )
 
   return {
