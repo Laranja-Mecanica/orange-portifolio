@@ -12,11 +12,11 @@ import {
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 export default function Home() {
-  const { loginUser } = useUser()
+  const { loginUser, loginWithGoogle } = useUser()
   const {
     register,
     handleSubmit,
@@ -85,6 +85,7 @@ export default function Home() {
                 boxShadow: '0px 1px 5px 0px #00000030',
                 color: '#00000054',
               }}
+              onClick={loginWithGoogle}
             >
               <GoogleIcon />
               <Typography
@@ -123,10 +124,6 @@ export default function Home() {
               helperText={errors?.email ? 'Digite o email' : ''}
               {...register('email', { required: true })}
             />
-            {/* <PasswordInput
-              password={password}
-              handlePassword={(e) => setPassword(e.target.value)}
-            /> */}
             <TextField
               type={showPassword ? 'text' : 'password'}
               label="Password"

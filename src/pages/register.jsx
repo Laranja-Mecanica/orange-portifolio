@@ -1,3 +1,4 @@
+import { useAppContext } from '@/context'
 import { useUser } from '@/hooks'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import {
@@ -27,7 +28,9 @@ const Register = () => {
   }
 
   const [showPassword, setShowPassword] = useState(false)
-  const [isRegistrationSuccess, setRegistrationSuccess] = useState(false)
+  /* const [isRegistrationSuccess, setRegistrationSuccess] = useState(false) */
+
+  const { isRegistrationSuccess } = useAppContext()
 
   const handleClickShowPassword = () => setShowPassword((show) => !show)
 
