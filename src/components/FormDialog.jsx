@@ -41,7 +41,8 @@ const FormDialog = () => {
   const { tags } = usePortifolio()
 
   const { startUpload, isUploading } = useUploadThing('thumbUploader', {
-    onClientUploadComplete: () => {
+    onClientUploadComplete: (file) => {
+      console.log(file)
       handleConfOpen()
       setFiles([])
       setHasFileSelected(false)
