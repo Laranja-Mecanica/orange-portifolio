@@ -1,6 +1,3 @@
-import { DetailsDialog, Header, PortifolioCard } from '@/components'
-import { useAppContext, useDialogContext } from '@/context'
-import { usePortifolio } from '@/hooks'
 import {
   Autocomplete,
   Box,
@@ -10,17 +7,25 @@ import {
   Typography,
 } from '@mui/material'
 import { NextSeo } from 'next-seo'
+import { DetailsDialog, Header, PortifolioCard } from '@/components'
+import { useAppContext, useDialogContext } from '@/context'
+import { usePortifolio } from '@/hooks'
+import { useEffect } from 'react'
 
 const Home = () => {
   const { setDetailsOpen } = useDialogContext()
   const { setFiltedPortifolios, filtedPortifolios } = useAppContext()
-  const { filterPortifoliosByTags, tags } = usePortifolio()
+  const { filterPortifoliosByTags, tags, getAllPortifolios } = usePortifolio()
 
   const { setPortifolio } = useDialogContext()
   const handleOpen = (portifolio) => {
     setDetailsOpen(true)
     setPortifolio(portifolio)
   }
+
+  useEffect(() => {
+    /* getAllPortifolios() */
+  }, [])
 
   return (
     <>

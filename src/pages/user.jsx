@@ -1,4 +1,12 @@
 import {
+  Avatar,
+  Box,
+  Button,
+  Grid,
+  TextField,
+  Typography
+} from '@mui/material'
+import {
   BlankCard,
   ConfimationDialog,
   DeleteDialog,
@@ -10,17 +18,19 @@ import {
 } from '@/components'
 import { useAppContext, useDialogContext } from '@/context'
 import { usePortifolio } from '@/hooks'
-import { Avatar, Box, Button, Grid, TextField, Typography } from '@mui/material'
 import { NextSeo } from 'next-seo'
+import { useEffect } from 'react'
 
 const User = () => {
   const { handleFormOpen } = useDialogContext()
-  const { user, userPortifolios } = useAppContext()
+  const { user, portifolios } = useAppContext()
   const { id, name, lastName } = user
 
   const { getPortifoliosByUser } = usePortifolio()
 
-  getPortifoliosByUser(id)
+  useEffect(() => {
+    getPortifoliosByUser(id)
+  }, [])
 
   return (
     <>
@@ -114,34 +124,51 @@ const User = () => {
       </Box>
 
       <Grid
-        columnGap={3}
-        rowGap={{ xs: '24px', md: 0 }}
+        container
+        columnSpacing={2}
+        rowGap={{ xs: '24px', md: 5 }}
         sx={{
-          mx: { xs: 0, md: 4 },
-          mt: 5,
+          px: { xs: 1, md: 4 },
+          mt: { xs: 4, md: 5 },
           display: 'flex',
-          flexDirection: { xs: 'column', md: 'row' },
-          alignContent: 'center',
+          /*  flexDirection: { xs: 'column', md: 'row' },
+           alignContent: 'center', */
         }}
       >
-        {/* <Grid item xs={12} sm={6} md={4} lg={3} xl={2.4}>
-            <PortifolioCard portifolio={portifolio} />
-          </Grid> */}
-        <Grid container columnSpacing={2} rowSpacing={{ xs: '20px', md: 5 }}>
-          <Grid item xs={12} sm={6} md={4} lg={3} xl={2.4}>
-            {userPortifolios.length === 0 ? (
-              <>
-                <BlankCard onClick={handleFormOpen} />
-                <SkeletonCard />
-                <SkeletonCard />
-              </>
-            ) : (
-              userPortifolios.map((portifolio, i) => (
-                <PortifolioCard key={i} portifolio={portifolio} />
-              ))
-            )}
-          </Grid>
-        </Grid>
+        {portifolios.length === 0 ?
+          <>
+            <Grid item
+              xs={12}
+              sm={6}
+              md={4}
+              sx={{
+                width: '50%'
+              }}
+
+            >
+              <BlankCard onClick={handleFormOpen} />
+            </Grid>
+            <Grid item xs={12} sm={6} md={4}>
+              <SkeletonCard />
+            </Grid>
+            <Grid item xs={12} sm={6} md={4}
+              sx={{
+                display: { xs: 'none', md: 'inline-block' },
+              }}
+            >
+              <SkeletonCard />
+            </Grid>
+          </>
+          :
+          portifolios.map((portifolio, i) => (
+            <Grid item xs={12} sm={6} md={4} lg={3} xl={2.4}>
+              <PortifolioCard
+                key={i}
+                portifolio={portifolio}
+              />
+            </Grid>
+          ))
+        }
       </Grid>
 
       <FormDialog />
