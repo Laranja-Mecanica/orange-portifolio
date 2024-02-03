@@ -2,7 +2,7 @@ import { useAppContext, useDialogContext } from '@/context'
 import { api } from '@/lib/axios'
 
 const usePortifolio = () => {
-  const { allPortifolios, setUserPortifolios } = useAppContext()
+  const { portifolios, setPortifolios } = useAppContext()
 
   const { setConfirmationMsg } = useDialogContext()
 
@@ -16,41 +16,48 @@ const usePortifolio = () => {
     }
   }
 
+  const getAllPortifolios = async () => {
+    api.get('/portifolios')
+      .then(res => setPortifolios([...res.data.portifolios]))
+  }
+
   const createPortifolio = portifolio => {
     api.post('/portifolios', portifolio, options)
       .then(res => console.log("ok"))
     setConfirmationMsg('Projeto adicionado')
   }
 
-  const updatePortifolio = () => {
+  const updatePortifolio = (portifolioId, portifolio) => {
+    api.put(`/portifolios/${portifolioId}`, portifolio, options)
     setConfirmationMsg('Edição concluída')
   }
 
-  const deletePortifolio = () => {
+  const deletePortifolio = portifolioId => {
+    api.delete(`/potifolios/${portifolioId}`, options)
     setConfirmationMsg('Projeto deletado')
   }
 
   const getPortifoliosByUser = async (id) => {
 
     api.get(`/users/${id}/portifolios`)
-      .then(res => setUserPortifolios([...res.data.portifolios]))
+      .then(res => setPortifolios([...res.data.portifolios]))
       .catch(error => console.log("Erro"))
 
   }
 
   const filterPortifoliosByTags = (tags) =>
-    allPortifolios.filter((portifolio) =>
+    portifolios.filter((portifolio) =>
       tags.every((tag) => portifolio.tags.includes(tag))
     )
 
   return {
     tags,
+    getAllPortifolios,
     createPortifolio,
     updatePortifolio,
     deletePortifolio,
     getPortifoliosByUser,
     filterPortifoliosByTags,
-
   }
 }
 
