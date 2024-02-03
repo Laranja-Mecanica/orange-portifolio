@@ -10,7 +10,7 @@ function BlankCard({ onClick }) {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        width: { xs: '100%', md: 390 },
+        width: '100%',
         height: 258,
         backgroundColor: '#E6E9F2',
         gap: 2,

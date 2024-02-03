@@ -20,7 +20,7 @@ const PortifolioCard = ({ portifolio }) => {
       <CardMedia
         component="img"
         title=""
-        image={`/images/${img}.png`}
+        /* image={`/images/${img}.png`} */
         sx={{
           height: 258,
           width: '100%',
@@ -50,11 +50,11 @@ const PortifolioCard = ({ portifolio }) => {
               width: 24,
               height: 24,
             }}
-            src={`/images/${user.proPic}.png`}
+          /* src={`/images/${user.proPic}.png`} */
           />
 
           <Typography variant="subtitle1">
-            {user.name} - {date}
+            {/* {user.name} - {date} */}
           </Typography>
         </Box>
         <Box
@@ -64,7 +64,7 @@ const PortifolioCard = ({ portifolio }) => {
             gap: 1,
           }}
         >
-          {tags.map((tag, i) => (
+          {/* {tags.map((tag, i) => (
             <Chip
               key={i}
               label={tag}
@@ -73,7 +73,7 @@ const PortifolioCard = ({ portifolio }) => {
                 fontWeight: 600,
               }}
             />
-          ))}
+          ))} */}
         </Box>
       </Box>
     </Card>

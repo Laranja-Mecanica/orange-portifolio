@@ -45,6 +45,7 @@ const useUser = () => {
       .get(`/users/${id}`)
       .then((res) => {
         setUser({ id, ...res.data.user })
+        router.push('/user')
       })
       .catch((error) => console.log(error.data))
   }
