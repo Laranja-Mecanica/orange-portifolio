@@ -21,8 +21,7 @@ const usePortifolio = () => {
   }
 
   const getPortifoliosByUser = async (id) => {
-    api.get(`/users/${id}/portifolios`)
-      .then(res => console.log(res.data))
+    api.get(`/users/${id}/portifolios`).then((res) => console.log(res.data))
   }
 
   const filterPortifoliosByTags = (tags) =>

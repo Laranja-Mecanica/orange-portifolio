@@ -18,7 +18,6 @@ const User = () => {
 
   const [hasPortifolio, setHasPortifolio] = useState(true)
 
-
   const { getPortifoliosByUser } = usePortifolio()
 
   getPortifoliosByUser(id)
