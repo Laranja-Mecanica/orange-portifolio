@@ -18,6 +18,7 @@ import {
 } from '@/components'
 import { useAppContext, useDialogContext } from '@/context'
 import { usePortifolio } from '@/hooks'
+import { NextSeo } from 'next-seo'
 import { useEffect } from 'react'
 
 const User = () => {
@@ -33,6 +34,8 @@ const User = () => {
 
   return (
     <>
+      <NextSeo title="Meu perfil" noindex={true} nofollow={true} />
+
       <Header />
       <Box
         sx={{
