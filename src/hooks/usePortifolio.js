@@ -8,7 +8,11 @@ const usePortifolio = () => {
 
   const tags = ['UX', 'UI', 'Web']
 
-  const token = window.sessionStorage.getItem('token')
+  let token
+
+  if (typeof window !== 'undefined') {
+    token = window.sessionStorage.getItem('token')
+  }
 
   const options = {
     headers: {
@@ -17,7 +21,7 @@ const usePortifolio = () => {
   }
 
   const getAllPortifolios = async () => {
-    api.get('/portifolios')
+    api.get('/discover', options)
       .then(res => setPortifolios([...res.data.portifolios]))
   }
 
@@ -39,8 +43,11 @@ const usePortifolio = () => {
 
   const getPortifoliosByUser = async (id) => {
 
-    api.get(`/users/${id}/portifolios`)
-      .then(res => setPortifolios([...res.data.portifolios]))
+    api.get(`/users/${id}/portifolios`, options)
+      .then(res => {
+        setPortifolios([...res.data.portifolios])
+        console.log(res)
+      })
       .catch(error => console.log("Erro"))
 
   }

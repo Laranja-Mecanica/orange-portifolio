@@ -22,6 +22,7 @@ import { NextSeo } from 'next-seo'
 import { useEffect } from 'react'
 
 const User = () => {
+
   const { handleFormOpen } = useDialogContext()
   const { user, portifolios } = useAppContext()
   const { id, name, lastName } = user
@@ -161,10 +162,8 @@ const User = () => {
           </>
           :
           portifolios.map((portifolio, i) => (
-            <Grid item xs={12} sm={6} md={4} lg={3} xl={2.4}>
-              <PortifolioCard
-                key={i}
-                portifolio={portifolio}
+            <Grid key={i} item xs={12} sm={6} md={4} lg={3} xl={2.4}>
+              <PortifolioCard portifolio={portifolio}
               />
             </Grid>
           ))

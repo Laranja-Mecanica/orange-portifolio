@@ -2,9 +2,6 @@ import { useAppContext } from '@/context'
 import { api } from '@/lib/axios'
 import { useRouter } from 'next/router'
 import jwt from 'jsonwebtoken'
-import { useEffect } from 'react'
-
-
 
 const useUser = () => {
   const setToken = (token) => {
@@ -18,8 +15,7 @@ const useUser = () => {
 
   const options = {
     headers: {
-      'Authorization': `Bearer ${token}`,
-      'Access-Control-Allow-Origin': '*'
+      Authorization: `Bearer ${token}`
     }
   }
   const router = useRouter()
@@ -42,7 +38,7 @@ const useUser = () => {
   }
 
   const loginUser = async (user) => {
-    api.post('/session')
+    api.post('/session', user)
       .then((res) => {
         const token = res.data.accessToken
         const id = jwt.decode(token).sub
@@ -59,12 +55,13 @@ const useUser = () => {
   }
 
   const getUser = async (id) => {
-    api.get(`/users/${id}`)
+    api.get(`/users/${id}`, options)
       .then((res) => {
         setUser({ id, ...res.data.user })
         router.push('/user')
       })
       .catch((error) => console.log(error.data))
+
   }
 
   return {

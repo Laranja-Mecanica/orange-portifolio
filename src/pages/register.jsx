@@ -29,8 +29,6 @@ const Register = () => {
   }
 
   const [showPassword, setShowPassword] = useState(false)
-  /* const [isRegistrationSuccess, setRegistrationSuccess] = useState(false) */
-
   const { isRegistrationSuccess } = useAppContext()
 
   const handleClickShowPassword = () => setShowPassword((show) => !show)
