@@ -9,12 +9,22 @@ const setToken = (token) => {
 
 const useUser = () => {
   const router = useRouter()
-  const { setUser } = useAppContext()
+
+  const { setUser, setIsRegistrationSuccess } = useAppContext()
   const createUser = async (user) => {
-    api
-      .post('/register', user)
-      .then((res) => console.log(res.data.message))
-      .catch((error) => console.error(error.message))
+
+    api.post('/register', user)
+      .then(res => {
+        console.log(res.data.message)
+        setIsRegistrationSuccess(true)
+      })
+      .then(() => {
+        setTimeout(() => {
+          router.push('/')
+        }, 2000)
+      })
+      .catch(error => console.error(error.message))
+
   }
 
   const loginUser = async (user) => {
@@ -23,10 +33,11 @@ const useUser = () => {
       .then((res) => {
         const token = res.data.accessToken
         const id = jwt.decode(token).sub
+        setToken(token)
         getUser(id)
       })
-      .then(() => router.push('/user'))
-      .catch((error) => console.error(error.message))
+      .catch(error => console.error(error.message))
+
   }
 
   const getUser = async (id) => {
