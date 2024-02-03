@@ -11,14 +11,12 @@ import {
 import { useAppContext, useDialogContext } from '@/context'
 import { usePortifolio } from '@/hooks'
 import { Avatar, Box, Button, Grid, TextField, Typography } from '@mui/material'
-import { useEffect, useState } from 'react'
+import { NextSeo } from 'next-seo'
 
 const User = () => {
   const { handleFormOpen } = useDialogContext()
   const { user, userPortifolios } = useAppContext()
   const { id, name, lastName } = user
-
-
 
   const { getPortifoliosByUser } = usePortifolio()
 
@@ -26,6 +24,8 @@ const User = () => {
 
   return (
     <>
+      <NextSeo title="Meu perfil" noindex={true} nofollow={true} />
+
       <Header />
       <Box
         sx={{
@@ -129,20 +129,17 @@ const User = () => {
           </Grid> */}
         <Grid container columnSpacing={2} rowSpacing={{ xs: '20px', md: 5 }}>
           <Grid item xs={12} sm={6} md={4} lg={3} xl={2.4}>
-            {userPortifolios.length === 0 ?
+            {userPortifolios.length === 0 ? (
               <>
                 <BlankCard onClick={handleFormOpen} />
                 <SkeletonCard />
                 <SkeletonCard />
               </>
-              :
+            ) : (
               userPortifolios.map((portifolio, i) => (
-                <PortifolioCard
-                  key={i}
-                  portifolio={portifolio}
-                />
+                <PortifolioCard key={i} portifolio={portifolio} />
               ))
-            }
+            )}
           </Grid>
         </Grid>
       </Grid>
