@@ -14,19 +14,21 @@ import { useEffect } from 'react'
 
 const Home = () => {
   const { setDetailsOpen } = useDialogContext()
-  const { setFiltedPortifolios, filtedPortifolios } = useAppContext()
+  const { setFiltedPortifolios, filtedPortifolios, portifolios } = useAppContext()
   const { filterPortifoliosByTags, tags, getAllPortifolios } = usePortifolio()
 
   const { setPortifolio } = useDialogContext()
+
   const handleOpen = (portifolio) => {
     setDetailsOpen(true)
     setPortifolio(portifolio)
   }
 
   useEffect(() => {
-    /* getAllPortifolios() */
+    getAllPortifolios()
   }, [])
 
+  console.log(filtedPortifolios)
   return (
     <>
       <NextSeo title="Descubra novos projetos" />

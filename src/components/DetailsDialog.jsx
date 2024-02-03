@@ -11,7 +11,7 @@ const DetailsDialog = () => {
   const router = useRouter()
   const { portifolio, detailsOpen, handleDetailsClose, setDetailsOpen } =
     useDialogContext()
-  const { name, user, date, tags, img } = portifolio
+  const { title, user, description, tags, img, link } = portifolio
 
   return (
     <Dialog
@@ -37,7 +37,7 @@ const DetailsDialog = () => {
             my: 2,
           }}
         >
-          <Typography variant="h5">{name}</Typography>
+          <Typography variant="h5">{title}</Typography>
         </Box>
 
         <Box
@@ -69,7 +69,7 @@ const DetailsDialog = () => {
                   width: { xs: 24, md: 40 },
                   height: { xs: 24, md: 40 },
                 }}
-                src={`/images/${user.proPic}.png`}
+              /* src={`/images/${user.proPic}.png`} */
               />
               <Box
                 sx={{
@@ -84,9 +84,9 @@ const DetailsDialog = () => {
                     fontWeight: 600,
                   }}
                 >
-                  {user.name}
+                  {/* {user.name} */}
                 </Typography>
-                <Typography variant="subtitle1">{date}</Typography>
+                <Typography variant="subtitle1">{/* date */}</Typography>
               </Box>
             </Box>
 
@@ -96,7 +96,7 @@ const DetailsDialog = () => {
                 display: { xs: 'none', md: 'flex' },
               }}
             >
-              {name}
+              {title}
             </Typography>
 
             <Box
@@ -128,7 +128,7 @@ const DetailsDialog = () => {
             }}
           >
             <Image
-              src={`/images/${img}.png`}
+              /* src={`/images/${img}.png`} */
               style={{ width: '100%', height: 'auto' }}
               width={838}
               height={586}
@@ -144,10 +144,7 @@ const DetailsDialog = () => {
               mt: { xs: 2, md: 0 },
             }}
           >
-            Temos o prazer de compartilhar com vocês uma variação da nosso
-            primeiro recurso gratuito, Monoceros. É um modelo de uma página para
-            mostrar seus produtos. Tentamos redesenhar uma versão mais B2C e
-            minimalista do nosso primeiro template de e-commerce.
+            {description}
           </Typography>
           <Typography variant="body1">Download</Typography>
           <Link href={'/home'} style={{ textDecoration: 'none' }}>
@@ -157,7 +154,7 @@ const DetailsDialog = () => {
                 color: 'info.80',
               }}
             >
-              https://gumroad.com/products/wxCSL
+              {link}
             </Typography>
           </Link>
         </Box>

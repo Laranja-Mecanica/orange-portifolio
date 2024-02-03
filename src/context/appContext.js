@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
 
 const AppContext = createContext()
 
@@ -9,6 +9,7 @@ export const AppProvider = ({ children }) => {
 
   const [portifolios, setPortifolios] = useState([{}])
   const [filtedPortifolios, setFiltedPortifolios] = useState(portifolios)
+
 
   const [portifolio, setPortifolio] = useState({
     id: 0,
@@ -31,6 +32,9 @@ export const AppProvider = ({ children }) => {
       tags: ['UX', 'HTML'],
     })
   }
+  useEffect(() => {
+    setFiltedPortifolios(portifolios)
+  }, [portifolios])
 
   return (
     <AppContext.Provider

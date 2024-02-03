@@ -64,7 +64,7 @@ const PortifolioCard = ({ portifolio }) => {
             gap: 1,
           }}
         >
-          {/* {tags.map((tag, i) => (
+          {tags?.map((tag, i) => (
             <Chip
               key={i}
               label={tag}
@@ -73,7 +73,7 @@ const PortifolioCard = ({ portifolio }) => {
                 fontWeight: 600,
               }}
             />
-          ))} */}
+          ))}
         </Box>
       </Box>
     </Card>

@@ -1,5 +1,6 @@
 import { useAppContext, useDialogContext } from '@/context'
 import { api } from '@/lib/axios'
+import { useState } from 'react'
 
 const usePortifolio = () => {
   const { portifolios, setPortifolios } = useAppContext()
@@ -22,7 +23,11 @@ const usePortifolio = () => {
 
   const getAllPortifolios = async () => {
     api.get('/discover', options)
-      .then(res => setPortifolios([...res.data.portifolios]))
+      .then(res => {
+        setPortifolios([...res.data.portifolios])
+        console.log(portifolios)
+      })
+      .catch(erro => console.log(erro))
   }
 
   const createPortifolio = portifolio => {
@@ -46,7 +51,6 @@ const usePortifolio = () => {
     api.get(`/users/${id}/portifolios`, options)
       .then(res => {
         setPortifolios([...res.data.portifolios])
-        console.log(res)
       })
       .catch(error => console.log("Erro"))
 
