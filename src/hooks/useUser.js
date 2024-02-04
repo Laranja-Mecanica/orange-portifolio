@@ -29,6 +29,7 @@ const useUser = () => {
       .then(() => {
         setTimeout(() => {
           router.push('/')
+          setIsRegistrationSuccess(false)
         }, 2000)
       })
       .catch(error => console.error(error.message))

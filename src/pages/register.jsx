@@ -12,8 +12,9 @@ import {
 } from '@mui/material'
 import { NextSeo } from 'next-seo'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import validator from 'validator'
 
 const Register = () => {
   const { createUser } = useUser()
@@ -32,6 +33,7 @@ const Register = () => {
   const { isRegistrationSuccess } = useAppContext()
 
   const handleClickShowPassword = () => setShowPassword((show) => !show)
+
 
   return (
     <>
@@ -120,8 +122,10 @@ const Register = () => {
                   mb: 0,
                 }}
                 error={Boolean(errors?.name)}
-                helperText={errors?.name ? 'Digite o primeiro nome' : ''}
-                {...register('name', { required: true })}
+                helperText={errors?.name?.type === "required" ? 'Digite o primeiro nome' :
+                  errors?.name?.type === "maxLength" ? 'Esse campo pode ter até 25 caracteres' : ''
+                }
+                {...register('name', { required: true, maxLength: 25 })}
               />
               <TextField
                 id="lastName"
@@ -132,8 +136,10 @@ const Register = () => {
                   mb: 0,
                 }}
                 error={Boolean(errors?.lastName)}
-                helperText={errors?.lastName ? 'Digite o sobrenome' : ''}
-                {...register('lastName', { required: true })}
+                helperText={errors?.lastName?.type === "required" ? 'Digite o sobrenome' :
+                  errors?.lastName?.type === "maxLength" ? 'Esse campo pode ter até 25 caracteres' : ''
+                }
+                {...register('lastName', { required: true, maxLength: 25 })}
               />
             </Box>
             <TextField
@@ -142,7 +148,7 @@ const Register = () => {
               sx={{ my: 2 }}
               error={Boolean(errors?.email)}
               helperText={errors?.email ? 'Digite o email' : ''}
-              {...register('email', { required: true })}
+              {...register('email', { required: true, validate: value => validator.isEmail(value) })}
             />
 
             <TextField
@@ -162,10 +168,11 @@ const Register = () => {
                 ),
               }}
               helperText={errors?.password?.type === 'required' ? 'Digite o senha' :
-                errors?.password?.type === 'minLength' ? 'A senha tem que no mínimo 6 caracteres' : ''
+                errors?.password?.type === 'minLength' ? 'A senha tem que no mínimo 6 caracteres' :
+                  errors?.password?.type === 'maxLength' ? 'A senha pode ter no máximo 25 caracteres' : ''
               }
               error={Boolean(errors?.password)}
-              {...register('password', { required: true, minLength: 6 })}
+              {...register('password', { required: true, minLength: 6, maxLength: 25 })}
             />
 
             <Button
