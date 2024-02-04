@@ -161,9 +161,11 @@ const Register = () => {
                   </InputAdornment>
                 ),
               }}
-              helperText={errors?.password ? 'Digite o senha' : ''}
+              helperText={errors?.password?.type === 'required' ? 'Digite o senha' :
+                errors?.password?.type === 'minLength' ? 'A senha tem que no mínimo 6 caracteres' : ''
+              }
               error={Boolean(errors?.password)}
-              {...register('password', { required: true })}
+              {...register('password', { required: true, minLength: 6 })}
             />
 
             <Button

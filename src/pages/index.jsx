@@ -78,7 +78,7 @@ export default function Home() {
 
         <Box
           sx={{
-            width: 517,
+            width: 550,
             mx: 'auto',
             textAlign: 'center',
             height: { xs: '100vh' },
@@ -86,6 +86,7 @@ export default function Home() {
             flexDirection: 'column',
             justifyContent: 'center',
             px: 3,
+
           }}
         >
           <Box>
