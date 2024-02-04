@@ -15,6 +15,7 @@ import {
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { UploadImagem } from './UploadImage'
+import validator from 'validator'
 
 const FormDialog = () => {
   const [files, setFiles] = useState([{}])
@@ -185,9 +186,10 @@ const FormDialog = () => {
             <TextField
               label="Título"
               name="title"
-              helperText={errors?.title ? 'Digite o title' : ''}
+              helperText={errors?.title?.type === 'required' ? 'Digite o title' :
+                errors?.title?.type === "maxLength" ? 'O titulo pode ter até 25 caracteres' : ''}
               error={Boolean(errors?.title)}
-              {...register('title', { required: true })}
+              {...register('title', { required: true, maxLength: 25 })}
             />
 
             <Stack spacing={3} sx={{ width: '100%' }}>
@@ -218,7 +220,7 @@ const FormDialog = () => {
               label="Link"
               helperText={errors?.link ? 'Digite o link' : ''}
               error={Boolean(errors?.link)}
-              {...register('link', { required: true })}
+              {...register('link', { required: true, validate: value => validator.isURL(value) })}
             />
             <TextField
               name="description"
@@ -226,9 +228,10 @@ const FormDialog = () => {
               multiline
               rows={4}
               sx={{ height: 120 }}
-              helperText={errors?.description ? 'Digite a descrição' : ''}
+              helperText={errors?.description?.type === 'required' ? 'Digite a descrição' :
+                errors?.description?.type === "maxLength" ? 'O titulo pode ter até 120 caracteres' : ''}
               error={Boolean(errors?.description)}
-              {...register('description', { required: true })}
+              {...register('description', { required: true, maxLength: 120 })}
             />
           </Box>
         </Box>
