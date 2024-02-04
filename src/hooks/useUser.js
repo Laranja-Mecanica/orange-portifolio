@@ -13,6 +13,10 @@ const useUser = () => {
     token = window.sessionStorage.getItem('token')
   }
 
+  const saveUser = (user) => {
+    window.sessionStorage.setItem('user', user)
+  }
+
   const options = {
     headers: {
       Authorization: `Bearer ${token}`
@@ -20,7 +24,7 @@ const useUser = () => {
   }
   const router = useRouter()
 
-  const { setUser, setIsRegistrationSuccess } = useAppContext()
+  const { setIsRegistrationSuccess } = useAppContext()
   const createUser = async (user) => {
 
     api.post('/register', user)
@@ -57,17 +61,25 @@ const useUser = () => {
   const getUser = async (id) => {
     api.get(`/users/${id}`, options)
       .then((res) => {
-        setUser({ id, ...res.data.user })
+        saveUser(JSON.stringify({ id, ...res.data.user }))
         router.push('/user')
       })
       .catch((error) => console.log(error.data))
+  }
 
+  const logout = () => {
+    if (typeof window !== 'undefined') {
+      window.sessionStorage.setItem('user', null)
+      window.sessionStorage.setItem('token', null)
+    }
+    router.push('/')
   }
 
   return {
     createUser,
     loginUser,
-    loginWithGoogle
+    loginWithGoogle,
+    logout
   }
 }
 

@@ -27,8 +27,6 @@ const Home = () => {
   useEffect(() => {
     getAllPortifolios()
   }, [])
-
-  console.log(filtedPortifolios)
   return (
     <>
       <NextSeo title="Descubra novos projetos" />

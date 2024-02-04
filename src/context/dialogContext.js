@@ -35,7 +35,6 @@ export const DialogProvider = ({ children }) => {
 
   const handleFormEditOpen = (portifolio) => {
     setFormOpen(true)
-    console.log(portifolio)
     setPortifolio({ ...portifolio })
   }
 
@@ -62,7 +61,6 @@ export const DialogProvider = ({ children }) => {
   }
 
   const handleDeleteOpen = (portifolio) => {
-    console.log(portifolio)
     setPortifolio(portifolio)
     setDeleteOpen(true)
   }

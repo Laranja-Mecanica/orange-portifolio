@@ -35,16 +35,22 @@ const FormDialog = () => {
 
   const [selectedTags, setSelectedTags] = useState([...portifolio.tags])
 
+  const { portifolioId, title, description, link } = portifolio
   const {
     register,
     reset,
     handleSubmit,
     formState: { errors, isSubmitSuccessful },
-  } = useForm()
+  } = useForm({
+    defaultValues: {
+      title: 'title',
+      description: 'description',
+      link: 'link',
+    }
+  })
 
   const { optionsTags, updatePortifolio, createPortifolio } = usePortifolio()
 
-  const { portifolioId, title, description, link } = portifolio
 
   const { startUpload, isUploading } = useUploadThing('thumbUploader', {
     onClientUploadComplete: (file) => {
@@ -140,7 +146,7 @@ const FormDialog = () => {
             Tivemos uma falha no upload, tente novamente mais tarde. 😭
           </Alert>
         ) : null}
-        <Typography variant="h5">Adicionar projeto {portifolioId}</Typography>
+        <Typography variant="h5">Adicionar projeto</Typography>
         <Box
           sx={{
             display: 'flex',
@@ -175,7 +181,6 @@ const FormDialog = () => {
             <TextField
               label="Título"
               name="title"
-              value={title}
               helperText={errors?.title ? 'Digite o title' : ''}
               error={Boolean(errors?.title)}
               {...register('title', { required: true })}
@@ -207,7 +212,6 @@ const FormDialog = () => {
             <TextField
               name="link"
               label="Link"
-              value={link}
               helperText={errors?.link ? 'Digite o link' : ''}
               error={Boolean(errors?.link)}
               {...register('link', { required: true })}
@@ -215,7 +219,6 @@ const FormDialog = () => {
             <TextField
               name="description"
               label="Descrição"
-              value={description}
               multiline
               rows={4}
               sx={{ height: 120 }}

@@ -15,8 +15,12 @@ import NotificationsIcon from '@mui/icons-material/Notifications'
 
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
+import { useUser } from '@/hooks'
+
 
 const Header = () => {
+
+  const { logout } = useUser()
   const pages = [
     {
       name: 'Meus projetos',
@@ -80,6 +84,11 @@ const Header = () => {
           ))}
           <Divider />
           <MenuItem>Configurações</MenuItem>
+          <MenuItem
+            onClick={logout}
+          >
+            Logout
+          </MenuItem>
         </Menu>
 
         <Box

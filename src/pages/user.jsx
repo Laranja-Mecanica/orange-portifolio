@@ -24,14 +24,20 @@ import { useEffect } from 'react'
 const User = () => {
 
   const { handleFormOpen } = useDialogContext()
-  const { user, portifolios } = useAppContext()
-  const { id, name, lastName } = user
+  const { user, portifolios, setUser } = useAppContext()
 
   const { getPortifoliosByUser } = usePortifolio()
+  const { id, name, lastName } = user
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setUser(JSON.parse(window.sessionStorage.getItem('user')))
+    }
+  }, [])
 
   useEffect(() => {
     getPortifoliosByUser(id)
-  }, [])
+  }, [user])
 
   return (
     <>

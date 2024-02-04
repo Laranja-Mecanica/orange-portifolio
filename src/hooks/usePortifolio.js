@@ -25,7 +25,6 @@ const usePortifolio = () => {
     api.get('/discover', options)
       .then((res) => {
         setPortifolios([...res.data.portifolios])
-        console.log(portifolios)
       })
       .catch((erro) => console.log(erro))
   }
