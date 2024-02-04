@@ -8,11 +8,9 @@ const DeleteDialog = () => {
 
   const { deletePortifolio } = usePortifolio()
 
-
-
   const handleDelete = () => {
     handleConfOpen()
-    deletePortifolio(portifolio.id)
+    deletePortifolio(portifolio.portfolioId)
   }
 
   return (

@@ -33,7 +33,6 @@ const FormDialog = () => {
     handleFormClose,
   } = useDialogContext()
 
-
   const [selectedTags, setSelectedTags] = useState([...portifolio.tags])
 
   const {
@@ -45,7 +44,7 @@ const FormDialog = () => {
 
   const { optionsTags, updatePortifolio, createPortifolio } = usePortifolio()
 
-  const { id, title, description, link } = portifolio
+  const { portifolioId, title, description, link } = portifolio
 
   const { startUpload, isUploading } = useUploadThing('thumbUploader', {
     onClientUploadComplete: (file) => {
@@ -99,7 +98,7 @@ const FormDialog = () => {
 
     console.log(portifolio)
 
-    id !== null ? updatePortifolio(id, portifolio) : createPortifolio(portifolio)
+    portifolioId !== null ? updatePortifolio(portifolioId, portifolio) : createPortifolio(portifolio)
 
     setSelectedTags([])
     handleConfOpen()
@@ -141,7 +140,7 @@ const FormDialog = () => {
             Tivemos uma falha no upload, tente novamente mais tarde. 😭
           </Alert>
         ) : null}
-        <Typography variant="h5">Adicionar projeto {id}</Typography>
+        <Typography variant="h5">Adicionar projeto {portifolioId}</Typography>
         <Box
           sx={{
             display: 'flex',

@@ -11,7 +11,7 @@ export const DialogProvider = ({ children }) => {
   const [confirmationMsg, setConfirmationMsg] = useState('Produto cadastrado')
 
   const [portifolio, setPortifolio] = useState({
-    id: 0,
+    portifolioId: null,
     name: '',
     img: '',
     user: { name: '' },
@@ -21,7 +21,7 @@ export const DialogProvider = ({ children }) => {
   const handleFormOpen = () => {
     setFormOpen(true)
     setPortifolio({
-      id: 0,
+      portifolioId: null,
       name: 'TESTE',
       img: 'portifolio3',
       date: '12/23',
@@ -35,7 +35,8 @@ export const DialogProvider = ({ children }) => {
 
   const handleFormEditOpen = (portifolio) => {
     setFormOpen(true)
-    setPortifolio(portifolio)
+    console.log(portifolio)
+    setPortifolio({ ...portifolio })
   }
 
   const handleFormClose = () => {
@@ -61,6 +62,7 @@ export const DialogProvider = ({ children }) => {
   }
 
   const handleDeleteOpen = (portifolio) => {
+    console.log(portifolio)
     setPortifolio(portifolio)
     setDeleteOpen(true)
   }
