@@ -2,26 +2,20 @@ import { useAppContext } from '@/context'
 import { api } from '@/lib/axios'
 import { useRouter } from 'next/router'
 import jwt from 'jsonwebtoken'
+import { useEffect, useState } from 'react'
 
 const useUser = () => {
+  const [error, setError] = useState(false)
+  const [msgError, setMsgError] = useState('Login ou senha inválidos')
+
   const setToken = (token) => {
     window.sessionStorage.setItem('token', token)
-  }
-
-  let token
-  if (typeof window !== 'undefined') {
-    token = window.sessionStorage.getItem('token')
   }
 
   const saveUser = (user) => {
     window.sessionStorage.setItem('user', user)
   }
 
-  const options = {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  }
   const router = useRouter()
 
   const { setIsRegistrationSuccess } = useAppContext()
@@ -49,7 +43,9 @@ const useUser = () => {
         setToken(token)
         getUser(id)
       })
-      .catch(error => console.error(error.message))
+      .catch(error => {
+        setError(true)
+      })
   }
 
   const loginWithGoogle = async () => {
@@ -59,12 +55,17 @@ const useUser = () => {
   }
 
   const getUser = async (id) => {
-    api.get(`/users/${id}`, options)
+    const token = window.sessionStorage.getItem('token')
+    api.get(`/users/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
       .then((res) => {
         saveUser(JSON.stringify({ id, ...res.data.user }))
         router.push('/user')
       })
-      .catch((error) => console.log(error.data))
+      .catch((error) => console.log(error))
   }
 
   const logout = () => {
@@ -79,7 +80,10 @@ const useUser = () => {
     createUser,
     loginUser,
     loginWithGoogle,
-    logout
+    logout,
+    error,
+    setError,
+    msgError
   }
 }
 

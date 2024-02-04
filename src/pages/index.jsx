@@ -8,6 +8,7 @@ import {
   InputAdornment,
   TextField,
   Typography,
+  Alert
 } from '@mui/material'
 import { NextSeo } from 'next-seo'
 import Head from 'next/head'
@@ -17,7 +18,13 @@ import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 export default function Home() {
-  const { loginUser, loginWithGoogle } = useUser()
+  const {
+    loginUser,
+    loginWithGoogle,
+    msgError,
+    error,
+    setError
+  } = useUser()
   const {
     register,
     handleSubmit,
@@ -31,6 +38,10 @@ export default function Home() {
   const [showPassword, setShowPassword] = useState(false)
 
   const handleClickShowPassword = () => setShowPassword((show) => !show)
+
+  useEffect(() => {
+    setError(false)
+  }, [])
 
   return (
     <>
@@ -153,7 +164,19 @@ export default function Home() {
               error={Boolean(errors?.password)}
               {...register('password', { required: true })}
             />
+            {error &&
+              <Alert
+                variant="filled"
+                severity="error"
+                sx={{
+                  mt: 2,
+                  display: 'flex',
+                  alignItems: 'center'
 
+                }}>
+                {msgError}
+              </Alert>
+            }
             <Button
               variant="contained"
               color="secondary"

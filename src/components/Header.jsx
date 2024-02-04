@@ -126,6 +126,17 @@ const Header = () => {
               </Link>
             </MenuItem>
           ))}
+          <MenuItem
+            onClick={logout}
+            style={{
+              textDecoration: 'none',
+              color: 'white',
+              fontWeight: 500,
+              fontSize: '20px',
+            }}
+          >
+            Logout
+          </MenuItem>
         </Box>
 
         <Box
