@@ -29,7 +29,7 @@ export const DialogProvider = ({ children }) => {
         name: 'Camila Soares',
         proPic: 'user3',
       },
-      tags: ['UX', 'HTML'],
+      tags: []
     })
   }
 

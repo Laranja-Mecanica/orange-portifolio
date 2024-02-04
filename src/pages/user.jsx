@@ -4,7 +4,9 @@ import {
   Button,
   Grid,
   TextField,
-  Typography
+  Typography,
+  Autocomplete,
+  Stack,
 } from '@mui/material'
 import {
   BlankCard,
@@ -24,9 +26,9 @@ import { useEffect } from 'react'
 const User = () => {
 
   const { handleFormOpen } = useDialogContext()
-  const { user, portifolios, setUser } = useAppContext()
+  const { user, filtedPortifolios, setUser, setFiltedPortifolios, portifolios } = useAppContext()
 
-  const { getPortifoliosByUser } = usePortifolio()
+  const { getPortifoliosByUser, optionsTags, filterPortifoliosByTags } = usePortifolio()
   const { id, name, lastName } = user
 
   useEffect(() => {
@@ -119,14 +121,35 @@ const User = () => {
             Meus Projetos
           </Typography>
 
-          <TextField
+          {/* <TextField
             id="tagsField"
             label="Buscar Tags"
             sx={{
               width: { xs: '100%', md: 513 },
               fontSize: '10px',
             }}
-          />
+          /> */}
+          <Stack spacing={3} sx={{ width: '100%' }}>
+            <Autocomplete
+              multiple
+              id="tags-outlined"
+              name="tags"
+              options={optionsTags}
+              getOptionLabel={(option) => option}
+              filterSelectedOptions
+
+              fullWidth
+              onChange={(_, tags) =>
+                setFiltedPortifolios(filterPortifoliosByTags(tags))
+              }
+              renderInput={(params) => (
+                <TextField {...params} label="Tags" fullWidth />
+              )}
+              sx={{
+                width: { xs: '100%', md: 513 },
+              }}
+            />
+          </Stack>
         </Box>
       </Box>
 
@@ -165,7 +188,7 @@ const User = () => {
             </Grid>
           </>
           :
-          portifolios.map((portifolio, i) => (
+          filtedPortifolios.map((portifolio, i) => (
             <Grid key={i} item xs={12} sm={6} md={4} lg={3} xl={2.4}>
               <PortifolioCard portifolio={portifolio} />
             </Grid>

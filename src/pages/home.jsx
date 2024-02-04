@@ -14,7 +14,7 @@ import { useEffect } from 'react'
 
 const Home = () => {
   const { setDetailsOpen } = useDialogContext()
-  const { setFiltedPortifolios, filtedPortifolios, portifolios } = useAppContext()
+  const { setFiltedPortifolios, filtedPortifolios } = useAppContext()
   const { filterPortifoliosByTags, optionsTags, getAllPortifolios } = usePortifolio()
 
   const { setPortifolio } = useDialogContext()

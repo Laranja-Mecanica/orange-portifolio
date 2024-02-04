@@ -35,7 +35,7 @@ const FormDialog = () => {
 
   const [selectedTags, setSelectedTags] = useState([...portifolio.tags])
 
-  const { portifolioId, title, description, link } = portifolio
+  const { portifolioId, title, description, link, tags } = portifolio
   const {
     register,
     reset,
@@ -112,11 +112,15 @@ const FormDialog = () => {
 
   useEffect(() => {
     reset({
-      title: '',
-      link: '',
-      description: '',
+      title: title,
+      link: link,
+      description: description,
     })
-  }, [isSubmitSuccessful, reset])
+  }, [isSubmitSuccessful, reset, portifolio])
+
+  useEffect(() => {
+    setSelectedTags(tags)
+  }, [portifolio])
 
   return (
     <Dialog
