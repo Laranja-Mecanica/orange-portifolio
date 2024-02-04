@@ -11,27 +11,27 @@ export const AppProvider = ({ children }) => {
   const [filtedPortifolios, setFiltedPortifolios] = useState(portifolios)
 
 
-  const [portifolio, setPortifolio] = useState({
-    id: 0,
-    name: '',
-    img: '',
-    user: { name: '' },
-    tags: [],
-  })
-
-  const handleFormOpen = () => {
-    setPortifolio({
+  /*   const [portifolio, setPortifolio] = useState({
       id: 0,
-      name: 'TESTE',
-      img: 'portifolio3',
-      date: '12/23',
-      user: {
-        name: 'Camila Soares',
-        proPic: 'user3',
-      },
-      tags: ['UX', 'HTML'],
+      name: '',
+      img: '',
+      user: { name: '' },
+      tags: [],
     })
-  }
+  
+    const handleFormOpen = () => {
+      setPortifolio({
+        id: 0,
+        name: 'TESTE',
+        img: 'portifolio3',
+        date: '12/23',
+        user: {
+          name: 'Camila Soares',
+          proPic: 'user3',
+        },
+        tags: ['UX', 'HTML'],
+      })
+    } */
   useEffect(() => {
     setFiltedPortifolios(portifolios)
   }, [portifolios])
@@ -41,9 +41,9 @@ export const AppProvider = ({ children }) => {
       value={{
         user,
         setUser,
-        portifolio,
-        setPortifolio,
-        handleFormOpen,
+        /* portifolio,
+        setPortifolio, */
+        /* handleFormOpen, */
         portifolios,
         setPortifolios,
         filtedPortifolios,

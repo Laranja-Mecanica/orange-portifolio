@@ -33,6 +33,11 @@ export const DialogProvider = ({ children }) => {
     })
   }
 
+  const handleFormEditOpen = (portifolio) => {
+    setFormOpen(true)
+    setPortifolio(portifolio)
+  }
+
   const handleFormClose = () => {
     setFormOpen(false)
   }
@@ -55,7 +60,8 @@ export const DialogProvider = ({ children }) => {
     setFormOpen(true)
   }
 
-  const handleDeleteOpen = () => {
+  const handleDeleteOpen = (portifolio) => {
+    setPortifolio(portifolio)
     setDeleteOpen(true)
   }
 
@@ -66,7 +72,7 @@ export const DialogProvider = ({ children }) => {
   const menuOptions = [
     {
       text: 'Editar',
-      openModal: handleFormOpen,
+      openModal: handleFormEditOpen,
     },
     {
       text: 'Excluir',

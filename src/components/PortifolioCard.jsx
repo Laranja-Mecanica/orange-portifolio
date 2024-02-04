@@ -16,7 +16,7 @@ const PortifolioCard = ({ portifolio }) => {
         height: 298,
       }}
     >
-      {router.pathname === '/user' && <CardButton />}
+      {router.pathname === '/user' && <CardButton portifolio={portifolio} />}
       <CardMedia
         component="img"
         title=""

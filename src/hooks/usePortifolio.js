@@ -1,12 +1,13 @@
 import { useAppContext, useDialogContext } from '@/context'
 import { api } from '@/lib/axios'
+import jwt from 'jsonwebtoken'
 
 const usePortifolio = () => {
   const { portifolios, setPortifolios } = useAppContext()
 
   const { setConfirmationMsg } = useDialogContext()
 
-  const tags = ['UX', 'UI', 'Web']
+  const optionsTags = ['UX', 'UI', 'Web']
 
   let token
 
@@ -21,8 +22,7 @@ const usePortifolio = () => {
   }
 
   const getAllPortifolios = async () => {
-    api
-      .get('/discover', options)
+    api.get('/discover', options)
       .then((res) => {
         setPortifolios([...res.data.portifolios])
         console.log(portifolios)
@@ -30,30 +30,29 @@ const usePortifolio = () => {
       .catch((erro) => console.log(erro))
   }
 
-  const createPortifolio = (portifolio) => {
-    try {
-      api
-        .post('/portifolios', portifolio, options)
-        .then((res) => console.log('ok'))
-    } catch (error) {
-      console.log(error.response.data)
-    }
+  const createPortifolio = async (portifolio) => {
+    api.post('/portifolios', portifolio, options)
+      .then((res) => console.log('ok'))
+      .catch((error) => console.log(error.response.data))
+
     setConfirmationMsg('Projeto adicionado')
   }
 
   const updatePortifolio = (portifolioId, portifolio) => {
     api.put(`/portifolios/${portifolioId}`, portifolio, options)
+      .then(() => console.log('ok'))
+      .catch((error) => console.log(error.response.data))
     setConfirmationMsg('Edição concluída')
   }
 
   const deletePortifolio = (portifolioId) => {
-    api.delete(`/potifolios/${portifolioId}`, options)
+    api.delete(`/portifolios/${portifolioId}`, options)
+      .then(() => getPortifoliosByUser(jwt.decode(token).sub))
     setConfirmationMsg('Projeto deletado')
   }
 
   const getPortifoliosByUser = async (id) => {
-    api
-      .get(`/users/${id}/portifolios`, options)
+    api.get(`/users/${id}/portifolios`, options)
       .then((res) => {
         setPortifolios([...res.data.portifolios])
       })
@@ -66,7 +65,7 @@ const usePortifolio = () => {
     )
 
   return {
-    tags,
+    optionsTags,
     getAllPortifolios,
     createPortifolio,
     updatePortifolio,

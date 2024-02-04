@@ -15,7 +15,7 @@ import { useEffect } from 'react'
 const Home = () => {
   const { setDetailsOpen } = useDialogContext()
   const { setFiltedPortifolios, filtedPortifolios, portifolios } = useAppContext()
-  const { filterPortifoliosByTags, tags, getAllPortifolios } = usePortifolio()
+  const { filterPortifoliosByTags, optionsTags, getAllPortifolios } = usePortifolio()
 
   const { setPortifolio } = useDialogContext()
 
@@ -55,7 +55,7 @@ const Home = () => {
               multiple
               id="tags-outlined"
               name="tags"
-              options={tags}
+              options={optionsTags}
               getOptionLabel={(option) => option}
               filterSelectedOptions
               fullWidth

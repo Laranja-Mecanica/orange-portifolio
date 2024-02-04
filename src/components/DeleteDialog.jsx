@@ -4,13 +4,15 @@ import { useDialogContext } from '@/context'
 import { usePortifolio } from '@/hooks'
 
 const DeleteDialog = () => {
-  const { handleDeleteClose, deleteOpen, handleConfOpen } = useDialogContext()
+  const { handleDeleteClose, deleteOpen, handleConfOpen, portifolio } = useDialogContext()
 
   const { deletePortifolio } = usePortifolio()
 
+
+
   const handleDelete = () => {
     handleConfOpen()
-    deletePortifolio()
+    deletePortifolio(portifolio.id)
   }
 
   return (

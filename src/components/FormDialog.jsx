@@ -21,17 +21,20 @@ const FormDialog = () => {
   const [hasFileSelected, setHasFileSelected] = useState(false)
   const [uploadProgress, setUploadProgress] = useState(0)
   const [hasUploadError, setHasUploadError] = useState(false)
-  const [selectedTags, setSelectedTags] = useState([])
   const [tagsError, setTagsError] = useState(false)
   const [uploadedFiles, setUploadedFiles] = useState([{}])
 
   const {
+    portifolio,
     setPortifolio,
     formOpen,
     handleConfOpen,
     handleDetailsOpen,
     handleFormClose,
   } = useDialogContext()
+
+
+  const [selectedTags, setSelectedTags] = useState([...portifolio.tags])
 
   const {
     register,
@@ -40,7 +43,9 @@ const FormDialog = () => {
     formState: { errors, isSubmitSuccessful },
   } = useForm()
 
-  const { tags, updatePortifolio, createPortifolio } = usePortifolio()
+  const { optionsTags, updatePortifolio, createPortifolio } = usePortifolio()
+
+  const { id, title, description, link } = portifolio
 
   const { startUpload, isUploading } = useUploadThing('thumbUploader', {
     onClientUploadComplete: (file) => {
@@ -92,8 +97,9 @@ const FormDialog = () => {
       thumbKey: uploadedFiles[0].key,
     }
 
-    const id = 0
-    id !== 0 ? updatePortifolio() : createPortifolio(portifolio)
+    console.log(portifolio)
+
+    id !== null ? updatePortifolio(id, portifolio) : createPortifolio(portifolio)
 
     setSelectedTags([])
     handleConfOpen()
@@ -135,7 +141,7 @@ const FormDialog = () => {
             Tivemos uma falha no upload, tente novamente mais tarde. 😭
           </Alert>
         ) : null}
-        <Typography variant="h5">Adicionar projeto</Typography>
+        <Typography variant="h5">Adicionar projeto {id}</Typography>
         <Box
           sx={{
             display: 'flex',
@@ -170,6 +176,7 @@ const FormDialog = () => {
             <TextField
               label="Título"
               name="title"
+              value={title}
               helperText={errors?.title ? 'Digite o title' : ''}
               error={Boolean(errors?.title)}
               {...register('title', { required: true })}
@@ -180,7 +187,7 @@ const FormDialog = () => {
                 multiple
                 id="tags-outlined"
                 name="tags"
-                options={tags}
+                options={optionsTags}
                 getOptionLabel={(option) => option}
                 value={selectedTags}
                 filterSelectedOptions
@@ -201,6 +208,7 @@ const FormDialog = () => {
             <TextField
               name="link"
               label="Link"
+              value={link}
               helperText={errors?.link ? 'Digite o link' : ''}
               error={Boolean(errors?.link)}
               {...register('link', { required: true })}
@@ -208,6 +216,7 @@ const FormDialog = () => {
             <TextField
               name="description"
               label="Descrição"
+              value={description}
               multiline
               rows={4}
               sx={{ height: 120 }}

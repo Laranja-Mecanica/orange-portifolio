@@ -3,7 +3,7 @@ import EditIcon from '@mui/icons-material/Edit'
 import { Box, IconButton, Menu, MenuItem, Typography } from '@mui/material'
 import { useState } from 'react'
 
-export const CardButton = () => {
+export const CardButton = ({ portifolio }) => {
   const { menuOptions } = useDialogContext()
   const [anchorEdit, setAnchorEdit] = useState(null)
 
@@ -17,7 +17,7 @@ export const CardButton = () => {
 
   const handleOpenDialog = (_, openModal) => {
     setAnchorEdit(null)
-    openModal()
+    openModal(portifolio)
   }
 
   return (

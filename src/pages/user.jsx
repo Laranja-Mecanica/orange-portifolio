@@ -132,8 +132,6 @@ const User = () => {
           px: { xs: 1, md: 4 },
           mt: { xs: 4, md: 5 },
           display: 'flex',
-          /*  flexDirection: { xs: 'column', md: 'row' },
-           alignContent: 'center', */
         }}
       >
         {portifolios.length === 0 ?
@@ -163,8 +161,7 @@ const User = () => {
           :
           portifolios.map((portifolio, i) => (
             <Grid key={i} item xs={12} sm={6} md={4} lg={3} xl={2.4}>
-              <PortifolioCard portifolio={portifolio}
-              />
+              <PortifolioCard portifolio={portifolio} />
             </Grid>
           ))
         }
