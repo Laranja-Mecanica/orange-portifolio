@@ -10,7 +10,7 @@ export const DialogProvider = ({ children }) => {
     name: '',
     thumbUrl: '',
     user: {
-      name: '',
+      userName: '',
       lastName: ''
     },
     tags: [],

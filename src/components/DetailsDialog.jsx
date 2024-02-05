@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Dialog, Typography, Box, Avatar, Chip } from '@mui/material'
 
 import Image from 'next/image'
@@ -14,8 +14,7 @@ const DetailsDialog = () => {
     state,
     dispatch
   } = useDialogContext()
-  const { title, user, description, tags, thumbUrl, link } = portifolio
-  const { name, lastName } = user
+  const { title, userName, lastName, description, tags, thumbUrl, link } = portifolio
 
   return (
     <Dialog
@@ -88,7 +87,7 @@ const DetailsDialog = () => {
                     fontWeight: 600,
                   }}
                 >
-                  {`${name} ${lastName}`}
+                  {userName !== undefined ? `${userName} ${lastName}` : `${'Name'} ${'LastName'}`}
                 </Typography>
                 <Typography variant="subtitle1">{/* date */}</Typography>
               </Box>

@@ -7,12 +7,8 @@ import { useAppContext } from '@/context'
 
 const PortifolioCard = ({ portifolio }) => {
   const router = useRouter()
-  const { thumbUrl, date, user, tags } = portifolio
+  const { thumbUrl, date, userName, lastName, tags } = portifolio
   const { stringAvatar } = useAppContext()
-
-  /*   if(typeof window !== 'undefined'){
-      
-    } */
 
   return (
     <Card
@@ -65,7 +61,7 @@ const PortifolioCard = ({ portifolio }) => {
           />
 
           <Typography variant="subtitle1">
-            {/* {user.name} - {date} */}
+            {`${userName} ${lastName}`} - {/* {date} */}
           </Typography>
         </Box>
         <Box

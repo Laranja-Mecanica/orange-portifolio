@@ -72,12 +72,6 @@ const FormDialog = () => {
     },
   })
 
-  function closeDialog() {
-    handleFormClose()
-    setFiles([])
-    setHasFileSelected(false)
-  }
-
   function handleSetFiles(files) {
     setFiles(files)
   }
@@ -93,28 +87,25 @@ const FormDialog = () => {
     newTags.length === 0 ? setTagsError(true) : setTagsError(false)
   }
 
+
+
   const onSubmit = (data) => {
     selectedTags.length === 0 ? setTagsError(true) : setTagsError(false)
 
 
     startUpload(files)
 
-    const portifolio = {
+    const newPortifolio = {
       ...data,
       tags: selectedTags,
       thumbKey: uploadedFiles[0].url,
-
     }
 
-
     setTimeout(() => {
-      portfolioId !== null ? updatePortifolio(portfolioId, portifolio) : createPortifolio(portifolio)
-
-    }, 10000);
-
+      portfolioId !== null ? updatePortifolio(portfolioId, newPortifolio) : createPortifolio(newPortifolio)
+    }, 5000);
 
     setSelectedTags([])
-    /* handleConfOpen() */
   }
 
   const showDetails = data => {
@@ -124,10 +115,10 @@ const FormDialog = () => {
       ...data,
       tags: selectedTags,
       thumbUrl: files[0].preview,
-      /* user: {
-        name: '',
+      user: {
+        userName: '',
         lastName: ''
-      } */
+      }
     })
 
   }
@@ -148,7 +139,11 @@ const FormDialog = () => {
   return (
     <Dialog
       open={state.formOpen}
-      onClose={() => dispatch({ type: 'cancel' })}
+      onClose={() => {
+        dispatch({ type: 'cancel' })
+        setFiles([])
+        setHasFileSelected(false)
+      }}
       fullWidth={true}
       maxWidth={'md'}
     >
@@ -173,7 +168,7 @@ const FormDialog = () => {
             Tivemos uma falha no upload, tente novamente mais tarde. 😭
           </Alert>
         ) : null}
-        <Typography variant="h5">Adicionar projeto</Typography>
+        <Typography variant="h5">{portfolioId === null ? 'Adicionar' : 'Editar'} projeto</Typography>
         <Box
           sx={{
             display: 'flex',
@@ -280,7 +275,11 @@ const FormDialog = () => {
             variant="contained"
             sx={{ ml: 2 }}
             color="error"
-            onClick={() => dispatch({ type: 'cancel' })}>
+            onClick={() => {
+              dispatch({ type: 'cancel' })
+              setFiles([])
+              setHasFileSelected(false)
+            }}>
             Cancelar
           </Button>
         </Box>
