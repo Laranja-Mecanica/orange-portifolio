@@ -7,6 +7,7 @@ import {
   Menu,
   MenuItem,
   Toolbar,
+  Snackbar
 } from '@mui/material'
 import Link from 'next/link'
 
@@ -17,9 +18,11 @@ import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { useUser } from '@/hooks'
 import { useAppContext } from '@/context'
+import { useRouter } from 'next/router'
 
 
 const Header = () => {
+  const router = useRouter()
   const { stringAvatar, user } = useAppContext()
 
   const { name, lastName } = user
@@ -45,6 +48,8 @@ const Header = () => {
   const handleCloseMenu = () => {
     setAnchorEl(null)
   }
+
+  const [toast, setToast] = useState(false)
 
   return (
     <AppBar position="fixed" color="primary">
@@ -73,17 +78,20 @@ const Header = () => {
           }}
         >
           {pages.map(({ name, link }, i) => (
-            <MenuItem key={i}>
-              <Link
-                variant="h6"
-                href={link}
-                style={{
-                  textDecoration: 'none',
-                  color: 'black',
-                }}
-              >
-                {name}
-              </Link>
+            <MenuItem
+              key={i}
+              sx={{
+                bgcolor: router.pathname === link ? 'secondary.light' : ''
+              }}
+              onClick={() => {
+                if (router.pathname === link) {
+                  setToast(true)
+                } else {
+                  router.push(link)
+                }
+              }}
+            >
+              {name}
             </MenuItem>
           ))}
           <Divider />
@@ -161,6 +169,16 @@ const Header = () => {
           </IconButton>
         </Box>
       </Toolbar>
+      <Snackbar
+        sx={{
+          width: 'fit-content'
+        }}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        open={toast}
+        autoHideDuration={3000}
+        onClose={() => setToast(false)}
+        message="Você já está nessa página"
+      />
     </AppBar>
   )
 }
