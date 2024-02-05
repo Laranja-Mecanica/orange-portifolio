@@ -21,7 +21,7 @@ const Home = () => {
 
   const handleOpen = (portifolio) => {
     dispatch({ type: 'details' })
-    setPortifolio(portifolio)
+    setPortifolio({ ...portifolio, user: { name: 'Relampago', lastName: 'etaer' } })
   }
 
   useEffect(() => {

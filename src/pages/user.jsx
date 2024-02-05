@@ -25,7 +25,7 @@ import { useEffect } from 'react'
 
 const User = () => {
 
-  const { /* handleFormOpen */ dispatch, setPortifolio } = useDialogContext()
+  const { dispatch, setPortifolio, portifolio } = useDialogContext()
   const {
     user,
     filtedPortifolios,
@@ -59,6 +59,10 @@ const User = () => {
       title: '',
       description: '',
       link: '',
+      user: {
+        name: name,
+        lastName: lastName
+      },
       tags: []
     })
   }

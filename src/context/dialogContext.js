@@ -8,8 +8,11 @@ export const DialogProvider = ({ children }) => {
   const [portifolio, setPortifolio] = useState({
     portifolioId: null,
     name: '',
-    img: '',
-    user: { name: '' },
+    thumbKey: '',
+    user: {
+      name: 'asdasd',
+      lastName: 'asdasda'
+    },
     tags: [],
   })
 

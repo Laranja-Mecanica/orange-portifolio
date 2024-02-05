@@ -14,7 +14,10 @@ const DetailsDialog = () => {
     state,
     dispatch
   } = useDialogContext()
-  const { title, user, description, tags, img, link } = portifolio
+  const { title, user, description, tags, thumbKey, link } = portifolio
+  const { name, lastName } = user
+
+  console.log(portifolio)
 
   return (
     <Dialog
@@ -87,7 +90,7 @@ const DetailsDialog = () => {
                     fontWeight: 600,
                   }}
                 >
-                  {/* {user.name} */}
+                  {`${name} ${lastName}`}
                 </Typography>
                 <Typography variant="subtitle1">{/* date */}</Typography>
               </Box>
@@ -131,7 +134,7 @@ const DetailsDialog = () => {
             }}
           >
             <Image
-              /* src={`/images/${img}.png`} */
+              src={thumbKey}
               style={{ width: '100%', height: 'auto' }}
               width={838}
               height={586}

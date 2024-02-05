@@ -3,7 +3,6 @@ import { createContext, useContext, useEffect, useState } from 'react'
 const AppContext = createContext()
 
 export const AppProvider = ({ children }) => {
-  let userSession
 
   const [user, setUser] = useState({})
 

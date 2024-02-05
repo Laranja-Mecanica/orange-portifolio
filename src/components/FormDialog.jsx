@@ -99,9 +99,11 @@ const FormDialog = () => {
     await startUpload(files)
 
     const portifolio = {
+      ...portifolio,
       ...data,
       tags: selectedTags,
       thumbKey: uploadedFiles[0].key,
+
     }
 
     portifolioId !== null ? updatePortifolio(portifolioId, portifolio) : createPortifolio(portifolio)
@@ -113,8 +115,10 @@ const FormDialog = () => {
   const showDetails = data => {
     dispatch({ type: 'details' })
     setPortifolio({
+      ...portifolio,
       ...data,
-      tags: selectedTags
+      tags: selectedTags,
+      thumbKey: files[0].preview,
     })
   }
 
