@@ -9,17 +9,20 @@ import { useDialogContext } from '@/context'
 
 const DetailsDialog = () => {
   const router = useRouter()
-  const { portifolio, detailsOpen, handleDetailsClose, setDetailsOpen } =
-    useDialogContext()
+  const {
+    portifolio,
+    state,
+    dispatch
+  } = useDialogContext()
   const { title, user, description, tags, img, link } = portifolio
 
   return (
     <Dialog
-      open={detailsOpen}
+      open={state.detailsOpen}
       onClose={
         router.pathname === '/user'
-          ? handleDetailsClose
-          : () => setDetailsOpen(false)
+          ? () => dispatch({ type: 'form' })
+          : () => dispatch({ type: 'cancel' })
       }
       fullWidth={true}
       maxWidth={'lg'}

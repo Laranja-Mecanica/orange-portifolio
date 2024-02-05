@@ -4,10 +4,13 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import { useDialogContext } from '@/context'
 
 const ConfimationDialog = () => {
-  const { confOpen, handleConfClose, confirmationMsg } = useDialogContext()
+  const {
+    confirmationMsg,
+    dispatch,
+    state } = useDialogContext()
 
   return (
-    <Dialog open={confOpen} onClose={handleConfClose}>
+    <Dialog open={state.confOpen} onClose={() => dispatch({ type: 'cancel' })}>
       <Box
         sx={{
           py: 4,
@@ -48,7 +51,7 @@ const ConfimationDialog = () => {
           <Button
             variant="contained"
             color="secondary"
-            onClick={handleConfClose}
+            onClick={() => dispatch({ type: 'cancel' })}
             sx={{
               px: '22px',
             }}

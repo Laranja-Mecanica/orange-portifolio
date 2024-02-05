@@ -28,11 +28,12 @@ const FormDialog = () => {
   const {
     portifolio,
     setPortifolio,
-    formOpen,
-    handleConfOpen,
-    handleDetailsOpen,
     handleFormClose,
+    state,
+    dispatch
   } = useDialogContext()
+
+
 
   const [selectedTags, setSelectedTags] = useState([...portifolio.tags])
 
@@ -106,11 +107,12 @@ const FormDialog = () => {
     portifolioId !== null ? updatePortifolio(portifolioId, portifolio) : createPortifolio(portifolio)
 
     setSelectedTags([])
-    handleConfOpen()
+    /* handleConfOpen() */
   }
 
   const showDetails = data => {
-    handleDetailsOpen({
+    dispatch({ type: 'details' })
+    setPortifolio({
       ...data,
       tags: selectedTags
     })
@@ -131,8 +133,8 @@ const FormDialog = () => {
 
   return (
     <Dialog
-      open={formOpen}
-      onClose={closeDialog}
+      open={state.formOpen}
+      onClose={() => dispatch({ type: 'cancel' })}
       fullWidth={true}
       maxWidth={'md'}
     >
@@ -264,7 +266,7 @@ const FormDialog = () => {
             variant="contained"
             sx={{ ml: 2 }}
             color="error"
-            onClick={() => handleFormClose()}>
+            onClick={() => dispatch({ type: 'cancel' })}>
             Cancelar
           </Button>
         </Box>

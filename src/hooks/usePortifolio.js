@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken'
 const usePortifolio = () => {
   const { portifolios, setPortifolios } = useAppContext()
 
-  const { setConfirmationMsg } = useDialogContext()
+  const { setConfirmationMsg, dispatch } = useDialogContext()
 
   const optionsTags = ['UX', 'UI', 'Web']
 
@@ -31,23 +31,30 @@ const usePortifolio = () => {
 
   const createPortifolio = async (portifolio) => {
     api.post('/portifolios', portifolio, options)
-      .then((res) => console.log('ok'))
+      .then(() => {
+        setConfirmationMsg('Projeto adicionado')
+        dispatch({ type: 'confirmation' })
+      })
       .catch((error) => console.log(error.response.data))
 
-    setConfirmationMsg('Projeto adicionado')
   }
 
   const updatePortifolio = (portifolioId, portifolio) => {
     api.put(`/portifolios/${portifolioId}`, portifolio, options)
-      .then(() => console.log('ok'))
+      .then(() => {
+        setConfirmationMsg('Edição concluída')
+        dispatch({ type: 'confirmation' })
+      })
       .catch((error) => console.log(error.response.data))
-    setConfirmationMsg('Edição concluída')
   }
 
   const deletePortifolio = (portifolioId) => {
     api.delete(`/portifolios/${portifolioId}`, options)
-      .then(() => getPortifoliosByUser(jwt.decode(token).sub))
-    setConfirmationMsg('Projeto deletado')
+      .then(() => {
+        setConfirmationMsg('Projeto deletado')
+        getPortifoliosByUser(jwt.decode(token).sub)
+        dispatch({ type: 'confirmation' })
+      })
   }
 
   const getPortifoliosByUser = async (id) => {

@@ -4,17 +4,20 @@ import { useDialogContext } from '@/context'
 import { usePortifolio } from '@/hooks'
 
 const DeleteDialog = () => {
-  const { handleDeleteClose, deleteOpen, handleConfOpen, portifolio } = useDialogContext()
+  const {
+    portifolio,
+    state,
+    dispatch
+  } = useDialogContext()
 
   const { deletePortifolio } = usePortifolio()
 
   const handleDelete = () => {
-    handleConfOpen()
     deletePortifolio(portifolio.portfolioId)
   }
 
   return (
-    <Dialog open={deleteOpen} onClose={handleDeleteClose}>
+    <Dialog open={state.deleteOpen} onClose={() => dispatch({ type: 'cancel' })}>
       <Box
         sx={{
           p: { xs: '24px', md: '40px 42px' },
@@ -41,7 +44,7 @@ const DeleteDialog = () => {
               ml: 2,
             }}
             color="error"
-            onClick={handleDeleteClose}
+            onClick={() => dispatch({ type: 'cancel' })}
           >
             Cancelar
           </Button>

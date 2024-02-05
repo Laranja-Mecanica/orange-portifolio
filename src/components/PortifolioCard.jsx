@@ -2,10 +2,11 @@ import React from 'react'
 import { Box, Card, CardMedia, Typography, Avatar, Chip } from '@mui/material'
 import { CardButton } from '@/components'
 import { useRouter } from 'next/router'
+import Image from 'next/image'
 
 const PortifolioCard = ({ portifolio }) => {
   const router = useRouter()
-  const { img, date, user, tags } = portifolio
+  const { thumbKey, date, user, tags } = portifolio
 
   return (
     <Card
@@ -20,7 +21,7 @@ const PortifolioCard = ({ portifolio }) => {
       <CardMedia
         component="img"
         title=""
-        /* image={`/images/${img}.png`} */
+        image={thumbKey}
         sx={{
           height: 258,
           width: '100%',

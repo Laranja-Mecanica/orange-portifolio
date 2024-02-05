@@ -1,13 +1,8 @@
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useReducer, useState } from 'react'
 
 const DialogContext = createContext()
 
 export const DialogProvider = ({ children }) => {
-  const [formOpen, setFormOpen] = useState(false)
-  const [confOpen, setConfOpen] = useState(false)
-  const [detailsOpen, setDetailsOpen] = useState(false)
-  const [deleteOpen, setDeleteOpen] = useState(false)
-
   const [confirmationMsg, setConfirmationMsg] = useState('Produto cadastrado')
 
   const [portifolio, setPortifolio] = useState({
@@ -18,90 +13,52 @@ export const DialogProvider = ({ children }) => {
     tags: [],
   })
 
-  const handleFormOpen = () => {
-    setFormOpen(true)
-    setPortifolio({
-      portifolioId: null,
-      name: 'TESTE',
-      img: 'portifolio3',
-      date: '12/23',
-      user: {
-        name: 'Camila Soares',
-        proPic: 'user3',
-      },
-      tags: []
-    })
+  const initialStates = {
+    formOpen: false,
+    detailsOpen: false,
+    confOpen: false,
+    deleteOpen: false
   }
 
-  const handleFormEditOpen = (portifolio) => {
-    setFormOpen(true)
-    setPortifolio({ ...portifolio })
+  const reducer = (state, action) => {
+    switch (action.type) {
+      case 'form':
+        return {
+          ...initialStates,
+          formOpen: true
+        }
+      case 'details':
+        return {
+          ...initialStates,
+          detailsOpen: true
+        }
+      case 'confirmation':
+        return {
+          ...initialStates,
+          confOpen: true
+        }
+      case 'delete':
+        return {
+          ...initialStates,
+          deleteOpen: true
+        }
+      case 'cancel':
+        return {
+          ...initialStates
+        }
+    }
   }
-
-  const handleFormClose = () => {
-    setFormOpen(false)
-  }
-
-  const handleConfOpen = () => {
-    setConfOpen(true)
-    setFormOpen(false)
-    setDeleteOpen(false)
-  }
-  const handleConfClose = () => {
-    setConfOpen(false)
-  }
-
-  const handleDetailsOpen = (data) => {
-    setPortifolio({ ...data })
-    setDetailsOpen(true)
-    setFormOpen(false)
-  }
-  const handleDetailsClose = () => {
-    setDetailsOpen(false)
-    setFormOpen(true)
-  }
-
-  const handleDeleteOpen = (portifolio) => {
-    setPortifolio(portifolio)
-    setDeleteOpen(true)
-  }
-
-  const handleDeleteClose = () => {
-    setDeleteOpen(false)
-  }
-
-  const menuOptions = [
-    {
-      text: 'Editar',
-      openModal: handleFormEditOpen,
-    },
-    {
-      text: 'Excluir',
-      openModal: handleDeleteOpen,
-    },
-  ]
+  const [state, dispatch] = useReducer(reducer, initialStates)
 
   return (
     <DialogContext.Provider
       value={{
         portifolio,
         setPortifolio,
-        menuOptions,
-        formOpen,
-        confOpen,
-        detailsOpen,
-        deleteOpen,
-        setDetailsOpen,
-        handleFormOpen,
-        handleFormClose,
-        handleConfOpen,
-        handleConfClose,
-        handleDetailsOpen,
-        handleDetailsClose,
-        handleDeleteOpen,
-        handleDeleteClose,
         confirmationMsg,
         setConfirmationMsg,
+        dispatch,
+        state
       }}
     >
       {children}

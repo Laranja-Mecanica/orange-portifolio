@@ -23,15 +23,9 @@ import { usePortifolio } from '@/hooks'
 import { NextSeo } from 'next-seo'
 import { useEffect } from 'react'
 
-/* function stringAvatar(name) {
-  return {
-    children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
-  };
-} */
-
 const User = () => {
 
-  const { handleFormOpen } = useDialogContext()
+  const { /* handleFormOpen */ dispatch, setPortifolio } = useDialogContext()
   const {
     user,
     filtedPortifolios,
@@ -57,6 +51,17 @@ const User = () => {
     getPortifoliosByUser(id)
   }, [user])
 
+
+  const handleFormOpen = () => {
+    dispatch({ type: 'form' })
+    setPortifolio({
+      portifolioId: null,
+      title: '',
+      description: '',
+      link: '',
+      tags: []
+    })
+  }
   return (
     <>
       <NextSeo title="Meu perfil" noindex={true} nofollow={true} />
@@ -116,6 +121,7 @@ const User = () => {
             <Button
               variant="contained"
               color="secondary"
+              /* onClick={handleFormOpen} */
               onClick={handleFormOpen}
             >
               Adicionar Projeto

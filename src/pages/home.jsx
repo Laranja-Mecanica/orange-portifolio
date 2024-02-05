@@ -13,14 +13,14 @@ import { usePortifolio } from '@/hooks'
 import { useEffect } from 'react'
 
 const Home = () => {
-  const { setDetailsOpen } = useDialogContext()
+  const { dispatch } = useDialogContext()
   const { setFiltedPortifolios, filtedPortifolios } = useAppContext()
   const { filterPortifoliosByTags, optionsTags, getAllPortifolios } = usePortifolio()
 
   const { setPortifolio } = useDialogContext()
 
   const handleOpen = (portifolio) => {
-    setDetailsOpen(true)
+    dispatch({ type: 'details' })
     setPortifolio(portifolio)
   }
 

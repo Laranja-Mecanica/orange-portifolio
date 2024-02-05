@@ -4,7 +4,7 @@ import { Box, IconButton, Menu, MenuItem, Typography } from '@mui/material'
 import { useState } from 'react'
 
 export const CardButton = ({ portifolio }) => {
-  const { menuOptions } = useDialogContext()
+  const { menuOptions, dispatch, setPortifolio } = useDialogContext()
   const [anchorEdit, setAnchorEdit] = useState(null)
 
   const handleOpenMenu = (event) => {
@@ -17,8 +17,20 @@ export const CardButton = ({ portifolio }) => {
 
   const handleOpenDialog = (_, openModal) => {
     setAnchorEdit(null)
-    openModal(portifolio)
+    openModal
   }
+
+  const options = [
+    {
+      text: 'Editar',
+      openModal: () => dispatch({ type: 'delete' }),
+    },
+    {
+      text: 'Excluir',
+      openModal: () => dispatch({ type: 'delete' }),
+    },
+
+  ]
 
   return (
     <Box
@@ -71,7 +83,29 @@ export const CardButton = ({ portifolio }) => {
             gap: 1,
           }}
         >
-          {menuOptions.map(({ text, openModal }, i) => (
+          <MenuItem
+            onClick={() => {
+              dispatch({ type: 'form' })
+              setPortifolio(portifolio)
+              setAnchorEdit(null)
+            }}
+            sx={{ width: 208, '&:hover': { bgcolor: 'secondary.light' } }}
+          >
+            <Typography textAlign="center">Editar</Typography>
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              dispatch({ type: 'delete' })
+              setAnchorEdit(null)
+              setPortifolio(portifolio)
+            }}
+            sx={{ width: 208, '&:hover': { bgcolor: 'secondary.light' } }}
+          >
+            <Typography textAlign="center">Excluir</Typography>
+          </MenuItem>
+
+
+          {/* {options.map(({ text, openModal }, i) => (
             <MenuItem
               key={i}
               onClick={(e) => handleOpenDialog(e, openModal)}
@@ -79,7 +113,7 @@ export const CardButton = ({ portifolio }) => {
             >
               <Typography textAlign="center">{text}</Typography>
             </MenuItem>
-          ))}
+          ))} */}
         </Box>
       </Menu>
     </Box>
