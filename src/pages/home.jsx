@@ -15,13 +15,17 @@ import { useEffect } from 'react'
 const Home = () => {
   const { dispatch } = useDialogContext()
   const { setFiltedPortifolios, filtedPortifolios } = useAppContext()
-  const { filterPortifoliosByTags, optionsTags, getAllPortifolios } = usePortifolio()
+  const { filterPortifoliosByTags, optionsTags, getAllPortifolios } =
+    usePortifolio()
 
   const { setPortifolio } = useDialogContext()
 
   const handleOpen = (portifolio) => {
     dispatch({ type: 'details' })
-    setPortifolio({ ...portifolio, user: { name: 'Relampago', lastName: 'etaer' } })
+    setPortifolio({
+      ...portifolio,
+      user: { name: 'Relampago', lastName: 'etaer' },
+    })
   }
 
   useEffect(() => {

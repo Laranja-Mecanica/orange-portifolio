@@ -22,7 +22,8 @@ const usePortifolio = () => {
   }
 
   const getAllPortifolios = async () => {
-    api.get('/discover', options)
+    api
+      .get('/discover', options)
       .then((res) => {
         setPortifolios([...res.data.portifolios])
       })
@@ -30,22 +31,23 @@ const usePortifolio = () => {
   }
 
   const createPortifolio = async (portifolio) => {
-    api.post('/portifolios', portifolio, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
+    api
+      .post('/portifolios', portifolio, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then(() => {
         setConfirmationMsg('Projeto adicionado')
         getPortifoliosByUser(jwt.decode(token).sub)
         dispatch({ type: 'confirmation' })
       })
       .catch((error) => console.log(error.response.data))
-
   }
 
   const updatePortifolio = (portifolioId, portifolio) => {
-    api.put(`/portifolios/${portifolioId}`, portifolio, options)
+    api
+      .put(`/portifolios/${portifolioId}`, portifolio, options)
       .then(() => {
         setConfirmationMsg('Edição concluída')
         getPortifoliosByUser(jwt.decode(token).sub)
@@ -55,20 +57,20 @@ const usePortifolio = () => {
   }
 
   const deletePortifolio = (portifolioId) => {
-    api.delete(`/portifolios/${portifolioId}`, options)
-      .then(() => {
-        setConfirmationMsg('Projeto deletado')
-        getPortifoliosByUser(jwt.decode(token).sub)
-        dispatch({ type: 'confirmation' })
-      })
+    api.delete(`/portifolios/${portifolioId}`, options).then(() => {
+      setConfirmationMsg('Projeto deletado')
+      getPortifoliosByUser(jwt.decode(token).sub)
+      dispatch({ type: 'confirmation' })
+    })
   }
 
   const getPortifoliosByUser = async (id) => {
-    api.get(`/users/${id}/portifolios`, options)
+    api
+      .get(`/users/${id}/portifolios`, options)
       .then((res) => {
         setPortifolios([...res.data.portifolios])
       })
-      .catch((error) => console.log('Erro'))
+      .catch((_) => console.log('Erro'))
   }
 
   const filterPortifoliosByTags = (tags) =>

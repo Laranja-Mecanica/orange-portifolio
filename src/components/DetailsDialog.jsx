@@ -9,12 +9,9 @@ import { useDialogContext } from '@/context'
 
 const DetailsDialog = () => {
   const router = useRouter()
-  const {
-    portifolio,
-    state,
-    dispatch
-  } = useDialogContext()
-  const { title, userName, lastName, description, tags, thumbUrl, link } = portifolio
+  const { portifolio, state, dispatch } = useDialogContext()
+  const { title, userName, lastName, description, tags, thumbUrl, link } =
+    portifolio
 
   return (
     <Dialog
@@ -72,7 +69,7 @@ const DetailsDialog = () => {
                   width: { xs: 24, md: 40 },
                   height: { xs: 24, md: 40 },
                 }}
-              /* src={`/images/${user.proPic}.png`} */
+                /* src={`/images/${user.proPic}.png`} */
               />
               <Box
                 sx={{
@@ -87,7 +84,9 @@ const DetailsDialog = () => {
                     fontWeight: 600,
                   }}
                 >
-                  {userName !== undefined ? `${userName} ${lastName}` : `${'Name'} ${'LastName'}`}
+                  {userName !== undefined
+                    ? `${userName} ${lastName}`
+                    : `${'Name'} ${'LastName'}`}
                 </Typography>
                 <Typography variant="subtitle1">{/* date */}</Typography>
               </Box>

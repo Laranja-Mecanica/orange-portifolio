@@ -25,15 +25,8 @@ const FormDialog = () => {
   const [tagsError, setTagsError] = useState(false)
   const [uploadedFiles, setUploadedFiles] = useState([{}])
 
-  const {
-    portifolio,
-    setPortifolio,
-    handleFormClose,
-    state,
-    dispatch
-  } = useDialogContext()
-
-
+  const { portifolio, setPortifolio, handleFormClose, state, dispatch } =
+    useDialogContext()
 
   const [selectedTags, setSelectedTags] = useState([...portifolio.tags])
 
@@ -48,11 +41,10 @@ const FormDialog = () => {
       title: 'title',
       description: 'description',
       link: 'link',
-    }
+    },
   })
 
   const { optionsTags, updatePortifolio, createPortifolio } = usePortifolio()
-
 
   const { startUpload, isUploading } = useUploadThing('thumbUploader', {
     onClientUploadComplete: (file) => {
@@ -87,11 +79,8 @@ const FormDialog = () => {
     newTags.length === 0 ? setTagsError(true) : setTagsError(false)
   }
 
-
-
   const onSubmit = (data) => {
     selectedTags.length === 0 ? setTagsError(true) : setTagsError(false)
-
 
     startUpload(files)
 
@@ -102,13 +91,15 @@ const FormDialog = () => {
     }
 
     setTimeout(() => {
-      portfolioId !== null ? updatePortifolio(portfolioId, newPortifolio) : createPortifolio(newPortifolio)
-    }, 5000);
+      portfolioId !== null
+        ? updatePortifolio(portfolioId, newPortifolio)
+        : createPortifolio(newPortifolio)
+    }, 5000)
 
     setSelectedTags([])
   }
 
-  const showDetails = data => {
+  const showDetails = (data) => {
     dispatch({ type: 'details' })
     setPortifolio({
       ...portifolio,
@@ -117,24 +108,22 @@ const FormDialog = () => {
       thumbUrl: files[0].preview,
       user: {
         userName: '',
-        lastName: ''
-      }
+        lastName: '',
+      },
     })
-
   }
 
   useEffect(() => {
     reset({
-      title: title,
-      link: link,
-      description: description,
+      title,
+      link,
+      description,
     })
   }, [isSubmitSuccessful, reset, portifolio])
 
   useEffect(() => {
     setSelectedTags(tags)
   }, [portifolio])
-
 
   return (
     <Dialog
@@ -168,7 +157,9 @@ const FormDialog = () => {
             Tivemos uma falha no upload, tente novamente mais tarde. 😭
           </Alert>
         ) : null}
-        <Typography variant="h5">{portfolioId === null ? 'Adicionar' : 'Editar'} projeto</Typography>
+        <Typography variant="h5">
+          {portfolioId === null ? 'Adicionar' : 'Editar'} projeto
+        </Typography>
         <Box
           sx={{
             display: 'flex',
@@ -203,8 +194,13 @@ const FormDialog = () => {
             <TextField
               label="Título"
               name="title"
-              helperText={errors?.title?.type === 'required' ? 'Digite o title' :
-                errors?.title?.type === "maxLength" ? 'O titulo pode ter até 25 caracteres' : ''}
+              helperText={
+                errors?.title?.type === 'required'
+                  ? 'Digite o title'
+                  : errors?.title?.type === 'maxLength'
+                    ? 'O titulo pode ter até 25 caracteres'
+                    : ''
+              }
               error={Boolean(errors?.title)}
               {...register('title', { required: true, maxLength: 25 })}
             />
@@ -237,7 +233,10 @@ const FormDialog = () => {
               label="Link"
               helperText={errors?.link ? 'Digite o link' : ''}
               error={Boolean(errors?.link)}
-              {...register('link', { required: true, validate: value => validator.isURL(value) })}
+              {...register('link', {
+                required: true,
+                validate: (value) => validator.isURL(value),
+              })}
             />
             <TextField
               name="description"
@@ -245,8 +244,13 @@ const FormDialog = () => {
               multiline
               rows={4}
               sx={{ height: 120 }}
-              helperText={errors?.description?.type === 'required' ? 'Digite a descrição' :
-                errors?.description?.type === "maxLength" ? 'O titulo pode ter até 120 caracteres' : ''}
+              helperText={
+                errors?.description?.type === 'required'
+                  ? 'Digite a descrição'
+                  : errors?.description?.type === 'maxLength'
+                    ? 'O titulo pode ter até 120 caracteres'
+                    : ''
+              }
               error={Boolean(errors?.description)}
               {...register('description', { required: true, maxLength: 120 })}
             />
@@ -279,7 +283,8 @@ const FormDialog = () => {
               dispatch({ type: 'cancel' })
               setFiles([])
               setHasFileSelected(false)
-            }}>
+            }}
+          >
             Cancelar
           </Button>
         </Box>

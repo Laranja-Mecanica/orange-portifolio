@@ -104,7 +104,6 @@ export const CardButton = ({ portifolio }) => {
             <Typography textAlign="center">Excluir</Typography>
           </MenuItem>
 
-
           {/* {options.map(({ text, openModal }, i) => (
             <MenuItem
               key={i}

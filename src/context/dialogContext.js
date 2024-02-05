@@ -11,7 +11,7 @@ export const DialogProvider = ({ children }) => {
     thumbUrl: '',
     user: {
       userName: '',
-      lastName: ''
+      lastName: '',
     },
     tags: [],
   })
@@ -20,7 +20,7 @@ export const DialogProvider = ({ children }) => {
     formOpen: false,
     detailsOpen: false,
     confOpen: false,
-    deleteOpen: false
+    deleteOpen: false,
   }
 
   const reducer = (state, action) => {
@@ -28,26 +28,26 @@ export const DialogProvider = ({ children }) => {
       case 'form':
         return {
           ...initialStates,
-          formOpen: true
+          formOpen: true,
         }
       case 'details':
         return {
           ...initialStates,
-          detailsOpen: true
+          detailsOpen: true,
         }
       case 'confirmation':
         return {
           ...initialStates,
-          confOpen: true
+          confOpen: true,
         }
       case 'delete':
         return {
           ...initialStates,
-          deleteOpen: true
+          deleteOpen: true,
         }
       case 'cancel':
         return {
-          ...initialStates
+          ...initialStates,
         }
     }
   }
@@ -61,7 +61,7 @@ export const DialogProvider = ({ children }) => {
         confirmationMsg,
         setConfirmationMsg,
         dispatch,
-        state
+        state,
       }}
     >
       {children}

@@ -7,7 +7,7 @@ import {
   Menu,
   MenuItem,
   Toolbar,
-  Snackbar
+  Snackbar,
 } from '@mui/material'
 import Link from 'next/link'
 
@@ -19,7 +19,6 @@ import { useEffect, useState } from 'react'
 import { useUser } from '@/hooks'
 import { useAppContext } from '@/context'
 import { useRouter } from 'next/router'
-
 
 const Header = () => {
   const router = useRouter()
@@ -81,7 +80,7 @@ const Header = () => {
             <MenuItem
               key={i}
               sx={{
-                bgcolor: router.pathname === link ? 'secondary.light' : ''
+                bgcolor: router.pathname === link ? 'secondary.light' : '',
               }}
               onClick={() => {
                 if (router.pathname === link) {
@@ -96,11 +95,7 @@ const Header = () => {
           ))}
           <Divider />
           <MenuItem>Configurações</MenuItem>
-          <MenuItem
-            onClick={logout}
-          >
-            Logout
-          </MenuItem>
+          <MenuItem onClick={logout}>Logout</MenuItem>
         </Menu>
 
         <Box
@@ -171,7 +166,7 @@ const Header = () => {
       </Toolbar>
       <Snackbar
         sx={{
-          width: 'fit-content'
+          width: 'fit-content',
         }}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
         open={toast}

@@ -34,7 +34,6 @@ const Register = () => {
 
   const handleClickShowPassword = () => setShowPassword((show) => !show)
 
-
   const [hasUpperCase, setUpperCase] = useState(false)
   const [hasLowerCase, setLowerCase] = useState(false)
   const [hasNumber, setNumber] = useState(false)
@@ -127,8 +126,12 @@ const Register = () => {
                   mb: 0,
                 }}
                 error={Boolean(errors?.name)}
-                helperText={errors?.name?.type === "required" ? 'Digite o primeiro nome' :
-                  errors?.name?.type === "maxLength" ? 'Esse campo pode ter até 25 caracteres' : ''
+                helperText={
+                  errors?.name?.type === 'required'
+                    ? 'Digite o primeiro nome'
+                    : errors?.name?.type === 'maxLength'
+                      ? 'Esse campo pode ter até 25 caracteres'
+                      : ''
                 }
                 {...register('name', { required: true, maxLength: 25 })}
               />
@@ -141,8 +144,12 @@ const Register = () => {
                   mb: 0,
                 }}
                 error={Boolean(errors?.lastName)}
-                helperText={errors?.lastName?.type === "required" ? 'Digite o sobrenome' :
-                  errors?.lastName?.type === "maxLength" ? 'Esse campo pode ter até 25 caracteres' : ''
+                helperText={
+                  errors?.lastName?.type === 'required'
+                    ? 'Digite o sobrenome'
+                    : errors?.lastName?.type === 'maxLength'
+                      ? 'Esse campo pode ter até 25 caracteres'
+                      : ''
                 }
                 {...register('lastName', { required: true, maxLength: 25 })}
               />
@@ -153,7 +160,10 @@ const Register = () => {
               sx={{ my: 2 }}
               error={Boolean(errors?.email)}
               helperText={errors?.email ? 'Digite o email' : ''}
-              {...register('email', { required: true, validate: value => validator.isEmail(value) })}
+              {...register('email', {
+                required: true,
+                validate: (value) => validator.isEmail(value),
+              })}
             />
 
             <TextField
@@ -172,25 +182,47 @@ const Register = () => {
                   </InputAdornment>
                 ),
               }}
-              helperText={errors?.password?.type === 'required' ? 'Digite o senha' :
-                errors?.password?.type === 'minLength' ? 'A senha tem que no mínimo 6 caracteres' :
-                  errors?.password?.type === 'maxLength' ? 'A senha pode ter no máximo 25 caracteres' : (
-                    <>
-                      Deve conter:<br />
-                      {!hasUpperCase && <>- Uma letra maiúscula<br /></>}
-                      {!hasLowerCase && <>- Uma letra minúscula<br /></>}
-                      {!hasNumber && <>- Um número<br /></>}
-                      {!hasSpecialCaracter && <>- Um caracter especial (!*@&$%)</>}
-                    </>
-                  )
+              helperText={
+                errors?.password?.type === 'required' ? (
+                  'Digite o senha'
+                ) : errors?.password?.type === 'minLength' ? (
+                  'A senha tem que no mínimo 6 caracteres'
+                ) : errors?.password?.type === 'maxLength' ? (
+                  'A senha pode ter no máximo 25 caracteres'
+                ) : (
+                  <>
+                    Deve conter:
+                    <br />
+                    {!hasUpperCase && (
+                      <>
+                        - Uma letra maiúscula
+                        <br />
+                      </>
+                    )}
+                    {!hasLowerCase && (
+                      <>
+                        - Uma letra minúscula
+                        <br />
+                      </>
+                    )}
+                    {!hasNumber && (
+                      <>
+                        - Um número
+                        <br />
+                      </>
+                    )}
+                    {!hasSpecialCaracter && (
+                      <>- Um caracter especial (!*@&$%)</>
+                    )}
+                  </>
+                )
               }
               error={Boolean(errors?.password)}
               {...register('password', {
                 required: true,
                 minLength: 6,
                 maxLength: 25,
-                validate: value => setLowerCase(/a-z/.test(value))
-
+                validate: (value) => setLowerCase(/a-z/.test(value)),
               })}
             />
 

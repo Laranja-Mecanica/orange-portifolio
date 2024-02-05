@@ -24,7 +24,6 @@ import { NextSeo } from 'next-seo'
 import { useEffect } from 'react'
 
 const User = () => {
-
   const { dispatch, setPortifolio, portifolio } = useDialogContext()
   const {
     user,
@@ -32,13 +31,11 @@ const User = () => {
     setUser,
     setFiltedPortifolios,
     portifolios,
-    stringAvatar } = useAppContext()
+    stringAvatar,
+  } = useAppContext()
 
-  const {
-    getPortifoliosByUser,
-    optionsTags,
-    filterPortifoliosByTags
-  } = usePortifolio()
+  const { getPortifoliosByUser, optionsTags, filterPortifoliosByTags } =
+    usePortifolio()
   const { id, name, lastName } = user
 
   useEffect(() => {
@@ -51,7 +48,6 @@ const User = () => {
     getPortifoliosByUser(id)
   }, [user])
 
-
   const handleFormOpen = () => {
     dispatch({ type: 'form' })
     setPortifolio({
@@ -60,10 +56,10 @@ const User = () => {
       description: '',
       link: '',
       user: {
-        name: name,
-        lastName: lastName
+        name,
+        lastName,
       },
-      tags: []
+      tags: [],
     })
   }
   return (
@@ -163,7 +159,6 @@ const User = () => {
               options={optionsTags}
               getOptionLabel={(option) => option}
               filterSelectedOptions
-
               fullWidth
               onChange={(_, tags) =>
                 setFiltedPortifolios(filterPortifoliosByTags(tags))
@@ -189,23 +184,27 @@ const User = () => {
           display: 'flex',
         }}
       >
-        {portifolios.length === 0 ?
+        {portifolios.length === 0 ? (
           <>
-            <Grid item
+            <Grid
+              item
               xs={12}
               sm={6}
               md={4}
               sx={{
-                width: '50%'
+                width: '50%',
               }}
-
             >
               <BlankCard onClick={handleFormOpen} />
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
               <SkeletonCard />
             </Grid>
-            <Grid item xs={12} sm={6} md={4}
+            <Grid
+              item
+              xs={12}
+              sm={6}
+              md={4}
               sx={{
                 display: { xs: 'none', md: 'inline-block' },
               }}
@@ -213,13 +212,18 @@ const User = () => {
               <SkeletonCard />
             </Grid>
           </>
-          :
+        ) : (
           filtedPortifolios.map((portifolio, i) => (
             <Grid key={i} item xs={12} sm={6} md={4} lg={3} xl={2.4}>
-              <PortifolioCard portifolio={{ ...portifolio, user: { name: name, lastName: lastName } }} />
+              <PortifolioCard
+                portifolio={{
+                  ...portifolio,
+                  user: { name, lastName },
+                }}
+              />
             </Grid>
           ))
-        }
+        )}
       </Grid>
 
       <FormDialog />

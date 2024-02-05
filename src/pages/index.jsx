@@ -8,7 +8,7 @@ import {
   InputAdornment,
   TextField,
   Typography,
-  Alert
+  Alert,
 } from '@mui/material'
 import { NextSeo } from 'next-seo'
 import Head from 'next/head'
@@ -19,13 +19,7 @@ import { useForm } from 'react-hook-form'
 import validator from 'validator'
 
 export default function Home() {
-  const {
-    loginUser,
-    loginWithGoogle,
-    msgError,
-    error,
-    setError
-  } = useUser()
+  const { loginUser, loginWithGoogle, msgError, error, setError } = useUser()
   const {
     register,
     handleSubmit,
@@ -87,7 +81,6 @@ export default function Home() {
             flexDirection: 'column',
             justifyContent: 'center',
             px: 3,
-
           }}
         >
           <Box>
@@ -143,7 +136,10 @@ export default function Home() {
               sx={{ my: 2 }}
               error={Boolean(errors?.email)}
               helperText={errors?.email ? 'Digite o email' : ''}
-              {...register('email', { required: true, validate: value => validator.isEmail(value) })}
+              {...register('email', {
+                required: true,
+                validate: (value) => validator.isEmail(value),
+              })}
             />
 
             <TextField
@@ -166,19 +162,19 @@ export default function Home() {
               error={Boolean(errors?.password)}
               {...register('password', { required: true })}
             />
-            {error &&
+            {error && (
               <Alert
                 variant="filled"
                 severity="error"
                 sx={{
                   mt: 2,
                   display: 'flex',
-                  alignItems: 'center'
-
-                }}>
+                  alignItems: 'center',
+                }}
+              >
                 {msgError}
               </Alert>
-            }
+            )}
             <Button
               variant="contained"
               color="secondary"

@@ -25,7 +25,7 @@ const PortifolioCard = ({ portifolio }) => {
         title=""
         height={258}
         image={thumbUrl}
-        alt='Fail'
+        alt="Fail"
         sx={{
           height: 258,
           width: '100%',
@@ -54,10 +54,10 @@ const PortifolioCard = ({ portifolio }) => {
             sx={{
               width: 24,
               height: 24,
-              fontSize: 12
+              fontSize: 12,
             }}
             {...stringAvatar(`${'A'} ${'B'}`)}
-          /* src={`/images/${user.proPic}.png`} */
+            /* src={`/images/${user.proPic}.png`} */
           />
 
           <Typography variant="subtitle1">
