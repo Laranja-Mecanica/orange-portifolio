@@ -55,7 +55,7 @@ const User = () => {
   const handleFormOpen = () => {
     dispatch({ type: 'form' })
     setPortifolio({
-      portifolioId: null,
+      portfolioId: null,
       title: '',
       description: '',
       link: '',

@@ -37,6 +37,7 @@ const usePortifolio = () => {
     })
       .then(() => {
         setConfirmationMsg('Projeto adicionado')
+        getPortifoliosByUser(jwt.decode(token).sub)
         dispatch({ type: 'confirmation' })
       })
       .catch((error) => console.log(error.response.data))
@@ -47,6 +48,7 @@ const usePortifolio = () => {
     api.put(`/portifolios/${portifolioId}`, portifolio, options)
       .then(() => {
         setConfirmationMsg('Edição concluída')
+        getPortifoliosByUser(jwt.decode(token).sub)
         dispatch({ type: 'confirmation' })
       })
       .catch((error) => console.log(error.response.data))

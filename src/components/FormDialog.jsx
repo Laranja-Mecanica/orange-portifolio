@@ -37,7 +37,7 @@ const FormDialog = () => {
 
   const [selectedTags, setSelectedTags] = useState([...portifolio.tags])
 
-  const { portifolioId, title, description, link, tags } = portifolio
+  const { portfolioId, title, description, link, tags } = portifolio
   const {
     register,
     reset,
@@ -96,6 +96,7 @@ const FormDialog = () => {
   const onSubmit = (data) => {
     selectedTags.length === 0 ? setTagsError(true) : setTagsError(false)
 
+
     startUpload(files)
 
     const portifolio = {
@@ -105,7 +106,11 @@ const FormDialog = () => {
 
     }
 
-    portifolioId !== null ? updatePortifolio(portifolioId, portifolio) : createPortifolio(portifolio)
+
+    setTimeout(() => {
+      portfolioId !== null ? updatePortifolio(portfolioId, portifolio) : createPortifolio(portifolio)
+
+    }, 10000);
 
 
     setSelectedTags([])
@@ -124,6 +129,7 @@ const FormDialog = () => {
         lastName: ''
       } */
     })
+
   }
 
   useEffect(() => {

@@ -6,7 +6,7 @@ export const DialogProvider = ({ children }) => {
   const [confirmationMsg, setConfirmationMsg] = useState('Produto cadastrado')
 
   const [portifolio, setPortifolio] = useState({
-    portifolioId: null,
+    portfolioId: null,
     name: '',
     thumbUrl: '',
     user: {
