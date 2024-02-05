@@ -93,20 +93,20 @@ const FormDialog = () => {
     newTags.length === 0 ? setTagsError(true) : setTagsError(false)
   }
 
-  const onSubmit = async (data) => {
+  const onSubmit = (data) => {
     selectedTags.length === 0 ? setTagsError(true) : setTagsError(false)
 
-    await startUpload(files)
+    startUpload(files)
 
     const portifolio = {
-      ...portifolio,
       ...data,
       tags: selectedTags,
-      thumbKey: uploadedFiles[0].key,
+      thumbKey: uploadedFiles[0].url,
 
     }
 
     portifolioId !== null ? updatePortifolio(portifolioId, portifolio) : createPortifolio(portifolio)
+
 
     setSelectedTags([])
     /* handleConfOpen() */
@@ -118,7 +118,11 @@ const FormDialog = () => {
       ...portifolio,
       ...data,
       tags: selectedTags,
-      thumbKey: files[0].preview,
+      thumbUrl: files[0].preview,
+      /* user: {
+        name: '',
+        lastName: ''
+      } */
     })
   }
 

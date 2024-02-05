@@ -3,10 +3,16 @@ import { Box, Card, CardMedia, Typography, Avatar, Chip } from '@mui/material'
 import { CardButton } from '@/components'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
+import { useAppContext } from '@/context'
 
 const PortifolioCard = ({ portifolio }) => {
   const router = useRouter()
-  const { thumbKey, date, user, tags } = portifolio
+  const { thumbUrl, date, user, tags } = portifolio
+  const { stringAvatar } = useAppContext()
+
+  /*   if(typeof window !== 'undefined'){
+      
+    } */
 
   return (
     <Card
@@ -21,7 +27,9 @@ const PortifolioCard = ({ portifolio }) => {
       <CardMedia
         component="img"
         title=""
-        image={thumbKey}
+        height={258}
+        image={thumbUrl}
+        alt='Fail'
         sx={{
           height: 258,
           width: '100%',
@@ -50,7 +58,9 @@ const PortifolioCard = ({ portifolio }) => {
             sx={{
               width: 24,
               height: 24,
+              fontSize: 12
             }}
+            {...stringAvatar(`${'A'} ${'B'}`)}
           /* src={`/images/${user.proPic}.png`} */
           />
 

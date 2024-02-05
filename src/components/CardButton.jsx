@@ -4,7 +4,7 @@ import { Box, IconButton, Menu, MenuItem, Typography } from '@mui/material'
 import { useState } from 'react'
 
 export const CardButton = ({ portifolio }) => {
-  const { menuOptions, dispatch, setPortifolio } = useDialogContext()
+  const { /* menuOptions, */ dispatch, setPortifolio } = useDialogContext()
   const [anchorEdit, setAnchorEdit] = useState(null)
 
   const handleOpenMenu = (event) => {
@@ -15,22 +15,22 @@ export const CardButton = ({ portifolio }) => {
     setAnchorEdit(null)
   }
 
-  const handleOpenDialog = (_, openModal) => {
+  /* const handleOpenDialog = (_, openModal) => {
     setAnchorEdit(null)
     openModal
-  }
+  } */
 
-  const options = [
-    {
-      text: 'Editar',
-      openModal: () => dispatch({ type: 'delete' }),
-    },
-    {
-      text: 'Excluir',
-      openModal: () => dispatch({ type: 'delete' }),
-    },
-
-  ]
+  /*   const options = [
+      {
+        text: 'Editar',
+        openModal: () => dispatch({ type: 'delete' }),
+      },
+      {
+        text: 'Excluir',
+        openModal: () => dispatch({ type: 'delete' }),
+      },
+  
+    ] */
 
   return (
     <Box
@@ -86,7 +86,7 @@ export const CardButton = ({ portifolio }) => {
           <MenuItem
             onClick={() => {
               dispatch({ type: 'form' })
-              setPortifolio(portifolio)
+              setPortifolio({ ...portifolio })
               setAnchorEdit(null)
             }}
             sx={{ width: 208, '&:hover': { bgcolor: 'secondary.light' } }}
@@ -97,7 +97,7 @@ export const CardButton = ({ portifolio }) => {
             onClick={() => {
               dispatch({ type: 'delete' })
               setAnchorEdit(null)
-              setPortifolio(portifolio)
+              setPortifolio({ ...portifolio })
             }}
             sx={{ width: 208, '&:hover': { bgcolor: 'secondary.light' } }}
           >

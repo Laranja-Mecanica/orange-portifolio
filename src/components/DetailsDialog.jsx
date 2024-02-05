@@ -14,10 +14,8 @@ const DetailsDialog = () => {
     state,
     dispatch
   } = useDialogContext()
-  const { title, user, description, tags, thumbKey, link } = portifolio
+  const { title, user, description, tags, thumbUrl, link } = portifolio
   const { name, lastName } = user
-
-  console.log(portifolio)
 
   return (
     <Dialog
@@ -134,7 +132,7 @@ const DetailsDialog = () => {
             }}
           >
             <Image
-              src={thumbKey}
+              src={thumbUrl}
               style={{ width: '100%', height: 'auto' }}
               width={838}
               height={586}

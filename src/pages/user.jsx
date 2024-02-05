@@ -216,7 +216,7 @@ const User = () => {
           :
           filtedPortifolios.map((portifolio, i) => (
             <Grid key={i} item xs={12} sm={6} md={4} lg={3} xl={2.4}>
-              <PortifolioCard portifolio={portifolio} />
+              <PortifolioCard portifolio={{ ...portifolio, user: { name: name, lastName: lastName } }} />
             </Grid>
           ))
         }
