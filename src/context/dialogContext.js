@@ -51,7 +51,8 @@ export const DialogProvider = ({ children }) => {
     setConfOpen(false)
   }
 
-  const handleDetailsOpen = () => {
+  const handleDetailsOpen = (data) => {
+    setPortifolio({ ...data })
     setDetailsOpen(true)
     setFormOpen(false)
   }

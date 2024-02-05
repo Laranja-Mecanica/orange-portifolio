@@ -103,12 +103,17 @@ const FormDialog = () => {
       thumbKey: uploadedFiles[0].key,
     }
 
-    console.log(portifolio)
-
     portifolioId !== null ? updatePortifolio(portifolioId, portifolio) : createPortifolio(portifolio)
 
     setSelectedTags([])
     handleConfOpen()
+  }
+
+  const showDetails = data => {
+    handleDetailsOpen({
+      ...data,
+      tags: selectedTags
+    })
   }
 
   useEffect(() => {
@@ -122,6 +127,7 @@ const FormDialog = () => {
   useEffect(() => {
     setSelectedTags(tags)
   }, [portifolio])
+
 
   return (
     <Dialog
@@ -242,7 +248,7 @@ const FormDialog = () => {
               mb: 2,
               cursor: 'pointer',
             }}
-            onClick={handleDetailsOpen}
+            onClick={() => handleSubmit(showDetails)()}
           >
             Visualizar publicação
           </Typography>
@@ -258,21 +264,7 @@ const FormDialog = () => {
             variant="contained"
             sx={{ ml: 2 }}
             color="error"
-            onClick={() => {
-              handleFormClose()
-              setPortifolio({
-                id: 0,
-                name: 'TESTE',
-                img: 'portifolio3',
-                date: '12/23',
-                user: {
-                  name: 'Camila Soares',
-                  proPic: 'user3',
-                },
-                tags: ['UX', 'HTML'],
-              })
-            }}
-          >
+            onClick={() => handleFormClose()}>
             Cancelar
           </Button>
         </Box>

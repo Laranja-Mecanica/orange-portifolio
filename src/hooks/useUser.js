@@ -24,6 +24,7 @@ const useUser = () => {
     api.post('/register', user)
       .then(res => {
         console.log(res.data.message)
+
         setIsRegistrationSuccess(true)
       })
       .then(() => {
