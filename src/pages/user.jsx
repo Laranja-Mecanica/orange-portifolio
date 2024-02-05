@@ -23,12 +23,28 @@ import { usePortifolio } from '@/hooks'
 import { NextSeo } from 'next-seo'
 import { useEffect } from 'react'
 
+/* function stringAvatar(name) {
+  return {
+    children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
+  };
+} */
+
 const User = () => {
 
   const { handleFormOpen } = useDialogContext()
-  const { user, filtedPortifolios, setUser, setFiltedPortifolios, portifolios } = useAppContext()
+  const {
+    user,
+    filtedPortifolios,
+    setUser,
+    setFiltedPortifolios,
+    portifolios,
+    stringAvatar } = useAppContext()
 
-  const { getPortifoliosByUser, optionsTags, filterPortifoliosByTags } = usePortifolio()
+  const {
+    getPortifoliosByUser,
+    optionsTags,
+    filterPortifoliosByTags
+  } = usePortifolio()
   const { id, name, lastName } = user
 
   useEffect(() => {
@@ -67,8 +83,8 @@ const User = () => {
               height: '122px',
               mx: { xs: 'auto', md: 0 },
             }}
-            alt="Remy Sharp"
-            src="images/avatar-profile.png"
+            alt={`${name} ${lastName}`}
+            {...stringAvatar(`${name} ${lastName}`)}
           />
 
           <Box

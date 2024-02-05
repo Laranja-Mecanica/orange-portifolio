@@ -16,9 +16,13 @@ import NotificationsIcon from '@mui/icons-material/Notifications'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { useUser } from '@/hooks'
+import { useAppContext } from '@/context'
 
 
 const Header = () => {
+  const { stringAvatar, user } = useAppContext()
+
+  const { name, lastName } = user
 
   const { logout } = useUser()
   const pages = [
@@ -146,7 +150,10 @@ const Header = () => {
           }}
         >
           <IconButton sx={{ p: 0 }}>
-            <Avatar alt="Camila Soares" src="images/Circle.png" />
+            <Avatar
+              alt={`${name} ${lastName}`}
+              {...stringAvatar(`${name} ${lastName}`)}
+            />
           </IconButton>
 
           <IconButton size="large" color="inherit">

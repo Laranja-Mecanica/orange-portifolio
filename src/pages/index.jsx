@@ -16,6 +16,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import validator from 'validator'
 
 export default function Home() {
   const {
@@ -142,7 +143,7 @@ export default function Home() {
               sx={{ my: 2 }}
               error={Boolean(errors?.email)}
               helperText={errors?.email ? 'Digite o email' : ''}
-              {...register('email', { required: true })}
+              {...register('email', { required: true, validate: value => validator.isEmail(value) })}
             />
 
             <TextField
