@@ -35,6 +35,11 @@ const Register = () => {
   const handleClickShowPassword = () => setShowPassword((show) => !show)
 
 
+  const [hasUpperCase, setUpperCase] = useState(false)
+  const [hasLowerCase, setLowerCase] = useState(false)
+  const [hasNumber, setNumber] = useState(false)
+  const [hasSpecialCaracter, setSpecialCaracter] = useState(false)
+
   return (
     <>
       <NextSeo title="Criar conta" noindex={true} nofollow={true} />
@@ -169,10 +174,24 @@ const Register = () => {
               }}
               helperText={errors?.password?.type === 'required' ? 'Digite o senha' :
                 errors?.password?.type === 'minLength' ? 'A senha tem que no mínimo 6 caracteres' :
-                  errors?.password?.type === 'maxLength' ? 'A senha pode ter no máximo 25 caracteres' : ''
+                  errors?.password?.type === 'maxLength' ? 'A senha pode ter no máximo 25 caracteres' : (
+                    <>
+                      Deve conter:<br />
+                      {!hasUpperCase && <>- Uma letra maiúscula<br /></>}
+                      {!hasLowerCase && <>- Uma letra minúscula<br /></>}
+                      {!hasNumber && <>- Um número<br /></>}
+                      {!hasSpecialCaracter && <>- Um caracter especial (!*@&$%)</>}
+                    </>
+                  )
               }
               error={Boolean(errors?.password)}
-              {...register('password', { required: true, minLength: 6, maxLength: 25 })}
+              {...register('password', {
+                required: true,
+                minLength: 6,
+                maxLength: 25,
+                validate: value => setLowerCase(/a-z/.test(value))
+
+              })}
             />
 
             <Button

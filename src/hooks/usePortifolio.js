@@ -30,7 +30,11 @@ const usePortifolio = () => {
   }
 
   const createPortifolio = async (portifolio) => {
-    api.post('/portifolios', portifolio, options)
+    api.post('/portifolios', portifolio, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
       .then(() => {
         setConfirmationMsg('Projeto adicionado')
         dispatch({ type: 'confirmation' })

@@ -93,10 +93,10 @@ const FormDialog = () => {
     newTags.length === 0 ? setTagsError(true) : setTagsError(false)
   }
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     selectedTags.length === 0 ? setTagsError(true) : setTagsError(false)
 
-    startUpload(files)
+    await startUpload(files)
 
     const portifolio = {
       ...data,
